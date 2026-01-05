@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign PDF Tool</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display overflow-x-hidden antialiased">
+<div class="relative flex min-h-screen flex-col">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-[#f0f2f4] dark:border-[#2a3441] bg-white dark:bg-[#111418] px-10 py-3 shadow-sm">
+<div class="flex items-center gap-4">
+<div class="size-8 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">picture_as_pdf</span>
+</div>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">OpenPDF</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-transparent hover:bg-[#f0f2f4] dark:hover:bg-[#2a3441] text-[#111418] dark:text-white transition-colors">
+<span class="material-symbols-outlined" data-size="20px">help</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-[#f0f2f4] dark:bg-[#2a3441] text-[#111418] dark:text-white hover:bg-[#e1e4e8] dark:hover:bg-[#3b4754] transition-colors">
+<span class="material-symbols-outlined" data-size="20px">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col items-center py-8 px-4 sm:px-10 lg:px-40">
+<div class="w-full max-w-[960px] flex flex-col gap-6">
+<!-- MetaText: Back Link -->
+<div class="flex items-center">
+<a class="text-[#617589] dark:text-[#9aaab9] text-sm font-medium leading-normal flex items-center gap-1 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                    Back to Dashboard
+                </a>
+</div>
+<!-- PageHeading -->
+<div class="flex flex-col gap-2">
+<h1 class="text-[#111418] dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]">Sign PDF</h1>
+<p class="text-[#617589] dark:text-[#9aaab9] text-base font-normal">Securely sign your documents. All processing is 100% client-side.</p>
+</div>
+<!-- Component: Upload Area (Dropzone) -->
+<!-- Using a condensed version since we are showing the active editor state below -->
+<div class="flex flex-col rounded-xl border-2 border-dashed border-[#dbe0e6] dark:border-[#3b4754] bg-white dark:bg-[#1a2632] p-8 transition-colors hover:border-primary/50 group cursor-pointer relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+<div class="flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-2xl">upload_file</span>
+</div>
+<div class="flex flex-col">
+<p class="text-[#111418] dark:text-white text-lg font-bold">Change File</p>
+<p class="text-[#617589] dark:text-[#9aaab9] text-sm">contract_final_v2.pdf (1.2 MB)</p>
+</div>
+</div>
+<button class="flex shrink-0 items-center justify-center overflow-hidden rounded-lg h-10 px-5 bg-[#f0f2f4] dark:bg-[#2a3441] text-[#111418] dark:text-white text-sm font-bold hover:bg-[#e1e4e8] dark:hover:bg-[#3b4754] transition-colors">
+                        Select new file
+                    </button>
+</div>
+</div>
+<!-- EDITOR WORKSPACE -->
+<div class="flex flex-col gap-6 mt-4">
+<!-- Toolbar Area -->
+<div class="sticky top-[72px] z-40 bg-white/80 dark:bg-[#111418]/80 backdrop-blur-md rounded-xl border border-[#e5e7eb] dark:border-[#2a3441] shadow-sm p-2 flex flex-wrap justify-center sm:justify-between items-center gap-4">
+<!-- Signature Tools -->
+<div class="flex gap-1 bg-[#f0f2f4] dark:bg-[#2a3441] p-1 rounded-lg">
+<button class="flex items-center gap-2 px-4 py-2 rounded-md bg-white dark:bg-[#111418] shadow-sm text-primary font-bold text-sm transition-all ring-1 ring-black/5 dark:ring-white/10">
+<span class="material-symbols-outlined text-lg">draw</span>
+                            Draw
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-md text-[#617589] dark:text-[#9aaab9] hover:text-[#111418] dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/5 font-medium text-sm transition-all">
+<span class="material-symbols-outlined text-lg">keyboard</span>
+                            Type
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-md text-[#617589] dark:text-[#9aaab9] hover:text-[#111418] dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/5 font-medium text-sm transition-all">
+<span class="material-symbols-outlined text-lg">image</span>
+                            Upload
+                        </button>
+</div>
+<!-- Page Navigation -->
+<div class="flex items-center gap-3 text-sm font-medium text-[#111418] dark:text-white">
+<button class="p-1 hover:bg-[#f0f2f4] dark:hover:bg-[#2a3441] rounded-md"><span class="material-symbols-outlined">chevron_left</span></button>
+<span>Page 1 of 3</span>
+<button class="p-1 hover:bg-[#f0f2f4] dark:hover:bg-[#2a3441] rounded-md"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+<!-- Actions -->
+<div class="hidden sm:flex items-center gap-2">
+<button class="p-2 text-[#617589] hover:text-red-500 rounded-lg transition-colors" title="Clear All">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Canvas / Preview Area -->
+<div class="relative w-full bg-[#e5e7eb] dark:bg-[#1a2632] rounded-xl overflow-hidden min-h-[600px] flex justify-center items-start p-8 shadow-inner">
+<!-- The PDF Page Simulation -->
+<div class="relative w-full max-w-[595px] aspect-[1/1.414] bg-white shadow-2xl rounded-sm flex flex-col p-12 gap-6 select-none group/page">
+<!-- PDF Content (Dummy) -->
+<div class="w-24 h-6 bg-gray-200 rounded animate-pulse mb-8"></div>
+<div class="space-y-3">
+<div class="w-full h-3 bg-gray-100 rounded"></div>
+<div class="w-full h-3 bg-gray-100 rounded"></div>
+<div class="w-3/4 h-3 bg-gray-100 rounded"></div>
+</div>
+<div class="space-y-3 mt-4">
+<div class="w-full h-3 bg-gray-100 rounded"></div>
+<div class="w-full h-3 bg-gray-100 rounded"></div>
+<div class="w-full h-3 bg-gray-100 rounded"></div>
+<div class="w-5/6 h-3 bg-gray-100 rounded"></div>
+</div>
+<div class="space-y-3 mt-4">
+<div class="w-full h-3 bg-gray-100 rounded"></div>
+<div class="w-1/2 h-3 bg-gray-100 rounded"></div>
+</div>
+<!-- Bottom Signature Area Mock -->
+<div class="mt-auto pt-10 flex justify-between items-end border-t border-gray-100">
+<div class="flex flex-col gap-2">
+<div class="w-32 h-3 bg-gray-100 rounded"></div>
+<div class="w-48 h-1 bg-gray-200"></div>
+<div class="w-24 h-2 bg-gray-100 rounded"></div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="w-32 h-3 bg-gray-100 rounded"></div>
+<div class="w-48 h-1 bg-gray-200"></div>
+<div class="w-24 h-2 bg-gray-100 rounded"></div>
+</div>
+</div>
+<!-- Active Signature Element (Draggable) -->
+<div class="absolute bottom-24 right-20 w-48 h-20 border-2 border-primary bg-primary/5 rounded cursor-move flex items-center justify-center group/signature z-10 hover:shadow-lg transition-shadow">
+<!-- Resize Handles -->
+<div class="absolute -top-1.5 -left-1.5 w-3 h-3 bg-white border border-primary rounded-full hidden group-hover/signature:block"></div>
+<div class="absolute -top-1.5 -right-1.5 w-3 h-3 bg-white border border-primary rounded-full hidden group-hover/signature:block"></div>
+<div class="absolute -bottom-1.5 -left-1.5 w-3 h-3 bg-white border border-primary rounded-full hidden group-hover/signature:block"></div>
+<div class="absolute -bottom-1.5 -right-1.5 w-3 h-3 bg-white border border-primary rounded-full hidden group-hover/signature:block"></div>
+<!-- Remove Button -->
+<button class="absolute -top-3 -right-3 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center shadow-sm opacity-0 group-hover/signature:opacity-100 transition-opacity hover:bg-red-600">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+<!-- Signature Image/Vector -->
+<img alt="Digital signature of John Hancock" class="w-full h-full object-contain p-2 pointer-events-none filter sepia contrast-200 text-blue-900" data-alt="Stylized cursive signature preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT8PFfyQxlDciZntYrbzR7qEKtM8tEJdszzzYaag94BbIAGs97RO8L6ycZZkUXc-A873BiPqzLPSjX80MnfoZiwTTmZxCceKuoPUxugq_XRUNAaz61J7fouWPitMORhUxc2Tg6ydwXGNup-EuZ8h3gcpgjHN8Q8SphauEsJBX1hFN8JiuvB8biZMyKPY2S6u9jEiHs0pjl7pLAy6FJWLbICIycZQg-WAJFXDZggDCQFqcOO031vA95aHLPG_iHGlVaacnwmNlMFY4r"/>
+</div>
+</div>
+</div>
+<!-- Mobile/Floating Signature Input Panel (Simulated) -->
+<div class="w-full bg-white dark:bg-[#111418] border border-[#e5e7eb] dark:border-[#2a3441] rounded-xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 bg-green-500/10 rounded-full flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div>
+<p class="font-bold text-[#111418] dark:text-white">Ready to apply?</p>
+<p class="text-sm text-[#617589] dark:text-[#9aaab9]">Signature placed on Page 1.</p>
+</div>
+</div>
+<button class="w-full md:w-auto flex items-center justify-center gap-2 bg-primary hover:bg-blue-600 text-white font-bold h-12 px-8 rounded-lg shadow-lg shadow-blue-500/30 transition-all transform hover:scale-[1.02]">
+<span>Apply Signature</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Footer Section -->
+<footer class="mt-8 flex flex-col items-center gap-2 pb-8">
+<div class="flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/10 rounded-full border border-green-100 dark:border-green-900/30">
+<span class="material-symbols-outlined text-green-600 dark:text-green-400 text-lg">lock</span>
+<span class="text-sm font-medium text-green-800 dark:text-green-300">100% Client-side processing</span>
+</div>
+<p class="text-[#617589] dark:text-[#9aaab9] text-xs text-center">Your files never leave your browser. No server uploads.</p>
+</footer>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Merge PDF - PDF Tools</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white min-h-screen flex flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e5e7eb] dark:border-b-[#2a3441] bg-white dark:bg-[#101922] px-4 md:px-10 py-3 shadow-sm">
+<div class="flex items-center gap-4 text-[#111418] dark:text-white">
+<div class="size-8 flex items-center justify-center bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined text-2xl">picture_as_pdf</span>
+</div>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">PDF Tools</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-6">
+<a class="text-[#111418] dark:text-gray-300 hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">All Tools</a>
+<a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary pb-0.5" href="#">Merge PDF</a>
+<a class="text-[#111418] dark:text-gray-300 hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Split PDF</a>
+<a class="text-[#111418] dark:text-gray-300 hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Compress PDF</a>
+</div>
+<div class="flex gap-3">
+<button class="flex min-w-[80px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary/10 hover:bg-primary/20 text-primary text-sm font-bold leading-normal tracking-[0.015em] transition-colors">
+<span class="truncate">Login</span>
+</button>
+<button class="flex min-w-[80px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary hover:bg-blue-600 text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors shadow-md shadow-blue-500/20">
+<span class="truncate">Sign Up</span>
+</button>
+</div>
+</div>
+<div class="md:hidden text-[#111418] dark:text-white">
+<span class="material-symbols-outlined cursor-pointer">menu</span>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+<!-- Hero Text -->
+<div class="text-center max-w-2xl mx-auto mb-10">
+<h1 class="text-[#111418] dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-[-0.033em] mb-3">
+                Merge PDF Files
+            </h1>
+<p class="text-[#617589] dark:text-gray-400 text-base md:text-lg font-normal leading-normal">
+                Combine PDFs in the order you want with the easiest PDF merger available.
+            </p>
+</div>
+<!-- Workspace Container -->
+<div class="w-full max-w-[1200px] flex flex-col lg:flex-row gap-8 items-start">
+<!-- Left Column: File Management -->
+<div class="flex-1 w-full">
+<!-- Toolbar -->
+<div class="flex flex-wrap items-center justify-between mb-4 gap-4">
+<h3 class="text-[#111418] dark:text-white text-lg font-bold leading-tight">Selected Files (3)</h3>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 bg-white dark:bg-[#1e2936] rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-[#2a3441] transition-colors">
+<span class="material-symbols-outlined text-[18px]">sort_by_alpha</span>
+<span>Sort A-Z</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 bg-white dark:bg-[#1e2936] rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete_sweep</span>
+<span>Clear All</span>
+</button>
+</div>
+</div>
+<!-- File Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 gap-4">
+<!-- Add Files Drop Zone Card -->
+<div class="group relative flex flex-col items-center justify-center gap-3 aspect-[3/4] rounded-xl border-2 border-dashed border-primary/40 bg-primary/5 hover:bg-primary/10 transition-colors cursor-pointer">
+<div class="size-12 rounded-full bg-primary/20 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</div>
+<p class="text-primary font-bold text-center text-sm px-4">Add more files</p>
+<input accept=".pdf" class="absolute inset-0 opacity-0 cursor-pointer" multiple="" type="file"/>
+</div>
+<!-- PDF Card 1 -->
+<div class="group relative flex flex-col bg-white dark:bg-[#1e2936] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md hover:border-primary/50 transition-all cursor-grab active:cursor-grabbing overflow-hidden">
+<!-- Drag Handle (Visual) -->
+<div class="absolute top-2 left-2 z-10 p-1 rounded bg-black/5 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg">drag_indicator</span>
+</div>
+<!-- Remove Button -->
+<button class="absolute top-2 right-2 z-10 size-7 flex items-center justify-center rounded-full bg-white dark:bg-gray-800 text-gray-500 hover:text-red-500 hover:bg-red-50 shadow-sm border border-gray-200 dark:border-gray-600 opacity-0 group-hover:opacity-100 transition-all transform hover:scale-110">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+<!-- Preview Area -->
+<div class="flex-1 w-full bg-gray-100 dark:bg-[#151f28] flex items-center justify-center p-4 relative overflow-hidden">
+<!-- Decorative paper effect -->
+<div class="w-3/4 h-full bg-white dark:bg-[#2a3441] shadow-lg rounded-sm flex flex-col p-2 transform group-hover:-translate-y-1 transition-transform duration-300">
+<div class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-sm mb-2"></div>
+<div class="w-2/3 h-2 bg-gray-200 dark:bg-gray-600 rounded-sm mb-2"></div>
+<div class="w-full h-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#252e3a] dark:to-[#1e2936] rounded-sm flex items-center justify-center" data-alt="Abstract document preview gradient">
+<span class="material-symbols-outlined text-4xl text-gray-300 dark:text-gray-600">description</span>
+</div>
+</div>
+</div>
+<!-- Footer Info -->
+<div class="p-3 bg-white dark:bg-[#1e2936] border-t border-gray-100 dark:border-gray-700">
+<p class="text-[#111418] dark:text-white text-xs font-bold truncate mb-1" title="contract_agreement_v2.pdf">contract_agreement_v2.pdf</p>
+<p class="text-[#617589] dark:text-gray-400 text-[10px] font-medium uppercase tracking-wide">3 Pages • 250 KB</p>
+</div>
+<!-- Page Number Badge -->
+<div class="absolute bottom-[60px] right-2 bg-black/60 text-white text-[10px] font-bold px-1.5 py-0.5 rounded backdrop-blur-sm">
+                            1
+                        </div>
+</div>
+<!-- PDF Card 2 -->
+<div class="group relative flex flex-col bg-white dark:bg-[#1e2936] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md hover:border-primary/50 transition-all cursor-grab active:cursor-grabbing overflow-hidden">
+<div class="absolute top-2 left-2 z-10 p-1 rounded bg-black/5 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg">drag_indicator</span>
+</div>
+<button class="absolute top-2 right-2 z-10 size-7 flex items-center justify-center rounded-full bg-white dark:bg-gray-800 text-gray-500 hover:text-red-500 hover:bg-red-50 shadow-sm border border-gray-200 dark:border-gray-600 opacity-0 group-hover:opacity-100 transition-all transform hover:scale-110">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+<div class="flex-1 w-full bg-gray-100 dark:bg-[#151f28] flex items-center justify-center p-4">
+<div class="w-3/4 h-full bg-white dark:bg-[#2a3441] shadow-lg rounded-sm flex flex-col p-2 transform group-hover:-translate-y-1 transition-transform duration-300">
+<div class="w-full h-full bg-cover bg-center rounded-sm border border-gray-100 dark:border-gray-600" data-alt="Preview thumbnail of a chart" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCSoUFQTNLMYnlaZHRRrQ_p_LlIkDMwRJT7WrqR-2lPlWU5s0wSdAPsKBV1X_AxFaGuyzSxHOuxOK8NAsBvH3i2FxZQ2rwuwPSes0Xk8EC8GRp1m0sjCTeZG8VYOhAoUElWzDfItBqnjVlMThqFLz2pzCBdJeHutnANc8ET6A9LozmUQOxUiV6ZQckw70I9vA7qskxa1jPU9rWkDyETuiXvq1EwoZIjap1ht0wxJ3jqbuQqZqK-eMmBEbPmFQoHn4Olzvk4zaEHubvA');"></div>
+</div>
+</div>
+<div class="p-3 bg-white dark:bg-[#1e2936] border-t border-gray-100 dark:border-gray-700">
+<p class="text-[#111418] dark:text-white text-xs font-bold truncate mb-1" title="Q3_Financial_Report.pdf">Q3_Financial_Report.pdf</p>
+<p class="text-[#617589] dark:text-gray-400 text-[10px] font-medium uppercase tracking-wide">12 Pages • 1.4 MB</p>
+</div>
+<div class="absolute bottom-[60px] right-2 bg-black/60 text-white text-[10px] font-bold px-1.5 py-0.5 rounded backdrop-blur-sm">
+                            2
+                        </div>
+</div>
+<!-- PDF Card 3 -->
+<div class="group relative flex flex-col bg-white dark:bg-[#1e2936] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md hover:border-primary/50 transition-all cursor-grab active:cursor-grabbing overflow-hidden">
+<div class="absolute top-2 left-2 z-10 p-1 rounded bg-black/5 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg">drag_indicator</span>
+</div>
+<button class="absolute top-2 right-2 z-10 size-7 flex items-center justify-center rounded-full bg-white dark:bg-gray-800 text-gray-500 hover:text-red-500 hover:bg-red-50 shadow-sm border border-gray-200 dark:border-gray-600 opacity-0 group-hover:opacity-100 transition-all transform hover:scale-110">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+<div class="flex-1 w-full bg-gray-100 dark:bg-[#151f28] flex items-center justify-center p-4">
+<div class="w-3/4 h-full bg-white dark:bg-[#2a3441] shadow-lg rounded-sm flex flex-col p-2 transform group-hover:-translate-y-1 transition-transform duration-300">
+<div class="w-full h-full bg-cover bg-center rounded-sm border border-gray-100 dark:border-gray-600" data-alt="Preview thumbnail of text document" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCu8Bb8TJY7Gj9gNNrTuTqW-K2WEXhvmPf9C50tSMbTqyV1EuWifvFTBODKYgsYFdI50tw4xcN9yMU8diDvAHkXKsbzU79rbctRPIsLTu-zz0bnRr6LH_QsZFGd64hjFh6hU6WAK_bAym9MzHkWAlX5h9dUs-h7gZ2n-02VvDM--wQ-gZ1NF4I-O5NsJ39Uzp7DywC8bzUodBMansQDUHXNKNyJ2WxeP_Cbt3u_1quE8ugy_yS6MCroviG_GV80se_WVAZsX613NNw0');"></div>
+</div>
+</div>
+<div class="p-3 bg-white dark:bg-[#1e2936] border-t border-gray-100 dark:border-gray-700">
+<p class="text-[#111418] dark:text-white text-xs font-bold truncate mb-1" title="cover_letter_final.pdf">cover_letter_final.pdf</p>
+<p class="text-[#617589] dark:text-gray-400 text-[10px] font-medium uppercase tracking-wide">1 Page • 45 KB</p>
+</div>
+<div class="absolute bottom-[60px] right-2 bg-black/60 text-white text-[10px] font-bold px-1.5 py-0.5 rounded backdrop-blur-sm">
+                           3
+                       </div>
+</div>
+</div>
+</div>
+<!-- Right Column: Actions Sidebar -->
+<div class="w-full lg:w-[340px] flex flex-col gap-6 shrink-0">
+<!-- Action Card -->
+<div class="bg-white dark:bg-[#1e2936] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 sticky top-24">
+<h3 class="text-[#111418] dark:text-white text-xl font-bold mb-6">Merge Options</h3>
+<!-- Settings -->
+<div class="space-y-4 mb-8">
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="relative flex items-center">
+<input checked="" class="peer size-5 cursor-pointer appearance-none rounded border border-gray-300 dark:border-gray-600 checked:bg-primary checked:border-primary transition-all" type="checkbox"/>
+<span class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[#111418] dark:text-white text-sm font-medium">Merge pages in order</span>
+<span class="text-[#617589] dark:text-gray-400 text-xs">Maintain the sequence of files as shown</span>
+</div>
+</label>
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer size-5 cursor-pointer appearance-none rounded border border-gray-300 dark:border-gray-600 checked:bg-primary checked:border-primary transition-all" type="checkbox"/>
+<span class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[#111418] dark:text-white text-sm font-medium">Add filename to footer</span>
+<span class="text-[#617589] dark:text-gray-400 text-xs">Helpful for reference</span>
+</div>
+</label>
+</div>
+<!-- Divider -->
+<div class="h-px w-full bg-gray-100 dark:bg-gray-700 mb-6"></div>
+<!-- Primary Action -->
+<button class="w-full flex items-center justify-center gap-2 bg-primary hover:bg-blue-600 text-white h-14 rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30 transition-all transform active:scale-[0.98]">
+<span>Merge PDF</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<!-- Info -->
+<p class="text-center text-[#617589] dark:text-gray-400 text-xs mt-4">
+                        By clicking Merge PDF, you agree to our Terms.
+                    </p>
+</div>
+<!-- Privacy Trust Badge -->
+<div class="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/10 rounded-xl border border-blue-100 dark:border-blue-900/30">
+<div class="size-8 rounded-full bg-white dark:bg-blue-900/30 flex items-center justify-center shrink-0 text-primary shadow-sm">
+<span class="material-symbols-outlined text-lg">shield_lock</span>
+</div>
+<div>
+<h4 class="text-[#111418] dark:text-white text-sm font-bold mb-1">100% Secure &amp; Private</h4>
+<p class="text-[#617589] dark:text-gray-400 text-xs leading-relaxed">
+                            Your files are processed directly in your browser. No data leaves your device.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-[#e5e7eb] dark:border-[#2a3441] bg-white dark:bg-[#101922] py-8 mt-auto">
+<div class="max-w-[1200px] mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-[#617589] dark:text-gray-500 text-sm">© 2023 PDF Tools Inc. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-[#617589] dark:text-gray-500 hover:text-primary text-sm font-medium" href="#">Privacy Policy</a>
+<a class="text-[#617589] dark:text-gray-500 hover:text-primary text-sm font-medium" href="#">Terms of Use</a>
+<a class="text-[#617589] dark:text-gray-500 hover:text-primary text-sm font-medium" href="#">Contact</a>
+</div>
+</div>
+</footer>
+</body></html>

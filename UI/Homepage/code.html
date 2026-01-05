@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PDFescape - Free Online PDF Tools</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 w-full bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+<div class="px-4 md:px-10 py-3 max-w-[1280px] mx-auto flex items-center justify-between whitespace-nowrap">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl">picture_as_pdf</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight">PDFescape</h2>
+</div>
+<div class="flex flex-1 justify-end gap-4 md:gap-8 items-center">
+<div class="hidden md:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">All Tools</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">About</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">GitHub</a>
+</div>
+<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary hover:bg-blue-600 text-white text-sm font-bold leading-normal tracking-wide transition-colors">
+<span class="truncate">Donate</span>
+</button>
+<!-- Mobile Menu Button (Visible only on small screens) -->
+<button class="md:hidden text-slate-900 dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<!-- HeroSection -->
+<div class="w-full bg-background-light dark:bg-background-dark">
+<div class="max-w-[1280px] mx-auto px-4 md:px-10 py-8 md:py-12">
+<div class="@container">
+<div class="flex min-h-[400px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center p-8 md:p-12 relative overflow-hidden" data-alt="Abstract blue gradient background representing digital flow" style='background-image: linear-gradient(135deg, rgba(19, 127, 236, 0.9) 0%, rgba(16, 25, 34, 0.8) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDIs0tUHazUU1kt4ipuebzCr9o7ob6hyCGQuWVGTY4yY4CKDXD3FGqNzCLiVvqOdvE2fSZ10HAGrjQzZVYvg_UGq9KucPf6NfBRaq-TjI5WodnAwbgw0Avk6vSYZ5Vk98AaYkvpNdiULc78cvmBmNo4gMtk0HZaCJ9Idrf3scuTPjKvzOUbAMrvdU_PBP5K81FcobKB5cdSiQU3EWZpMgAzsIeIhMo4JwN10Q3bf1MpD3wDFFjF0DQrgVlKp_lUrsgnWGfvhdBCQLG-");'>
+<!-- Decorative Abstract Shapes -->
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
+<div class="flex flex-col gap-4 text-center z-10 max-w-3xl">
+<div class="flex items-center justify-center gap-2 text-blue-100 font-medium bg-white/10 w-fit mx-auto px-3 py-1 rounded-full backdrop-blur-sm border border-white/10">
+<span class="material-symbols-outlined text-sm">lock</span>
+<span class="text-xs tracking-wide uppercase">100% Client-Side Privacy</span>
+</div>
+<h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight drop-shadow-sm">
+                                Your PDFs, Your Privacy.
+                            </h1>
+<h2 class="text-blue-100 text-lg md:text-xl font-normal leading-relaxed max-w-2xl mx-auto">
+                                Free, secure, and client-side PDF tools. Your files are processed in your browser and never uploaded to any server.
+                            </h2>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 z-10 mt-4 w-full justify-center">
+<button class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-white text-primary hover:bg-slate-100 text-base font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+<span class="truncate">Get Started</span>
+</button>
+<button class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-transparent border-2 border-white/30 text-white hover:bg-white/10 text-base font-bold transition-all backdrop-blur-sm">
+<span class="truncate">Learn More</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SearchBar -->
+<div class="w-full bg-background-light dark:bg-background-dark -mt-6 z-20 relative">
+<div class="max-w-[800px] mx-auto px-4 md:px-10">
+<div class="bg-white dark:bg-slate-800 p-2 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700">
+<label class="flex items-center h-14 w-full">
+<div class="text-slate-400 dark:text-slate-500 pl-4 pr-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">search</span>
+</div>
+<input class="flex w-full flex-1 bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-lg font-medium focus:outline-0 focus:ring-0 px-2 h-full" placeholder="Search for PDF tools (e.g. Merge, Split)..." value=""/>
+</label>
+</div>
+</div>
+</div>
+<!-- Main Content Layout -->
+<div class="layout-container flex grow flex-col w-full max-w-[1280px] mx-auto px-4 md:px-10 py-12">
+<!-- Tools Grid -->
+<div class="flex flex-col gap-6">
+<div class="flex justify-between items-end px-2">
+<h3 class="text-slate-900 dark:text-white text-2xl font-bold tracking-tight">Most Popular Tools</h3>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+<!-- Merge PDF -->
+<a class="group flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-primary/5 transition-all duration-300 transform hover:-translate-y-1" href="#">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">call_merge</span>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">Merge PDF</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Combine multiple PDFs into a single unified document in the order you want.</p>
+</div>
+</a>
+<!-- Split PDF -->
+<a class="group flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-primary/5 transition-all duration-300 transform hover:-translate-y-1" href="#">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">call_split</span>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">Split PDF</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Separate one page or a whole set for easy conversion into independent PDF files.</p>
+</div>
+</a>
+<!-- Compress PDF -->
+<a class="group flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-primary/5 transition-all duration-300 transform hover:-translate-y-1" href="#">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">compress</span>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">Compress PDF</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Reduce file size while optimizing for maximal PDF quality.</p>
+</div>
+</a>
+<!-- PDF to Word -->
+<a class="group flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-primary/5 transition-all duration-300 transform hover:-translate-y-1" href="#">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">article</span>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">PDF to Word</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Convert your PDF files to editable Word documents (DOC, DOCX).</p>
+</div>
+</a>
+<!-- Protect PDF -->
+<a class="group flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-primary/5 transition-all duration-300 transform hover:-translate-y-1" href="#">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">lock</span>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">Protect PDF</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Encrypt your PDF file with a password to ensure security.</p>
+</div>
+</a>
+<!-- Unlock PDF -->
+<a class="group flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-primary/5 transition-all duration-300 transform hover:-translate-y-1" href="#">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">lock_open</span>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">Unlock PDF</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Remove password security from PDFs, making them free to use.</p>
+</div>
+</a>
+<!-- Rotate PDF -->
+<a class="group flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-primary/5 transition-all duration-300 transform hover:-translate-y-1" href="#">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">rotate_right</span>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">Rotate PDF</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Rotate your PDF pages. You can select specific pages to rotate.</p>
+</div>
+</a>
+<!-- Organize PDF -->
+<a class="group flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-primary/5 transition-all duration-300 transform hover:-translate-y-1" href="#">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">sort</span>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">Organize PDF</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Sort, add, and delete PDF pages. Drag and drop to reorder.</p>
+</div>
+</a>
+<!-- PDF to JPG -->
+<a class="group flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-primary/5 transition-all duration-300 transform hover:-translate-y-1" href="#">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">image</span>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">PDF to JPG</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Convert each PDF page into a JPG or extract all images contained in a PDF.</p>
+</div>
+</a>
+<!-- JPG to PDF -->
+<a class="group flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-primary/5 transition-all duration-300 transform hover:-translate-y-1" href="#">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">picture_as_pdf</span>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">JPG to PDF</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Convert your images (JPG, PNG, BMP, GIF, TIFF) to PDF files.</p>
+</div>
+</a>
+<!-- Sign PDF -->
+<a class="group flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-primary/5 transition-all duration-300 transform hover:-translate-y-1" href="#">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">draw</span>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">Sign PDF</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Sign your PDF yourself or request electronic signatures from others.</p>
+</div>
+</a>
+<!-- Edit PDF -->
+<a class="group flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-primary/5 transition-all duration-300 transform hover:-translate-y-1" href="#">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">edit_document</span>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">Edit PDF</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Add text, shapes, comments and highlights to your PDF file.</p>
+</div>
+</a>
+</div>
+</div>
+<!-- FeatureSection -->
+<div class="mt-24 mb-12">
+<div class="flex flex-col gap-10 @container">
+<div class="flex flex-col gap-4 text-center items-center">
+<h1 class="text-slate-900 dark:text-white tracking-tight text-3xl md:text-4xl font-black leading-tight max-w-[720px]">
+                            Why use PDFescape?
+                        </h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg font-normal leading-normal max-w-[600px]">
+                            We prioritize your privacy and efficiency. All processing happens directly on your device.
+                        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature 1 -->
+<div class="flex flex-1 gap-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-8 flex-col shadow-sm">
+<div class="w-14 h-14 flex items-center justify-center rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary">
+<span class="material-symbols-outlined text-3xl">shield_lock</span>
+</div>
+<div class="flex flex-col gap-2">
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight">100% Client-Side</h2>
+<p class="text-slate-500 dark:text-slate-400 text-base leading-relaxed">
+                                    Files stay on your device. Nothing is uploaded to a server, ensuring maximum confidentiality for your documents.
+                                </p>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="flex flex-1 gap-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-8 flex-col shadow-sm">
+<div class="w-14 h-14 flex items-center justify-center rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary">
+<span class="material-symbols-outlined text-3xl">no_accounts</span>
+</div>
+<div class="flex flex-col gap-2">
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight">No Sign-up Required</h2>
+<p class="text-slate-500 dark:text-slate-400 text-base leading-relaxed">
+                                    Start working immediately without creating an account. No email, no newsletters, just tools.
+                                </p>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="flex flex-1 gap-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-8 flex-col shadow-sm">
+<div class="w-14 h-14 flex items-center justify-center rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary">
+<span class="material-symbols-outlined text-3xl">bolt</span>
+</div>
+<div class="flex flex-col gap-2">
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight">Lightning Fast</h2>
+<p class="text-slate-500 dark:text-slate-400 text-base leading-relaxed">
+                                    Leverage your device's processing power. No waiting for uploads or downloads.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="w-full bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-10">
+<div class="max-w-[1280px] mx-auto px-4 md:px-10 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-slate-900 dark:text-white">
+<span class="material-symbols-outlined text-primary">picture_as_pdf</span>
+<span class="font-bold text-lg">PDFescape</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">© 2023 PDFescape. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-6 md:gap-10">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Privacy Policy</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Terms of Service</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Cookie Policy</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Contact</a>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 rounded-full border border-green-200 dark:border-green-800">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span class="text-xs font-bold uppercase tracking-wide">Processed Locally</span>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

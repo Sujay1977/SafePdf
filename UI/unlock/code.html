@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Unlock PDF Tool</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#137fec",
+              "primary-dark": "#0f65bd",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+              "surface-light": "#ffffff",
+              "surface-dark": "#1a2632",
+              "border-light": "#e5e7eb",
+              "border-dark": "#2d3748",
+              "text-main": "#111418",
+              "text-main-dark": "#f3f4f6",
+              "text-muted": "#617589",
+              "text-muted-dark": "#9ca3af",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+            boxShadow: {
+              "soft": "0 4px 20px -2px rgba(0, 0, 0, 0.05)",
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-text-main-dark min-h-screen flex flex-col transition-colors duration-200">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-border-light dark:border-border-dark bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex h-16 items-center justify-between">
+<!-- Logo Area -->
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-8 rounded-lg bg-primary text-white">
+<span class="material-symbols-outlined text-[20px]">lock_open</span>
+</div>
+<h1 class="text-lg font-bold tracking-tight text-text-main dark:text-white">PDF Unlocker</h1>
+</div>
+<!-- Navigation Links -->
+<div class="flex items-center gap-6">
+<a class="group flex items-center gap-2 text-sm font-medium text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px] transition-transform group-hover:-translate-x-1">arrow_back</span>
+                        Back to Dashboard
+                    </a>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 w-full">
+<div class="w-full max-w-4xl flex flex-col gap-10">
+<!-- Page Heading -->
+<div class="text-center space-y-4">
+<h2 class="text-4xl md:text-5xl font-black tracking-tight text-text-main dark:text-white">
+                    Unlock PDF
+                </h2>
+<p class="text-lg text-text-muted dark:text-text-muted-dark max-w-2xl mx-auto leading-relaxed">
+                    Remove PDF password security instantly. Give yourself the freedom to use your documents however you want.
+                </p>
+</div>
+<!-- Tool Container -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-soft border border-border-light dark:border-border-dark overflow-hidden">
+<!-- Dropzone Section -->
+<div class="p-8 border-b border-border-light dark:border-border-dark">
+<div class="relative group cursor-pointer flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-primary/30 hover:border-primary bg-primary/5 dark:bg-primary/10 transition-all duration-300 py-16 px-6">
+<div class="size-16 bg-white dark:bg-surface-dark rounded-full shadow-sm flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl">upload_file</span>
+</div>
+<p class="text-xl font-bold text-text-main dark:text-white mb-2 text-center">Drop PDF file here</p>
+<p class="text-sm text-text-muted dark:text-text-muted-dark mb-6 text-center">or select a file from your computer</p>
+<button class="flex items-center justify-center h-12 px-8 rounded-lg bg-primary hover:bg-primary-dark text-white text-base font-bold shadow-lg shadow-primary/20 transition-all active:scale-95">
+                            Select PDF file
+                        </button>
+</div>
+</div>
+<!-- Processing Area (Simulating a file has been uploaded) -->
+<div class="p-8 bg-white dark:bg-surface-dark/50">
+<div class="flex flex-col md:flex-row gap-8 items-start">
+<!-- File Preview Card -->
+<div class="w-full md:w-1/2">
+<h3 class="text-sm font-semibold uppercase tracking-wider text-text-muted dark:text-text-muted-dark mb-4">Selected File</h3>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark shadow-sm">
+<!-- File Icon/Preview -->
+<div class="relative w-16 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-700">
+<div class="absolute inset-0 flex items-center justify-center text-gray-400 dark:text-gray-500">
+<span class="material-symbols-outlined text-4xl">picture_as_pdf</span>
+</div>
+<!-- Decorative gradient overlay -->
+<div class="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent" data-alt="PDF document icon placeholder"></div>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-base font-bold text-text-main dark:text-white truncate" title="protected_financial_report_2024.pdf">
+                                        protected_report.pdf
+                                    </p>
+<p class="text-sm text-text-muted dark:text-text-muted-dark">1.2 MB</p>
+</div>
+<button class="p-2 rounded-lg text-text-muted hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors" title="Remove file">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+</div>
+<!-- Password Input & Action -->
+<div class="w-full md:w-1/2 flex flex-col h-full justify-between">
+<div class="flex flex-col gap-4">
+<label class="block">
+<span class="text-sm font-semibold uppercase tracking-wider text-text-muted dark:text-text-muted-dark mb-4 block">Decryption Password</span>
+<div class="relative flex items-center">
+<input class="w-full h-14 pl-4 pr-12 rounded-xl border border-border-light dark:border-border-dark bg-white dark:bg-surface-dark text-text-main dark:text-white placeholder-text-muted dark:placeholder-text-muted-dark focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow text-base" placeholder="Enter document password" type="password"/>
+<button class="absolute right-4 text-text-muted hover:text-primary transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</label>
+<button class="w-full h-14 mt-2 flex items-center justify-center gap-2 rounded-xl bg-primary hover:bg-primary-dark text-white font-bold text-lg shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 active:translate-y-0">
+<span class="material-symbols-outlined">lock_open</span>
+                                    Unlock PDF
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Features / Info Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center px-4">
+<div class="flex flex-col items-center gap-2">
+<div class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-1">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<h3 class="font-bold text-text-main dark:text-white">Instant Processing</h3>
+<p class="text-sm text-text-muted dark:text-text-muted-dark">No uploads necessary. Files are processed locally.</p>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-1">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<h3 class="font-bold text-text-main dark:text-white">Secure &amp; Private</h3>
+<p class="text-sm text-text-muted dark:text-text-muted-dark">Files never leave your browser.</p>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-1">
+<span class="material-symbols-outlined">devices</span>
+</div>
+<h3 class="font-bold text-text-main dark:text-white">Cross Platform</h3>
+<p class="text-sm text-text-muted dark:text-text-muted-dark">Works on Windows, Mac, and Linux browsers.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-6 mt-auto border-t border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark">
+<div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-center items-center gap-3 text-center">
+<div class="flex items-center gap-2 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-4 py-2 rounded-full">
+<span class="material-symbols-outlined text-[20px]">shield_lock</span>
+<span class="text-sm font-semibold">100% Secure</span>
+</div>
+<p class="text-sm text-text-muted dark:text-text-muted-dark">
+                Your files never leave your browser. All processing is performed locally on your device.
+            </p>
+</div>
+</footer>
+</body></html>

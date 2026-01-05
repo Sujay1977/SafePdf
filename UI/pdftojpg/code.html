@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PDF to JPG - PDF Tools Suite</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "primary-dark": "#0f65bd",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2632",
+                        "border-light": "#e5e7eb",
+                        "border-dark": "#2d3748",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "sans": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Scrollbar for preview area */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #475569;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen flex flex-col transition-colors duration-200">
+<!-- Header -->
+<header class="sticky top-0 z-50 w-full bg-surface-light dark:bg-surface-dark border-b border-border-light dark:border-border-dark shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<!-- Logo Area -->
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-8 rounded bg-primary/10 dark:bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-2xl">description</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">PDF Tools Suite</h1>
+</div>
+<!-- Navigation -->
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                        Back to Dashboard
+                    </a>
+</nav>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col items-center w-full px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+<div class="w-full max-w-6xl flex flex-col gap-8">
+<!-- Page Heading -->
+<div class="text-center space-y-3">
+<h2 class="text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white">PDF to JPG</h2>
+<p class="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+                    Convert each PDF page into a high-quality JPG image or extract all images contained in a PDF.
+                </p>
+</div>
+<!-- Upload Zone (Compact / Active State) -->
+<div class="w-full bg-surface-light dark:bg-surface-dark rounded-xl border-2 border-dashed border-primary/30 hover:border-primary dark:border-primary/40 dark:hover:border-primary transition-all cursor-pointer group relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/5 dark:bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+<div class="flex flex-col sm:flex-row items-center justify-between p-6 gap-6">
+<div class="flex items-center gap-4">
+<div class="p-3 bg-primary/10 rounded-full text-primary shrink-0">
+<span class="material-symbols-outlined text-3xl">cloud_upload</span>
+</div>
+<div class="text-center sm:text-left">
+<h3 class="font-bold text-lg text-slate-900 dark:text-white">report_2023_financials.pdf</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400">1.4 MB • 12 Pages</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-sm text-slate-500 dark:text-slate-400 hidden sm:inline-block">Drag &amp; drop to replace</span>
+<button class="px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm font-semibold rounded-lg transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                            Select different file
+                        </button>
+</div>
+</div>
+</div>
+<!-- Workspace: Preview & Settings -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left: Preview Area -->
+<div class="lg:col-span-8 flex flex-col gap-4">
+<div class="flex items-center justify-between px-1">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">grid_view</span>
+                            Page Preview
+                        </h3>
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span>Showing all 12 pages</span>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark p-6 shadow-sm">
+<!-- Image Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-[600px] overflow-y-auto custom-scrollbar p-1">
+<!-- Page 1 -->
+<div class="group relative aspect-[3/4] bg-slate-200 dark:bg-slate-700 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow ring-2 ring-primary ring-offset-2 dark:ring-offset-surface-dark">
+<div class="absolute top-2 left-2 bg-primary text-white text-xs font-bold px-1.5 py-0.5 rounded shadow-sm z-10">1</div>
+<div class="w-full h-full bg-cover bg-center" data-alt="Thumbnail preview of PDF page 1 showing abstract document layout" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCq7lbPS5QkeLXmPH_HiDGtv8qz4TFiPGOpfpEs4BUOGfYKF0JkNyWygEG9aBJBQ_7JhQos54rSfpdpLKFy9xOye9qT-fFBAEzl0bQLWZqCBsWJaRX_t_bO5rwvGIaMhIEUdCkdVU4ntJ2fe8tULTROYfF498JxDkSOhpJbaY7-vy8DRZSqunAOWMPJbbd0Er0C2FF9eLsOMVw4FTrnvEDcDGWxzaYP7U_zgiiP8CXJMt7_fMHN2-7Pry-qS-hkQTEHbRhwK_V6iTua');"></div>
+</div>
+<!-- Page 2 -->
+<div class="group relative aspect-[3/4] bg-slate-200 dark:bg-slate-700 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow opacity-60 hover:opacity-100 cursor-pointer">
+<div class="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors"></div>
+<div class="absolute top-2 left-2 bg-slate-800/80 text-white text-xs font-bold px-1.5 py-0.5 rounded shadow-sm z-10">2</div>
+<div class="w-full h-full bg-cover bg-center" data-alt="Thumbnail preview of PDF page 2 showing abstract document layout" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBs8aIkdkaNMeBTs74H8trYMUIY_4Oa9IxI4RumfR-elRIKEknHL_z4_Qs8MTftCx35XG5r3LzS2KZHZ73H-4iPnZGIsQRsR_b_sGlqSrat-xeKfevgcxg-wAoqdjcuMJPIHqGstZFPr3BIhow0jjBrt_3DjvhbsJMcFgzMfI3mqqL2xGHWVpwsoEbpmiakJBPQNTT0x5UeH5zbp36NpdJliN-nK1a39mxm8a8Jg3gLfWbvuQG2UsLJI7gxOwnAu6Z5yopyFmgsEjte');"></div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-slate-800 bg-white/80 rounded-full p-2">check_circle</span>
+</div>
+</div>
+<!-- Page 3 -->
+<div class="group relative aspect-[3/4] bg-slate-200 dark:bg-slate-700 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow opacity-60 hover:opacity-100 cursor-pointer">
+<div class="absolute top-2 left-2 bg-slate-800/80 text-white text-xs font-bold px-1.5 py-0.5 rounded shadow-sm z-10">3</div>
+<div class="w-full h-full bg-cover bg-center" data-alt="Thumbnail preview of PDF page 3 showing abstract document layout" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC4Mk_A8dkfEcn-XiJ6QgQoyYguEQUhec_R506VqQ0wEHH4DrUNmeNnnRIwKmkzabjfm5TylqysKeG2Sb2myxOK7_Va2GO2x8JIVe4tLKQ-LcyPbCYgJ-XbmBU28jsnTq_nMDA4Um6GjpqW3a4KAGV6ZZEF_iuT4wa1GCibvanhg2fmUogfw5IQz3EqbWqPOPac7Fqtqrd7BERwoLNmoxDjraj_ZOZxBndAZYadVi4AWbAtwciUrC-mU1CRcO0zYH8hcyTz7eRgZ_eI');"></div>
+</div>
+<!-- Page 4 -->
+<div class="group relative aspect-[3/4] bg-slate-200 dark:bg-slate-700 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow opacity-60 hover:opacity-100 cursor-pointer">
+<div class="absolute top-2 left-2 bg-slate-800/80 text-white text-xs font-bold px-1.5 py-0.5 rounded shadow-sm z-10">4</div>
+<div class="w-full h-full bg-cover bg-center" data-alt="Thumbnail preview of PDF page 4 showing abstract document layout" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDt_EuJSj1z6MabKQ6njgGfzT5x8YkQrFP_vN4Mh8KHvhVNoFG_kTCant_u-ZNcHq-TJCdLbbpfgSTapPrkgVK8bFXoYtJpXnpH2rVR8IiVPWkhoNFMS_JJGd3ykttWYcIYJCDT5j-Zt2hcSjIs6VLp0SSuUDjkslvzRqWxuafgtTIPE2GJDDf8cZVvNFoGl-zh_as1P6b5FujjBWVN3x7KySw_fNwIU3I5CdvdY8zdKg7dQnvrrPHq63bQMeii5eJAUOXo1HpoA1CK');"></div>
+</div>
+<!-- Placeholder pages for layout visual -->
+<div class="group relative aspect-[3/4] bg-slate-100 dark:bg-slate-800 rounded-lg border border-dashed border-slate-300 dark:border-slate-600 flex items-center justify-center">
+<span class="text-xs text-slate-400">Page 5</span>
+</div>
+<div class="group relative aspect-[3/4] bg-slate-100 dark:bg-slate-800 rounded-lg border border-dashed border-slate-300 dark:border-slate-600 flex items-center justify-center">
+<span class="text-xs text-slate-400">Page 6</span>
+</div>
+<div class="group relative aspect-[3/4] bg-slate-100 dark:bg-slate-800 rounded-lg border border-dashed border-slate-300 dark:border-slate-600 flex items-center justify-center">
+<span class="text-xs text-slate-400">Page 7</span>
+</div>
+<div class="group relative aspect-[3/4] bg-slate-100 dark:bg-slate-800 rounded-lg border border-dashed border-slate-300 dark:border-slate-600 flex items-center justify-center">
+<span class="text-xs text-slate-400">...</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Configuration Sidebar -->
+<div class="lg:col-span-4 flex flex-col gap-6 sticky top-24">
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark p-6 shadow-sm flex flex-col gap-6">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white pb-2 border-b border-border-light dark:border-border-dark">
+                            Conversion Options
+                        </h3>
+<!-- Page Selection -->
+<div class="flex flex-col gap-3">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Pages to Convert</label>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-3 p-3 rounded-lg border border-primary bg-primary/5 dark:bg-primary/10 cursor-pointer transition-colors">
+<input checked="" class="text-primary focus:ring-primary w-4 h-4 border-gray-300" name="pages" type="radio"/>
+<span class="text-sm font-medium text-slate-900 dark:text-white">All pages</span>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-border-light dark:border-border-dark hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors">
+<input class="text-primary focus:ring-primary w-4 h-4 border-gray-300" name="pages" type="radio"/>
+<div class="flex-1 flex flex-col">
+<span class="text-sm font-medium text-slate-900 dark:text-white">Specific pages</span>
+<input class="mt-2 w-full text-sm rounded border-gray-300 dark:border-slate-600 dark:bg-slate-700 focus:border-primary focus:ring-primary" placeholder="e.g. 1-5, 8, 11-13" type="text"/>
+</div>
+</label>
+</div>
+</div>
+<!-- Image Quality -->
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Image Quality</label>
+<span class="text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded">High</span>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<button class="px-3 py-2 rounded text-xs font-medium border border-border-light dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400">Low</button>
+<button class="px-3 py-2 rounded text-xs font-medium border border-border-light dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400">Normal</button>
+<button class="px-3 py-2 rounded text-xs font-medium bg-primary text-white border border-primary shadow-sm">High</button>
+</div>
+</div>
+<!-- Resolution (DPI) -->
+<div class="flex flex-col gap-3">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Resolution (DPI)</label>
+<div class="relative">
+<select class="w-full rounded-lg border-border-light dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white text-sm focus:border-primary focus:ring-primary">
+<option>72 dpi (Web)</option>
+<option>150 dpi (Screens)</option>
+<option selected="">300 dpi (Print)</option>
+</select>
+</div>
+</div>
+<div class="h-px bg-border-light dark:bg-border-dark my-2"></div>
+<!-- Action Button -->
+<button class="w-full py-3.5 px-4 bg-primary hover:bg-primary-dark text-white text-base font-bold rounded-lg shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all flex items-center justify-center gap-2 group">
+<span>Convert to JPG</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+<!-- Sidebar Info -->
+<div class="bg-blue-50 dark:bg-slate-800/50 rounded-lg p-4 flex items-start gap-3 border border-blue-100 dark:border-slate-700/50">
+<span class="material-symbols-outlined text-primary text-xl mt-0.5">info</span>
+<p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Generating images with <span class="font-semibold text-slate-900 dark:text-slate-200">300 dpi</span> may take longer depending on your device's performance.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Trust Footer -->
+<footer class="w-full bg-white dark:bg-slate-900 border-t border-border-light dark:border-border-dark py-8 mt-auto">
+<div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-3 text-slate-500 dark:text-slate-400">
+<div class="flex items-center justify-center size-8 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined text-lg">lock</span>
+</div>
+<p class="text-sm text-center font-medium">
+                100% Client-Side Processing. Your files never leave your browser.
+            </p>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JPG to PDF Tool Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white transition-colors duration-200">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#e5e7eb] dark:border-gray-800 bg-white dark:bg-[#111418] px-4 md:px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-4 text-[#111418] dark:text-white">
+<div class="size-8 flex items-center justify-center rounded bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-2xl">picture_as_pdf</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">PDF Tool Suite</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden md:flex items-center gap-2 group cursor-pointer">
+<span class="material-symbols-outlined text-primary text-xl">arrow_back</span>
+<a class="text-[#111418] dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Back to Dashboard</a>
+</div>
+<button class="flex items-center justify-center overflow-hidden rounded-lg size-10 bg-[#f0f2f4] dark:bg-gray-800 text-[#111418] dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 justify-center py-8 px-4 md:px-6">
+<div class="flex flex-col max-w-[1200px] flex-1 gap-8">
+<!-- Page Heading -->
+<div class="flex flex-col items-center text-center gap-3">
+<h1 class="text-[#111418] dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-[-0.033em]">JPG to PDF</h1>
+<p class="text-[#617589] dark:text-gray-400 text-base md:text-lg font-normal max-w-2xl">
+                        Convert your images to PDF documents instantly. 100% Client-side privacy—your files never leave this browser.
+                    </p>
+</div>
+<!-- Main Workspace -->
+<div class="flex flex-col lg:flex-row gap-6">
+<!-- Left Column: Upload & Preview -->
+<div class="flex flex-col flex-1 gap-6">
+<!-- Dropzone (Compact Active State) -->
+<div class="group relative flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-primary/40 bg-white dark:bg-[#1a2027] px-6 py-8 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 hover:border-primary transition-all cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-4xl text-primary">cloud_upload</span>
+<div class="flex flex-col text-left">
+<p class="text-[#111418] dark:text-white text-lg font-bold">Drop more JPG files here</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm">or click to browse your computer</p>
+</div>
+</div>
+<button class="absolute right-6 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-white text-sm font-bold shadow-sm hover:bg-blue-600 transition-colors">
+<span class="material-symbols-outlined text-lg mr-2">add</span> Add Files
+                            </button>
+</div>
+<!-- Preview Area Header -->
+<div class="flex items-center justify-between pt-2">
+<h2 class="text-[#111418] dark:text-white text-xl font-bold">Files to Convert <span class="text-sm font-normal text-gray-500 ml-2">(3 images)</span></h2>
+<button class="text-red-500 text-sm font-medium hover:text-red-600 flex items-center gap-1">
+<span class="material-symbols-outlined text-lg">delete_sweep</span> Clear All
+                            </button>
+</div>
+<!-- Image Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+<!-- Card 1 -->
+<div class="group relative flex flex-col bg-white dark:bg-[#1a2027] rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative aspect-[3/4] w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
+<img alt="Abstract nature pattern with fluid shapes and pastel colors" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Abstract nature pattern" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBefpiZfYEg0j5sxkFnVbToNKkngy-S1pEK8fOG1gjKSAMWDRB4pVVo7nYDGTx3zzH0PqlA6ail4kveT78hlaAnU8Qq6vBc2ZaJRon895I-gVwMKlz1xuaoMzUsH2BHNqyB5vJmCVqyd-YBC2S946ZOE93j3VVVBHpvnYroiWtiy1ajDdGCILLWnBt7iWZ7VkxGSfC4_H9PQAX1byEIOWPpEpCYnxqfiMEIHIyI5eJKI4Sd3EEP5Nha_S-FF_bmXcmfB07LG9xfQt-t"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
+<button class="absolute top-2 right-2 p-1.5 rounded-full bg-white/90 text-red-500 hover:bg-red-50 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+<div class="absolute bottom-2 left-2 px-2 py-1 bg-black/60 rounded text-xs text-white font-medium backdrop-blur-sm">
+                                        1
+                                    </div>
+</div>
+<div class="p-3 border-t border-gray-100 dark:border-gray-800">
+<p class="text-sm font-medium text-gray-900 dark:text-gray-200 truncate" title="nature_scan_01.jpg">nature_scan_01.jpg</p>
+<p class="text-xs text-gray-500 mt-0.5">1.2 MB</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group relative flex flex-col bg-white dark:bg-[#1a2027] rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative aspect-[3/4] w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
+<img alt="Code displayed on a computer screen in a dark environment" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Code snippet on screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSyEOlu8k45HuNj5EQGzezdxwGBMcDwK_NPrHHTxP5tK9X62E_wzwpguWyY_ZQnlH9zDs5O8quytIqU-B-KTBLJ1c_qnmn7Xx9uXVxEJaxytbQlNMA9pEgp-tSPW7EL9xWPlvvMZXIl7HhkDcRSmQNaYtZ4WWGhiPN_6ZN0AlXMGnnum7Mo8b5R4ajDxd0iROagDuocIf2_koN81zfzx7ka-YP3OdBzAwMPlIuoLomiFxND4h7GhRrkdCw5ki07bd8mJm_XaiRE-uq"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
+<button class="absolute top-2 right-2 p-1.5 rounded-full bg-white/90 text-red-500 hover:bg-red-50 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+<div class="absolute bottom-2 left-2 px-2 py-1 bg-black/60 rounded text-xs text-white font-medium backdrop-blur-sm">
+                                        2
+                                    </div>
+</div>
+<div class="p-3 border-t border-gray-100 dark:border-gray-800">
+<p class="text-sm font-medium text-gray-900 dark:text-gray-200 truncate" title="dev_screenshot.jpg">dev_screenshot.jpg</p>
+<p class="text-xs text-gray-500 mt-0.5">845 KB</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group relative flex flex-col bg-white dark:bg-[#1a2027] rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative aspect-[3/4] w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
+<img alt="Minimalist architectural details with sharp shadows" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Architecture detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvHFXI9RF3Gk0j45E7Lye_wgcFoIg84kYAg1QIgZqamN2r1Hm3MRi5oMx0fucg1GWDHVuvyPn_RqlQdRrJVg7u7r7fnDYHaSd6hZ52XM19VYZK7ef5jlFtCPquAdtR1gUDrSsqsaSAiEuI35cYvKgbVD-Sj4WdkPOiHOZ_Lb0p6xgUL8eSfcSnnJD_vF3X-e0irz6SHLmrtgeBVl83o-IMAycFhACHYacHhCVpWD65RYvWBcC1WM5Xt4tblXWimnH8iqkSmqaX7QZM"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
+<button class="absolute top-2 right-2 p-1.5 rounded-full bg-white/90 text-red-500 hover:bg-red-50 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+<div class="absolute bottom-2 left-2 px-2 py-1 bg-black/60 rounded text-xs text-white font-medium backdrop-blur-sm">
+                                        3
+                                    </div>
+</div>
+<div class="p-3 border-t border-gray-100 dark:border-gray-800">
+<p class="text-sm font-medium text-gray-900 dark:text-gray-200 truncate" title="architecture_ref.jpg">architecture_ref.jpg</p>
+<p class="text-xs text-gray-500 mt-0.5">2.1 MB</p>
+</div>
+</div>
+<!-- Dropzone Mini for Grid (Optional UX enhancement) -->
+<div class="flex flex-col items-center justify-center aspect-[3/4] rounded-xl border-2 border-dashed border-[#dbe0e6] dark:border-gray-700 bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-gray-400 text-4xl mb-2">add_photo_alternate</span>
+<span class="text-sm font-medium text-gray-500">Add more</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Settings Sidebar -->
+<div class="w-full lg:w-[360px] flex-shrink-0 flex flex-col gap-6">
+<div class="sticky top-24 flex flex-col gap-6">
+<!-- Settings Card -->
+<div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1a2027] shadow-sm p-6">
+<h3 class="text-lg font-bold text-[#111418] dark:text-white mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">tune</span> 
+                                    PDF Options
+                                </h3>
+<div class="flex flex-col gap-6">
+<!-- Orientation -->
+<div class="space-y-3">
+<label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Page Orientation</label>
+<div class="grid grid-cols-2 gap-2 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg">
+<button class="flex items-center justify-center gap-2 py-2 px-4 rounded-md bg-white dark:bg-gray-700 shadow-sm text-primary font-medium transition-all">
+<span class="material-symbols-outlined text-xl">crop_portrait</span> Portrait
+                                            </button>
+<button class="flex items-center justify-center gap-2 py-2 px-4 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all">
+<span class="material-symbols-outlined text-xl">crop_landscape</span> Landscape
+                                            </button>
+</div>
+</div>
+<!-- Page Size -->
+<div class="space-y-3">
+<label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Page Size</label>
+<div class="relative">
+<select class="w-full appearance-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm font-medium text-gray-900 dark:text-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+<option>A4 (210 x 297 mm)</option>
+<option>US Letter</option>
+<option>Fit (Same as Image)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-gray-500">expand_more</span>
+</div>
+</div>
+<!-- Margins -->
+<div class="space-y-3">
+<label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Page Margins</label>
+<div class="relative">
+<select class="w-full appearance-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm font-medium text-gray-900 dark:text-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+<option>No Margin</option>
+<option selected="">Small Margin</option>
+<option>Big Margin</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-gray-500">expand_more</span>
+</div>
+</div>
+<hr class="border-gray-100 dark:border-gray-700"/>
+<div class="flex items-center justify-between">
+<span class="text-sm text-gray-600 dark:text-gray-400">Total Size</span>
+<span class="text-sm font-bold text-gray-900 dark:text-white">~4.1 MB</span>
+</div>
+</div>
+</div>
+<!-- Main Action Button -->
+<button class="group w-full flex items-center justify-center gap-3 rounded-xl bg-primary hover:bg-blue-600 px-6 py-4 text-white shadow-lg shadow-blue-500/20 transition-all transform active:scale-[0.98]">
+<span class="text-lg font-bold">Convert to PDF</span>
+<span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Trust Footer -->
+<div class="mt-8 flex justify-center pb-8">
+<div class="flex items-center gap-2 rounded-full bg-gray-100 dark:bg-gray-800 px-4 py-2 text-sm text-gray-600 dark:text-gray-400">
+<span class="material-symbols-outlined text-lg text-green-600 dark:text-green-500">lock</span>
+<span>100% Client-Side. Your files never leave your browser.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

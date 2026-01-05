@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PDF to Word - PDFUtils</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "primary-dark": "#0b5ec2",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2632",
+                        "border-light": "#e5e7eb",
+                        "border-dark": "#2d3748",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased transition-colors duration-200">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<!-- Header -->
+<header class="flex items-center justify-between border-b border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark px-6 py-4 lg:px-10">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-2xl">picture_as_pdf</span>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-tight text-slate-900 dark:text-white">PDFUtils</h2>
+</div>
+<div class="flex items-center gap-4">
+<a class="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+<span class="hidden sm:inline">Back to Dashboard</span>
+</a>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex flex-1 flex-col items-center justify-center px-4 py-10 sm:px-6">
+<div class="flex w-full max-w-[800px] flex-col gap-8">
+<!-- Page Heading -->
+<div class="flex flex-col items-center gap-3 text-center">
+<h1 class="text-3xl font-black leading-tight tracking-tight text-slate-900 dark:text-white sm:text-4xl lg:text-5xl">
+                        Convert PDF to Word
+                    </h1>
+<p class="max-w-[600px] text-base text-slate-500 dark:text-slate-400 sm:text-lg">
+                        Transform your PDF documents into editable DOCX files instantly. Private, fast, and free.
+                    </p>
+</div>
+<!-- Tool Area -->
+<div class="flex flex-col gap-6 rounded-2xl border border-border-light bg-surface-light p-6 shadow-sm dark:border-border-dark dark:bg-surface-dark sm:p-8">
+<!-- Dropzone (Empty State) -->
+<div class="group relative flex cursor-pointer flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-12 transition-all hover:border-primary hover:bg-primary/5 dark:border-slate-700 dark:bg-slate-800/50 dark:hover:border-primary dark:hover:bg-primary/10">
+<div class="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-4xl">cloud_upload</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-center">
+<p class="text-lg font-bold text-slate-900 dark:text-white">Drop PDF here</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">or Click to Select File</p>
+</div>
+<button class="pointer-events-none mt-2 rounded-lg bg-white px-4 py-2 text-sm font-bold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 dark:bg-slate-700 dark:text-white dark:ring-slate-600">
+                            Select PDF
+                        </button>
+</div>
+<!-- File Preview (Example State) -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between gap-4 rounded-xl border border-border-light bg-white p-4 shadow-sm dark:border-border-dark dark:bg-slate-800/50">
+<div class="flex items-center gap-4 overflow-hidden">
+<!-- Thumbnail -->
+<div class="relative flex h-14 w-12 shrink-0 items-center justify-center rounded bg-red-50 dark:bg-red-900/20">
+<div class="absolute inset-0 bg-gradient-to-br from-red-100 to-white opacity-50 dark:from-red-900 dark:to-transparent"></div>
+<span class="material-symbols-outlined relative z-10 text-2xl text-red-500">picture_as_pdf</span>
+</div>
+<!-- File Info -->
+<div class="flex flex-col overflow-hidden">
+<p class="truncate text-base font-bold text-slate-900 dark:text-white">annual_report_2023.pdf</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">1.2 MB • Ready to convert</p>
+</div>
+</div>
+<!-- Action -->
+<button class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-slate-400 hover:bg-slate-100 hover:text-red-500 dark:hover:bg-slate-700">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+</div>
+</div>
+<!-- Action Button -->
+<div class="flex flex-col items-center justify-center pt-2">
+<button class="group flex h-14 w-full cursor-pointer items-center justify-center gap-3 rounded-xl bg-primary px-8 text-lg font-bold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark hover:shadow-primary/40 focus:ring-4 focus:ring-primary/20 active:scale-[0.98] sm:max-w-xs">
+<span class="truncate">Convert to Word</span>
+<span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Footer / Privacy Badge -->
+<div class="flex flex-col items-center justify-center gap-2 text-center">
+<div class="flex items-center gap-2 rounded-full bg-green-50 px-4 py-1.5 text-sm font-medium text-green-700 ring-1 ring-inset ring-green-600/20 dark:bg-green-900/20 dark:text-green-400 dark:ring-green-500/20">
+<span class="material-symbols-outlined text-base">lock</span>
+<span>100% Client-side. Your files never leave your browser.</span>
+</div>
+<p class="text-xs text-slate-400 dark:text-slate-500">
+                        © 2023 PDFUtils Open Source Project
+                    </p>
+</div>
+</div>
+</main>
+</div>
+</body></html>

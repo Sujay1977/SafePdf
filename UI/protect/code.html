@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Protect PDF - PDF Privacy Suite</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1A2633",
+                        "border-light": "#dbe0e6",
+                        "border-dark": "#2a3b4d",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white transition-colors duration-200">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark px-6 py-4 lg:px-10">
+<div class="flex items-center gap-4">
+<div class="size-8 flex items-center justify-center rounded bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-2xl">security</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] dark:text-white">PDF Privacy Suite</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<a class="flex items-center gap-2 text-sm font-medium leading-normal text-[#111418] dark:text-gray-200 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+                    Back to Dashboard
+                </a>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex flex-1 flex-col items-center justify-start py-10 px-4 md:px-10">
+<!-- Page Heading -->
+<div class="flex flex-col items-center text-center max-w-2xl mb-10 gap-3">
+<h1 class="text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em] text-[#111418] dark:text-white">Protect PDF</h1>
+<p class="text-[#617589] dark:text-gray-400 text-base font-normal leading-normal max-w-lg">
+                    Encrypt your PDF with a password. All processing happens locally in your browser—your files are never uploaded.
+                </p>
+</div>
+<!-- Workspace Container -->
+<div class="w-full max-w-[1024px] flex flex-col lg:flex-row gap-6 items-start">
+<!-- Left Column: File Preview / Dropzone Area -->
+<div class="w-full lg:w-1/2 flex flex-col gap-4">
+<!-- File Card (Uploaded State) -->
+<div class="group relative flex flex-col gap-4 rounded-xl bg-surface-light dark:bg-surface-dark p-6 shadow-sm border border-border-light dark:border-border-dark">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600 dark:text-red-400">
+<span class="material-symbols-outlined text-3xl">picture_as_pdf</span>
+</div>
+<div class="flex flex-col">
+<p class="text-base font-bold leading-tight dark:text-white">confidential_contract_v2.pdf</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm">2.4 MB • 14 Pages</p>
+</div>
+</div>
+<button class="text-[#617589] dark:text-gray-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<!-- Preview Box -->
+<div class="relative w-full aspect-[4/3] bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden border border-border-light dark:border-border-dark flex items-center justify-center group-hover:border-primary/50 transition-colors">
+<!-- Abstract PDF Preview Representation -->
+<div class="absolute inset-0 opacity-10 dark:opacity-5 bg-[url('https://www.transparenttextures.com/patterns/graphy.png')]"></div>
+<div class="bg-white dark:bg-gray-700 w-3/4 h-[85%] shadow-md rounded-sm flex flex-col p-4 gap-2" data-alt="Abstract representation of a document preview">
+<div class="w-1/3 h-3 bg-gray-200 dark:bg-gray-600 rounded mb-4"></div>
+<div class="w-full h-2 bg-gray-100 dark:bg-gray-600 rounded"></div>
+<div class="w-full h-2 bg-gray-100 dark:bg-gray-600 rounded"></div>
+<div class="w-2/3 h-2 bg-gray-100 dark:bg-gray-600 rounded"></div>
+<div class="w-full h-2 bg-gray-100 dark:bg-gray-600 rounded mt-2"></div>
+<div class="w-full h-2 bg-gray-100 dark:bg-gray-600 rounded"></div>
+<div class="w-full h-2 bg-gray-100 dark:bg-gray-600 rounded"></div>
+</div>
+</div>
+<!-- Add another file hint -->
+<div class="flex items-center justify-center pt-2">
+<button class="text-sm font-medium text-primary hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+                                Add another file
+                             </button>
+</div>
+</div>
+</div>
+<!-- Right Column: Configuration & Actions -->
+<div class="w-full lg:w-1/2 flex flex-col">
+<div class="rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_2px_12px_rgba(0,0,0,0.05)] dark:shadow-none border border-border-light dark:border-border-dark overflow-hidden">
+<!-- Tabs -->
+<div class="flex border-b border-border-light dark:border-border-dark">
+<button class="flex-1 py-4 text-center text-sm font-bold border-b-2 border-primary text-primary bg-primary/5 dark:bg-primary/10 transition-colors">
+                                Protect (Add Password)
+                            </button>
+<button class="flex-1 py-4 text-center text-sm font-medium text-[#617589] dark:text-gray-400 border-b-2 border-transparent hover:text-[#111418] dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                                Unlock (Remove Password)
+                            </button>
+</div>
+<!-- Form Content -->
+<div class="p-6 md:p-8 flex flex-col gap-6">
+<div class="flex flex-col gap-4">
+<!-- Input 1 -->
+<div class="flex flex-col gap-1.5">
+<label class="text-sm font-semibold text-[#111418] dark:text-gray-200">Set a Password</label>
+<div class="relative flex items-center">
+<input class="w-full h-12 rounded-lg border border-border-light dark:border-border-dark bg-[#fcfcfd] dark:bg-gray-800 px-4 pr-12 text-[#111418] dark:text-white placeholder:text-gray-400 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="Type a strong password" type="password"/>
+<button class="absolute right-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1">
+<span class="material-symbols-outlined">visibility_off</span>
+</button>
+</div>
+<!-- Password Strength Meter (Visual only) -->
+<div class="flex gap-1 mt-1">
+<div class="h-1 flex-1 rounded-full bg-green-500"></div>
+<div class="h-1 flex-1 rounded-full bg-green-500"></div>
+<div class="h-1 flex-1 rounded-full bg-green-500"></div>
+<div class="h-1 flex-1 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+</div>
+<p class="text-xs text-green-600 dark:text-green-400 font-medium">Strong password</p>
+</div>
+<!-- Input 2 -->
+<div class="flex flex-col gap-1.5">
+<label class="text-sm font-semibold text-[#111418] dark:text-gray-200">Repeat Password</label>
+<div class="relative flex items-center">
+<input class="w-full h-12 rounded-lg border border-border-light dark:border-border-dark bg-[#fcfcfd] dark:bg-gray-800 px-4 pr-12 text-[#111418] dark:text-white placeholder:text-gray-400 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="Confirm your password" type="password"/>
+<button class="absolute right-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1">
+<span class="material-symbols-outlined">visibility_off</span>
+</button>
+</div>
+</div>
+</div>
+<div class="h-px bg-border-light dark:bg-border-dark my-2"></div>
+<!-- Action Area -->
+<div class="flex flex-col gap-4">
+<button class="group relative flex w-full items-center justify-center gap-2 rounded-lg bg-primary hover:bg-blue-600 text-white h-14 font-bold text-base shadow-md shadow-blue-500/20 transition-all active:scale-[0.99]">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">lock</span>
+                                    Protect PDF
+                                </button>
+<p class="text-xs text-center text-[#617589] dark:text-gray-500">
+                                    By clicking "Protect PDF", you agree to our Terms of Service.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Privacy Guarantee Footer -->
+<div class="mt-16 flex items-center gap-3 rounded-full bg-white dark:bg-surface-dark border border-border-light dark:border-border-dark px-6 py-3 shadow-sm">
+<span class="material-symbols-outlined text-green-600 dark:text-green-400">verified_user</span>
+<p class="text-sm font-medium text-[#111418] dark:text-gray-200">
+                    Your files never leave your browser. <span class="text-[#617589] dark:text-gray-400 font-normal">100% Client-side processing.</span>
+</p>
+</div>
+</main>
+</div>
+</body></html>
