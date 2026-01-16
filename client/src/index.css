@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
   body {
     @apply antialiased text-slate-900 dark:text-white bg-background-light dark:bg-background-dark font-display;
   }
