@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Heart } from 'lucide-react';
+import { Menu, X, Heart, Github } from 'lucide-react';
 import { DodoPayments } from 'dodopayments-checkout';
 
 const Header = () => {
@@ -103,6 +103,16 @@ const Header = () => {
                         <span>Support Me</span>
                     </button>
 
+                    <a
+                        href="https://github.com/Sujay1977/SafePdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hidden sm:flex items-center justify-center p-2 rounded-full text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300"
+                        aria-label="View Source on GitHub"
+                    >
+                        <Github size={22} strokeWidth={2} />
+                    </a>
+
                     <button
                         onClick={handleGetStarted}
                         className="hidden sm:flex items-center justify-center px-6 py-2.5 rounded-full bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 text-sm font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 active:scale-95"
@@ -148,6 +158,15 @@ const Header = () => {
                             <Heart size={18} className="fill-black/10 stroke-[2.5px]" />
                             Support Me
                         </button>
+                        <a
+                            href="https://github.com/Sujay1977/SafePdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-bold shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all"
+                        >
+                            <Github size={18} />
+                            GitHub
+                        </a>
                         <button
                             onClick={() => {
                                 handleGetStarted();
