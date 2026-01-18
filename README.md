@@ -4,28 +4,73 @@
 
 ---
 
-## 🌟 Why SafePdf?
+🔒 Why SafePDF?
+Most online PDF editors require you to upload your sensitive documents to their cloud servers for processing. This creates a massive security risk.
 
-Most online PDF tools upload your sensitive documents to their servers for processing. SafePdf changes that:
-* **100% Private:** Files are processed via WebAssembly and JavaScript locally.
-* **Zero Server Uploads:** No risk of data leaks or document storage on third-party servers.
-* **Fast & Free:** No queues, no limits, and no subscriptions.
+100% Client-Side: We use WebAssembly and modern browser APIs to process your files locally on your own CPU/GPU.
 
-## 🚀 Features
-* **Merge PDFs:** Combine multiple documents into a single file.
-* **Split PDFs:** Extract pages or split one document into many.
-* **Compress:** Reduce file size while keeping high quality.
-* **Watermark:** Secure your documents with custom text or image overlays.
-* **Secure & Open:** 100% open-source and transparent.
+Zero Data Collection: We do not track you, we do not require sign-ups, and we never see your data.
 
-## 🛠️ Technical Architecture
-This project is built using the **MERN Stack** but utilizes powerful client-side libraries for document handling:
+Open Source: Our code is public and auditable by anyone. Transparency is the foundation of trust.
 
-* **Frontend:** React.js & Tailwind CSS for a modern, responsive UI.
-* **PDF Engine:** `pdf-lib` and `browser-image-compression` for local processing.
-* **Backend:** Node.js/Express (used only for serving the app and static assets).
-* **No Database Required:** Since we don't store your files, no database is used for document storage.
+PWA Ready: SafePDF is a Progressive Web App that works perfectly even if you lose your internet connection.
 
+🛠️ Features
+Merge PDF: Combine multiple files into one professional document.
 
-## 📜 License
-Distributed under the MIT License. See `LICENSE` for more information.
+Split PDF: Extract specific pages or divide one file into many.
+
+Compress PDF: Reduce file size while maintaining the highest possible quality.
+
+Convert PDF: High-fidelity conversion to and from Word, JPG, and more.
+
+PDF Security: Encrypt or unlock your documents with bank-grade security.
+
+🚀 Tech Stack
+SafePDF is built using a modern, high-performance stack:
+
+Frontend: React.js with Tailwind CSS for a sophisticated "Elite" UI.
+
+Logic: 100% JavaScript (Client-side).
+
+Backend: Node.js & Express (used only for routing and metadata, never for file processing).
+
+Deployment: Vercel.
+
+⚙️ How to Run Locally
+If you want to run your own instance of SafePDF on your machine:
+
+Clone the repository:
+
+Bash
+
+git clone https://github.com/Sujay1977/SafePdf.git
+Install dependencies:
+
+Bash
+
+cd SafePdf/client && npm install
+cd ../server && npm install
+Start the development server:
+
+Bash
+
+# In the server folder
+npm start
+Open your browser: Visit http://localhost:5000.
+
+🛡️ Security Audit
+We encourage security researchers and users to audit our implementation. All PDF manipulation logic is contained within the client/src directory.
+
+No API Uploads: You can verify in your browser's "Network" tab that no document data is sent to our backend or any third-party server during processing.
+
+Environment Variables: All sensitive payment integration keys are stored securely using .env files and are never committed to this public repository.
+
+🤝 Support the Project
+If SafePDF helped you, please consider:
+
+Starring this repository on GitHub.
+
+Clicking the "Support Me" button on our website.
+
+License: Distributed under the MIT License. See LICENSE for more information.
