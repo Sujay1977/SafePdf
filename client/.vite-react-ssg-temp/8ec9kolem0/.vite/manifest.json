@@ -1,0 +1,15 @@
+{
+  "src/main.jsx": {
+    "file": "main.mjs",
+    "name": "main",
+    "src": "src/main.jsx",
+    "isEntry": true,
+    "assets": [
+      "assets/pdf.worker.min-yatZIOMy.mjs"
+    ]
+  },
+  "style.css": {
+    "file": "assets/style-MNNq9Ue8.css",
+    "src": "style.css"
+  }
+}

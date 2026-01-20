@@ -10,5 +10,15 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  ssr: {
+    noExternal: ['react-helmet-async', 'file-saver', 'react-signature-canvas', 'jszip', 'pdf-lib'],
+  },
+  ssgOptions: {
+    includedRoutes: async (paths, routes) => {
+      // Only pre-render the home page and potentially static pages like privacy if they exist.
+      // For now, limiting to root '/' satisfies the SEO requirement.
+      return paths.filter(path => path === '/');
+    },
+  },
 })
 

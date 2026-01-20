@@ -1,0 +1,24 @@
+{
+  "node_modules/react-signature-canvas/dist/index.mjs": {
+    "file": "assets/index-BWKWHhB4.js",
+    "name": "index",
+    "src": "node_modules/react-signature-canvas/dist/index.mjs",
+    "isDynamicEntry": true
+  },
+  "src/main.jsx": {
+    "file": "main.mjs",
+    "name": "main",
+    "src": "src/main.jsx",
+    "isEntry": true,
+    "dynamicImports": [
+      "node_modules/react-signature-canvas/dist/index.mjs"
+    ],
+    "assets": [
+      "assets/pdf.worker.min-yatZIOMy.mjs"
+    ]
+  },
+  "style.css": {
+    "file": "assets/style-MNNq9Ue8.css",
+    "src": "style.css"
+  }
+}

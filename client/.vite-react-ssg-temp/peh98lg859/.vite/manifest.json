@@ -1,0 +1,12 @@
+{
+  "src/main.jsx": {
+    "file": "main.mjs",
+    "name": "main",
+    "src": "src/main.jsx",
+    "isEntry": true
+  },
+  "style.css": {
+    "file": "assets/style-3NHub3cO.css",
+    "src": "style.css"
+  }
+}

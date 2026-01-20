@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import SEO from '../components/SEO';
 import { Link, useNavigate } from 'react-router-dom';
 import PrivacySection from '../components/PrivacySection';
 import WhySafePdf from '../components/WhySafePdf';
@@ -128,6 +129,27 @@ const Home = () => {
 
     return (
         <div className="flex flex-col w-full">
+            <SEO
+                title="SafePDF | Secure, Private PDF Processing & Tools"
+                description="Secure, Private PDF Processing. SafePDF offers free, client-side tools to merge, split, compress, and edit PDFs directly in your browser without uploading files."
+            >
+                <link rel="canonical" href="https://safepdf.site/" />
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "SoftwareApplication",
+                        "name": "SafePDF",
+                        "applicationCategory": "BusinessApplication",
+                        "operatingSystem": "Web-based",
+                        "offers": {
+                            "@type": "Offer",
+                            "price": "0",
+                            "priceCurrency": "USD"
+                        },
+                        "featureList": "Merge PDF, Split PDF, Compress PDF, Edit PDF, Client-side Security"
+                    })}
+                </script>
+            </SEO>
             {/* Hero Section */}
             <div className="w-full relative overflow-hidden bg-slate-50 dark:bg-slate-900 border-b border-slate-200/50 dark:border-slate-800/50">
                 {/* Background Details */}

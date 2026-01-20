@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useDropzone } from 'react-dropzone';
 import { generateThumbnail, mergePDFs } from '../utils/pdf';
 import { saveAs } from 'file-saver';
@@ -59,6 +60,11 @@ const Merge = () => {
 
     return (
         <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+            <Helmet>
+                <title>Merge PDF | Combine PDF Files for Free | SafePDF</title>
+                <meta name="description" content="Merge multiple PDF files into one document securely in your browser. No upload required, 100% free and private." />
+                <link rel="canonical" href="https://safepdf.site/merge" />
+            </Helmet>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     Merge PDF Files

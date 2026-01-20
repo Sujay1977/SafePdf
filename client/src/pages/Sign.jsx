@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { getPageThumbnail, addSignatureToPDF } from '../utils/pdf';
 import { saveAs } from 'file-saver';
 import { Trash2, FileUp, ArrowRight, Loader2, PenTool, Check, X } from 'lucide-react';
-import SignatureCanvas from 'react-signature-canvas';
+const SignatureCanvas = React.lazy(() => import('react-signature-canvas'));
 import * as pdfjsLib from 'pdfjs-dist';
 
 const Sign = () => {
@@ -86,11 +86,13 @@ const Sign = () => {
                     <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl w-full max-w-lg">
                         <h3 className="text-lg font-bold mb-4 text-slate-900 dark:text-white">Draw Signature</h3>
                         <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white">
-                            <SignatureCanvas
-                                ref={sigRef}
-                                canvasProps={{ width: 500, height: 200, className: 'sigCanvas' }}
-                                penColor="black"
-                            />
+                            <React.Suspense fallback={<div>Loading...</div>}>
+                                <SignatureCanvas
+                                    ref={sigRef}
+                                    canvasProps={{ width: 500, height: 200, className: 'sigCanvas' }}
+                                    penColor="black"
+                                />
+                            </React.Suspense>
                         </div>
                         <div className="flex justify-end gap-3 mt-4">
                             <button onClick={() => sigRef.current.clear()} className="px-4 py-2 text-slate-500 hover:text-slate-700">Clear</button>
