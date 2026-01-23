@@ -27,13 +27,13 @@ export default function SEO({ title, description, image, url, type = 'website', 
             <meta property='og:url' content={metaUrl} />
             <meta property='og:image' content={metaImage} />
 
-            {/* Twitter tags */}
-            <meta name='twitter:card' content='summary_large_image' />
-            <meta name='twitter:creator' content='@Sujay1977' />
-            <meta name='twitter:title' content={metaTitle} />
-            <meta name='twitter:description' content={metaDescription} />
-            <meta name='twitter:image' content={metaImage} />
-
+            {/* Twitter - Uses 'name' attribute as required by spec */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:url" content={metaUrl} />
+            <meta name="twitter:title" content={metaTitle} />
+            <meta name="twitter:description" content={metaDescription} />
+            <meta name="twitter:image" content={metaImage} />
+            <meta name="twitter:creator" content="@Sujay1977" />
             {/* Additional tags */}
             {children}
         </Helmet>
