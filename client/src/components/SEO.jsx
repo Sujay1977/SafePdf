@@ -1,28 +1,39 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const SEO = ({ title, description, type = 'website', name = 'SafePDF', children }) => {
+export default function SEO({ title, description, image, url, type = 'website', children }) {
+    const siteTitle = 'SafePDF';
+    const siteDescription = 'Free, secure, and client-side PDF tools. Your files are processed in your browser and never uploaded to any server.';
+    const siteUrl = 'https://safepdf.online';
+    const defaultImage = `${siteUrl}/og-image.png`;
+
+    const metaTitle = title ? `${title} | ${siteTitle}` : `${siteTitle} - Free Online PDF Tools`;
+    const metaDescription = description || siteDescription;
+    const metaImage = image ? `${siteUrl}${image}` : defaultImage;
+    const metaUrl = url ? `${siteUrl}${url}` : siteUrl;
+
     return (
         <Helmet>
-            {/* Standard metadata tags */}
-            <title>{title}</title>
-            <meta name='description' content={description} />
+            {/* Standard metadata */}
+            <title>{metaTitle}</title>
+            <meta name='description' content={metaDescription} />
 
-            {/* Open Graph tags */}
-            <meta property="og:type" content={type} />
-            <meta property="og:title" content={title} />
-            <meta property="og:description" content={description} />
-            {/* <meta property="og:image" content={image} />  -- Add support for image if needed later */}
-            <meta property="og:site_name" content={name} />
+            {/* Facebook tags */}
+            <meta property='og:type' content={type} />
+            <meta property='og:title' content={metaTitle} />
+            <meta property='og:description' content={metaDescription} />
+            <meta property='og:url' content={metaUrl} />
+            <meta property='og:image' content={metaImage} />
 
-            {/* Twitter Card tags */}
-            <meta name="twitter:card" content="summary" />
-            <meta name="twitter:title" content={title} />
-            <meta name="twitter:description" content={description} />
+            {/* Twitter tags */}
+            <meta name='twitter:card' content='summary_large_image' />
+            <meta name='twitter:creator' content='@Sujay1977' />
+            <meta name='twitter:title' content={metaTitle} />
+            <meta name='twitter:description' content={metaDescription} />
+            <meta name='twitter:image' content={metaImage} />
 
+            {/* Additional tags */}
             {children}
         </Helmet>
     );
-};
-
-export default SEO;
+}

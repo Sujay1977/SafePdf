@@ -1,3 +1,4 @@
+import SEO from '../components/SEO';
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { getPageThumbnail, extractPages, generateThumbnail } from '../utils/pdf';
@@ -99,6 +100,13 @@ const Split = () => {
 
     return (
         <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+            <SEO
+                title="Split PDF | Extract Pages from PDF Online"
+                description="Split multiple PDF pages into separate documents securely in your browser. No upload required, 100% free and private."
+                url="/split"
+            >
+                <link rel="canonical" href="https://safepdf.site/split" />
+            </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     Split PDF File
