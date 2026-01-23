@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Heart, Github } from 'lucide-react';
 import { DodoPayments } from 'dodopayments-checkout';
 
+import ClientOnly from './ClientOnly';
+
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
@@ -70,7 +72,9 @@ const Header = () => {
                 {/* 1. Brand (Left) - Clean & Modern */}
                 <Link to="/" className="flex items-center gap-2.5 group">
                     <div className="w-9 h-9 rounded-xl bg-blue-600/5 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-sm border border-blue-100 dark:border-blue-900/30">
-                        <span className="material-symbols-outlined text-xl">picture_as_pdf</span>
+                        <ClientOnly>
+                            <span className="material-symbols-outlined text-xl">picture_as_pdf</span>
+                        </ClientOnly>
                     </div>
                     <span className="font-bold font-display text-xl tracking-tight text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">SafePDF</span>
                 </Link>

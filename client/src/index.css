@@ -11,3 +11,13 @@
     @apply antialiased text-slate-900 dark:text-white bg-background-light dark:bg-background-dark font-display;
   }
 }
+
+.material-symbols-outlined {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  font-size: 24px;
+  vertical-align: bottom;
+  contain: content;
+}

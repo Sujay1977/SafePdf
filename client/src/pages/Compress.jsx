@@ -4,6 +4,7 @@ import { compressPDF } from '../utils/pdf';
 import { saveAs } from 'file-saver';
 import { Trash2, FileUp, ArrowRight, Loader2, Shield, CheckCircle } from 'lucide-react';
 import clsx from 'clsx';
+import ClientOnly from '../components/ClientOnly';
 
 const Compress = () => {
     const [file, setFile] = useState(null);
@@ -55,7 +56,9 @@ const Compress = () => {
                         <div {...getRootProps()} className="relative flex flex-col items-center justify-center h-64 rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 hover:border-primary transition-all cursor-pointer group">
                             <input {...getInputProps()} />
                             <div className="flex flex-col items-center gap-2 text-center">
-                                <span className="material-symbols-outlined text-4xl text-slate-400 group-hover:text-primary transition-colors">cloud_upload</span>
+                                <ClientOnly>
+                                    <span className="material-symbols-outlined text-4xl text-slate-400 group-hover:text-primary transition-colors">cloud_upload</span>
+                                </ClientOnly>
                                 <p className="text-sm font-medium text-slate-900 dark:text-white">Click to add file or drag and drop</p>
                             </div>
                         </div>
@@ -64,7 +67,9 @@ const Compress = () => {
                             <h3 className="text-lg font-bold text-slate-900 dark:text-white px-1">Selected File</h3>
                             <div className="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 relative overflow-hidden">
                                 <div className="flex-shrink-0 size-12 rounded-lg bg-red-100 dark:bg-red-900/20 flex items-center justify-center text-red-600 dark:text-red-400">
-                                    <span className="material-symbols-outlined text-2xl">picture_as_pdf</span>
+                                    <ClientOnly>
+                                        <span className="material-symbols-outlined text-2xl">picture_as_pdf</span>
+                                    </ClientOnly>
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <p className="text-sm font-bold text-slate-900 dark:text-white truncate">{file.name}</p>

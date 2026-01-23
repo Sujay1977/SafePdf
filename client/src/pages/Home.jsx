@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import PrivacySection from '../components/PrivacySection';
 import WhySafePdf from '../components/WhySafePdf';
 import ToolHeaderFilters from '../components/ToolHeaderFilters';
+import ClientOnly from '../components/ClientOnly';
 
 const tools = [
     {
@@ -189,7 +190,9 @@ const Home = () => {
                                 className="group flex items-center justify-center gap-3 h-14 px-8 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-lg font-bold shadow-xl shadow-slate-900/10 hover:shadow-2xl hover:shadow-slate-900/20 hover:-translate-y-1 transition-all duration-300 min-w-[200px]"
                             >
                                 Get Started
-                                <span className="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                <ClientOnly>
+                                    <span className="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                </ClientOnly>
                             </button>
                         </div>
 
@@ -204,10 +207,14 @@ const Home = () => {
                                 {/* Central Icon Container */}
                                 <div className="absolute inset-0 m-auto w-32 h-32 bg-white dark:bg-slate-800 rounded-3xl shadow-2xl flex items-center justify-center z-10 border border-slate-100 dark:border-slate-700">
                                     <div className="relative w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg transform rotate-3">
-                                        <span className="material-symbols-outlined text-4xl text-white">lock</span>
+                                        <ClientOnly>
+                                            <span className="material-symbols-outlined text-4xl text-white">lock</span>
+                                        </ClientOnly>
                                         {/* Status Checkmark */}
                                         <div className="absolute -top-3 -right-3 w-8 h-8 bg-green-500 rounded-full border-4 border-white dark:border-slate-800 flex items-center justify-center">
-                                            <span className="material-symbols-outlined text-sm text-white font-bold">check</span>
+                                            <ClientOnly>
+                                                <span className="material-symbols-outlined text-sm text-white font-bold">check</span>
+                                            </ClientOnly>
                                         </div>
                                     </div>
                                 </div>
@@ -238,7 +245,9 @@ const Home = () => {
                     <div className="bg-white dark:bg-slate-800 p-2 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700">
                         <label className="flex items-center h-14 w-full">
                             <div className="text-slate-400 dark:text-slate-500 pl-4 pr-2 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-2xl">search</span>
+                                <ClientOnly>
+                                    <span className="material-symbols-outlined text-2xl">search</span>
+                                </ClientOnly>
                             </div>
                             <input
                                 className="flex w-full flex-1 bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-lg font-medium focus:outline-0 focus:ring-0 px-2 h-full"
@@ -265,7 +274,9 @@ const Home = () => {
                         {filteredTools.map((tool) => (
                             <Link to={tool.link} key={tool.title} className="group flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-blue-500/30 dark:hover:border-blue-400/30 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
                                 <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-blue-500/5 dark:bg-blue-500/10 text-primary group-hover:bg-blue-500/10 group-hover:scale-110 transition-all duration-300">
-                                    <span className="material-symbols-outlined text-3xl">{tool.icon}</span>
+                                    <ClientOnly>
+                                        <span className="material-symbols-outlined text-3xl">{tool.icon}</span>
+                                    </ClientOnly>
                                 </div>
                                 <div className="flex flex-col gap-1">
                                     <h4 className="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">{tool.title}</h4>

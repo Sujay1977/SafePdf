@@ -4,6 +4,7 @@ import { unlockPDF } from '../utils/pdf';
 import { saveAs } from 'file-saver';
 import { Trash2, FileUp, ArrowRight, Loader2, Link, Shield, Lock, Unlock as UnlockIcon } from 'lucide-react';
 import clsx from 'clsx';
+import ClientOnly from '../components/ClientOnly';
 
 const Unlock = () => {
     const [file, setFile] = useState(null);
@@ -56,7 +57,9 @@ const Unlock = () => {
                         <div {...getRootProps()} className="group relative flex flex-col items-center justify-center aspect-square rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 hover:border-primary transition-all cursor-pointer">
                             <input {...getInputProps()} />
                             <div className="flex flex-col items-center gap-2 text-center p-6">
-                                <span className="material-symbols-outlined text-4xl text-slate-400 group-hover:text-primary transition-colors">cloud_upload</span>
+                                <ClientOnly>
+                                    <span className="material-symbols-outlined text-4xl text-slate-400 group-hover:text-primary transition-colors">cloud_upload</span>
+                                </ClientOnly>
                                 <p className="text-sm font-medium text-slate-900 dark:text-white">Drop PDF here</p>
                             </div>
                         </div>

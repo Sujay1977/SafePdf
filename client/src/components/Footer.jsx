@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ClientOnly from './ClientOnly';
 
 const Footer = () => {
     return (
@@ -10,7 +11,9 @@ const Footer = () => {
                     {/* Column 1: Brand & Info */}
                     <div className="flex flex-col gap-6">
                         <Link to="/" className="flex items-center gap-2 text-slate-900 dark:text-white">
-                            <span className="material-symbols-outlined text-primary text-3xl">picture_as_pdf</span>
+                            <ClientOnly>
+                                <span className="material-symbols-outlined text-primary text-3xl">picture_as_pdf</span>
+                            </ClientOnly>
                             <span className="font-bold text-xl">SafePDF</span>
                         </Link>
                         <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-[280px]">
@@ -63,7 +66,9 @@ const Footer = () => {
                         </ul>
 
                         <div className="flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 rounded-full border border-green-200 dark:border-green-800 w-fit mt-2">
-                            <span className="material-symbols-outlined text-base">check_circle</span>
+                            <ClientOnly>
+                                <span className="material-symbols-outlined text-base">check_circle</span>
+                            </ClientOnly>
                             <span className="text-xs font-bold uppercase tracking-wide">Processed Locally</span>
                         </div>
                     </div>
