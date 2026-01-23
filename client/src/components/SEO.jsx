@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 export default function SEO({ title, description, image, url, type = 'website', children }) {
     const siteTitle = 'SafePDF';
     const siteDescription = 'Free, secure, and client-side PDF tools. Your files are processed in your browser and never uploaded to any server.';
-    const siteUrl = 'https://safepdf.online';
+    const siteUrl = 'https://safepdf.site';
     const defaultImage = `${siteUrl}/og-image.png`;
 
     const metaTitle = title ? `${title} | ${siteTitle}` : `${siteTitle} - Free Online PDF Tools`;

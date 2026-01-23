@@ -1,3 +1,4 @@
+import SEO from '../components/SEO';
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { getPageThumbnail, addSignatureToPDF } from '../utils/pdf';
@@ -81,6 +82,13 @@ const Sign = () => {
 
     return (
         <div className="flex-grow flex flex-col items-center w-full px-4 py-8 relative">
+            <SEO
+                title="Sign PDF | Electronically Sign PDF Documents"
+                description="Sign your PDF documents online directly in your browser. No upload required, 100% free and private."
+                url="/sign"
+            >
+                <link rel="canonical" href="https://safepdf.site/sign" />
+            </SEO>
             {showSigCanvas && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
                     <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl w-full max-w-lg">
