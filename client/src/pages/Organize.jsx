@@ -6,6 +6,8 @@ import { saveAs } from 'file-saver';
 import { Reorder } from 'framer-motion';
 import { Trash2, FileUp, ArrowRight, Loader2, GripVertical, Shield, Plus } from 'lucide-react';
 import clsx from 'clsx';
+import { getToolTheme } from '../utils/theme';
+import ToolHeroIcon from '../components/ToolHeroIcon';
 
 const Organize = () => {
     const [file, setFile] = useState(null);
@@ -80,14 +82,18 @@ const Organize = () => {
 
             {!file ? (
                 <div className="w-full max-w-3xl mx-auto">
-                    <div {...getRootProps()} className="relative flex flex-col items-center justify-center w-full h-64 rounded-xl bg-white dark:bg-slate-800 border-2 border-dashed border-primary/40 hover:border-primary transition-all duration-300 cursor-pointer group">
-                        <input {...getInputProps()} />
-                        <div className="flex flex-col items-center gap-3 p-6 text-center">
-                            <div className="size-16 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center text-primary mb-2 group-hover:scale-110 transition-transform">
-                                <FileUp size={32} />
+                    <div {...getRootProps()} className="relative flex flex-col items-center justify-center w-full h-80 rounded-3xl bg-white dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md">
+                        <input {...getInputProps()} className="hidden" />
+                        <div className="flex flex-col items-center gap-4 text-center">
+                            <ToolHeroIcon icon="low_priority" theme={getToolTheme('/organize')} />
+                            <div className="space-y-2">
+                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                    Click to Select PDF
+                                </h3>
+                                <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
+                                    or drag and drop file here
+                                </p>
                             </div>
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white">Drag & drop your PDF here</h3>
-                            <p className="text-slate-500 dark:text-slate-400 text-sm">or click to browse your files</p>
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,8 @@ import { generateThumbnail, mergePDFs } from '../utils/pdf';
 import { saveAs } from 'file-saver';
 import { Trash2, GripVertical, FileUp, ArrowRight, Loader2, CheckCircle, Shield } from 'lucide-react';
 import { Reorder } from 'framer-motion';
+import { getToolTheme } from '../utils/theme';
+import ToolHeroIcon from '../components/ToolHeroIcon';
 
 const Merge = () => {
     const [files, setFiles] = useState([]);
@@ -79,54 +81,73 @@ const Merge = () => {
             <div className="w-full max-w-[1200px] flex flex-col lg:flex-row gap-8 items-start">
                 {/* Left Column: File Management */}
                 <div className="flex-1 w-full">
-                    <div className="flex flex-wrap items-center justify-between mb-4 gap-4">
-                        <h3 className="text-slate-900 dark:text-white text-lg font-bold leading-tight">Selected Files ({files.length})</h3>
-                        <div className="flex gap-2">
-                            <button onClick={() => setFiles([])} className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors">
-                                <Trash2 size={18} />
-                                <span>Clear All</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 gap-4">
-                        {/* Drop Zone */}
-                        <div {...getRootProps()} className="group relative flex flex-col items-center justify-center gap-3 aspect-[3/4] rounded-xl border-2 border-dashed border-primary/40 bg-primary/5 hover:bg-primary/10 transition-colors cursor-pointer">
-                            <input {...getInputProps()} />
-                            <div className="size-12 rounded-full bg-primary/20 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <FileUp size={24} />
+                    {files.length === 0 ? (
+                        <div {...getRootProps()} className="relative flex flex-col items-center justify-center w-full h-80 rounded-3xl bg-white dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md">
+                            <input {...getInputProps()} className="hidden" />
+                            <div className="flex flex-col items-center gap-4 text-center">
+                                <ToolHeroIcon icon="call_merge" theme={getToolTheme('/merge')} />
+                                <div className="space-y-2">
+                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                        Click to Select PDFs
+                                    </h3>
+                                    <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
+                                        or drag and drop files here
+                                    </p>
+                                </div>
                             </div>
-                            <p className="text-primary font-bold text-center text-sm px-4">Add files</p>
                         </div>
+                    ) : (
+                        <div>
+                            <div className="flex flex-wrap items-center justify-between mb-4 gap-4">
+                                <h3 className="text-slate-900 dark:text-white text-lg font-bold leading-tight">Selected Files ({files.length})</h3>
+                                <div className="flex gap-2">
+                                    <button onClick={() => setFiles([])} className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors">
+                                        <Trash2 size={18} />
+                                        <span>Clear All</span>
+                                    </button>
+                                </div>
+                            </div>
 
-                        {/* File List */}
-                        <Reorder.Group axis="y" values={files} onReorder={setFiles} className="contents">
-                            {files.map((file) => (
-                                <Reorder.Item key={file.id} value={file} className="contents">
-                                    <div className="group relative flex flex-col bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md hover:border-primary/50 transition-all cursor-grab active:cursor-grabbing overflow-hidden aspect-[3/4]">
-                                        <button onClick={() => removeFile(file.id)} className="absolute top-2 right-2 z-10 size-7 flex items-center justify-center rounded-full bg-white dark:bg-slate-700 text-slate-500 hover:text-red-500 hover:bg-red-50 shadow-sm border border-slate-200 dark:border-slate-600 opacity-0 group-hover:opacity-100 transition-all transform hover:scale-110">
-                                            <Trash2 size={14} />
-                                        </button>
-
-                                        <div className="flex-1 w-full bg-slate-100 dark:bg-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
-                                            {file.thumbnail ? (
-                                                <div className="w-full h-full shadow-lg rounded-sm relative">
-                                                    <img src={file.thumbnail} alt="Preview" className="w-full h-full object-contain bg-white" />
-                                                </div>
-                                            ) : (
-                                                <div className="text-slate-400">Loading...</div>
-                                            )}
-                                        </div>
-
-                                        <div className="p-3 bg-white dark:bg-slate-800 border-t border-slate-100 dark:border-slate-700">
-                                            <p className="text-slate-900 dark:text-white text-xs font-bold truncate mb-1" title={file.name}>{file.name}</p>
-                                            <p className="text-slate-500 dark:text-slate-400 text-[10px] font-medium uppercase tracking-wide">{file.numPages} Pages • {file.size} MB</p>
-                                        </div>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 gap-4">
+                                {/* Drop Zone (Small) */}
+                                <div {...getRootProps()} className="group relative flex flex-col items-center justify-center gap-3 aspect-[3/4] rounded-xl border-2 border-dashed border-primary/40 bg-primary/5 hover:bg-primary/10 transition-colors cursor-pointer">
+                                    <input {...getInputProps()} />
+                                    <div className="size-12 rounded-full bg-primary/20 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <FileUp size={24} />
                                     </div>
-                                </Reorder.Item>
-                            ))}
-                        </Reorder.Group>
-                    </div>
+                                    <p className="text-primary font-bold text-center text-sm px-4">Add files</p>
+                                </div>
+
+                                {/* File List */}
+                                <Reorder.Group axis="y" values={files} onReorder={setFiles} className="contents">
+                                    {files.map((file) => (
+                                        <Reorder.Item key={file.id} value={file} className="contents">
+                                            <div className="group relative flex flex-col bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md hover:border-primary/50 transition-all cursor-grab active:cursor-grabbing overflow-hidden aspect-[3/4]">
+                                                <button onClick={() => removeFile(file.id)} className="absolute top-2 right-2 z-10 size-7 flex items-center justify-center rounded-full bg-white dark:bg-slate-700 text-slate-500 hover:text-red-500 hover:bg-red-50 shadow-sm border border-slate-200 dark:border-slate-600 opacity-0 group-hover:opacity-100 transition-all transform hover:scale-110">
+                                                    <Trash2 size={14} />
+                                                </button>
+
+                                                <div className="flex-1 w-full bg-slate-100 dark:bg-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
+                                                    {file.thumbnail ? (
+                                                        <div className="w-full h-full shadow-lg rounded-sm relative">
+                                                            <img src={file.thumbnail} alt="Preview" className="w-full h-full object-contain bg-white" />
+                                                        </div>
+                                                    ) : (
+                                                        <div className="text-slate-400">Loading...</div>
+                                                    )}
+                                                </div>
+
+                                                <div className="p-3 bg-white dark:bg-slate-800 border-t border-slate-100 dark:border-slate-700">
+                                                    <p className="text-slate-900 dark:text-white text-xs font-bold truncate mb-1" title={file.name}>{file.name}</p>
+                                                    <p className="text-slate-500 dark:text-slate-400 text--[10px] font-medium uppercase tracking-wide">{file.numPages} Pages • {file.size} MB</p>
+                                                </div>
+                                            </div>
+                                        </Reorder.Item>
+                                    ))}
+                                </Reorder.Group>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 {/* Right Column: Actions */}

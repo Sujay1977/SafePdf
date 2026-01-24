@@ -5,93 +5,10 @@ import PrivacySection from '../components/PrivacySection';
 import WhySafePdf from '../components/WhySafePdf';
 import ToolHeaderFilters from '../components/ToolHeaderFilters';
 import ClientOnly from '../components/ClientOnly';
+import { getToolTheme } from '../utils/theme';
+import { tools } from '../utils/toolsData';
 
-const tools = [
-    {
-        title: "Merge PDF",
-        description: "Combine multiple PDFs into a single unified document in the order you want.",
-        icon: "call_merge",
-        link: "/merge",
-        category: "Organize PDF"
-    },
-    {
-        title: "Split PDF",
-        description: "Separate one page or a whole set for easy conversion into independent PDF files.",
-        icon: "call_split",
-        link: "/split",
-        category: "Organize PDF"
-    },
-    {
-        title: "Compress PDF",
-        description: "Reduce file size while optimizing for maximal PDF quality.",
-        icon: "compress",
-        link: "/compress",
-        category: "Optimize PDF"
-    },
-    {
-        title: "PDF to Word",
-        description: "Convert your PDF files to editable Word documents (DOC, DOCX).",
-        icon: "article",
-        link: "/pdf-to-word",
-        category: "Convert PDF"
-    },
-    {
-        title: "Protect PDF",
-        description: "Encrypt your PDF file with a password to ensure security.",
-        icon: "lock",
-        link: "/protect",
-        category: "PDF Security"
-    },
-    {
-        title: "Unlock PDF",
-        description: "Remove password security from PDFs, making them free to use.",
-        icon: "lock_open",
-        link: "/unlock",
-        category: "PDF Security"
-    },
-    {
-        title: "Rotate PDF",
-        description: "Rotate your PDF pages. You can select specific pages to rotate.",
-        icon: "rotate_right",
-        link: "/rotate",
-        category: "Organize PDF"
-    },
-    {
-        title: "Organize PDF",
-        description: "Sort, add, and delete PDF pages. Drag and drop to reorder.",
-        icon: "sort",
-        link: "/organize",
-        category: "Organize PDF"
-    },
-    {
-        title: "PDF to JPG",
-        description: "Convert each PDF page into a JPG or extract all images contained in a PDF.",
-        icon: "image",
-        link: "/pdf-to-jpg",
-        category: "Convert PDF"
-    },
-    {
-        title: "JPG to PDF",
-        description: "Convert your images (JPG, PNG, BMP, GIF, TIFF) to PDF files.",
-        icon: "picture_as_pdf",
-        link: "/jpg-to-pdf",
-        category: "Convert PDF"
-    },
-    {
-        title: "Sign PDF",
-        description: "Sign your PDF yourself or request electronic signatures from others.",
-        icon: "draw",
-        link: "/sign",
-        category: "PDF Security"
-    },
-    {
-        title: "Edit PDF",
-        description: "Add text, shapes, comments and highlights to your PDF file.",
-        icon: "edit_document",
-        link: "/edit",
-        category: "Organize PDF"
-    }
-];
+
 
 const Home = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -271,19 +188,34 @@ const Home = () => {
 
                 <div className="layout-container flex grow flex-col w-full max-w-[1280px] mx-auto px-4 md:px-10 pb-20">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-                        {filteredTools.map((tool) => (
-                            <Link to={tool.link} key={tool.title} className="group flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-blue-500/30 dark:hover:border-blue-400/30 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
-                                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-blue-500/5 dark:bg-blue-500/10 text-primary group-hover:bg-blue-500/10 group-hover:scale-110 transition-all duration-300">
-                                    <ClientOnly>
-                                        <span className="material-symbols-outlined text-3xl">{tool.icon}</span>
-                                    </ClientOnly>
-                                </div>
-                                <div className="flex flex-col gap-1">
-                                    <h4 className="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">{tool.title}</h4>
-                                    <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{tool.description}</p>
-                                </div>
-                            </Link>
-                        ))}
+                        {filteredTools.map((tool) => {
+                            const theme = getToolTheme(tool.link);
+                            return (
+                                <Link
+                                    to={tool.link}
+                                    key={tool.title}
+                                    style={{
+                                        '--theme-shadow': theme.shadow
+                                    }}
+                                    className="group relative flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_25px_-5px_var(--theme-shadow)] transition-all duration-300 transform hover:-translate-y-2"
+                                >
+                                    <div
+                                        style={{
+                                            background: `linear-gradient(135deg, ${theme.from} 0%, ${theme.to} 100%)`
+                                        }}
+                                        className="w-16 h-16 flex items-center justify-center rounded-2xl shadow-md group-hover:scale-110 transition-transform duration-300"
+                                    >
+                                        <ClientOnly>
+                                            <span className="material-symbols-outlined text-3xl text-white">{tool.icon}</span>
+                                        </ClientOnly>
+                                    </div>
+                                    <div className="flex flex-col gap-1">
+                                        <h4 className="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">{tool.title}</h4>
+                                        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{tool.description}</p>
+                                    </div>
+                                </Link>
+                            );
+                        })}
                     </div>
                     {filteredTools.length === 0 && (
                         <div className="col-span-full py-20 text-center">

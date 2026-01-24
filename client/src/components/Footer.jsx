@@ -28,10 +28,10 @@ const Footer = () => {
                     <div className="flex flex-col gap-6">
                         <h4 className="font-semibold text-slate-900 dark:text-white text-base">Product</h4>
                         <div className="flex flex-col gap-3">
-                            <Link to="/#tools" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">All Tools</Link>
-                            <Link to="#" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">Workflows</Link>
-                            <Link to="#" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">Pricing (Free)</Link>
-                            <Link to="#" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">Updates</Link>
+                            <Link to="/tools" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">All Tools</Link>
+                            <Link to="/workflows" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">Workflows</Link>
+                            <Link to="/pricing" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">Pricing (Free)</Link>
+                            <Link to="/updates" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">Updates</Link>
                         </div>
                     </div>
 

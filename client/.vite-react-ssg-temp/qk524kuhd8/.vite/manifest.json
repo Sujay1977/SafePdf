@@ -1,0 +1,158 @@
+{
+  "_FileSaver.min-c40pLNAl.js": {
+    "file": "assets/FileSaver.min-c40pLNAl.js",
+    "name": "FileSaver.min",
+    "assets": [
+      "assets/pdf.worker.min-yatZIOMy.mjs"
+    ]
+  },
+  "node_modules/react-signature-canvas/dist/index.mjs": {
+    "file": "assets/index-BWKWHhB4.js",
+    "name": "index",
+    "src": "node_modules/react-signature-canvas/dist/index.mjs",
+    "isDynamicEntry": true
+  },
+  "src/main.jsx": {
+    "file": "main.mjs",
+    "name": "main",
+    "src": "src/main.jsx",
+    "isEntry": true,
+    "dynamicImports": [
+      "src/pages/Merge.jsx",
+      "src/pages/Split.jsx",
+      "src/pages/Compress.jsx",
+      "src/pages/PDFToWord.jsx",
+      "src/pages/Protect.jsx",
+      "src/pages/Unlock.jsx",
+      "src/pages/Rotate.jsx",
+      "src/pages/Organize.jsx",
+      "src/pages/PDFToJPG.jsx",
+      "src/pages/JPGToPDF.jsx",
+      "src/pages/Sign.jsx",
+      "src/pages/Edit.jsx"
+    ]
+  },
+  "src/pages/Compress.jsx": {
+    "file": "assets/Compress-CNpYJIW4.js",
+    "name": "Compress",
+    "src": "src/pages/Compress.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_FileSaver.min-c40pLNAl.js",
+      "src/main.jsx"
+    ]
+  },
+  "src/pages/Edit.jsx": {
+    "file": "assets/Edit-COnbxr7A.js",
+    "name": "Edit",
+    "src": "src/pages/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_FileSaver.min-c40pLNAl.js"
+    ]
+  },
+  "src/pages/JPGToPDF.jsx": {
+    "file": "assets/JPGToPDF-CbuqVekx.js",
+    "name": "JPGToPDF",
+    "src": "src/pages/JPGToPDF.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_FileSaver.min-c40pLNAl.js"
+    ]
+  },
+  "src/pages/Merge.jsx": {
+    "file": "assets/Merge-BxAsfR1v.js",
+    "name": "Merge",
+    "src": "src/pages/Merge.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.jsx",
+      "_FileSaver.min-c40pLNAl.js"
+    ]
+  },
+  "src/pages/Organize.jsx": {
+    "file": "assets/Organize-8TiWzTBq.js",
+    "name": "Organize",
+    "src": "src/pages/Organize.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_FileSaver.min-c40pLNAl.js"
+    ]
+  },
+  "src/pages/PDFToJPG.jsx": {
+    "file": "assets/PDFToJPG-DXMbdE5F.js",
+    "name": "PDFToJPG",
+    "src": "src/pages/PDFToJPG.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_FileSaver.min-c40pLNAl.js",
+      "src/main.jsx"
+    ]
+  },
+  "src/pages/PDFToWord.jsx": {
+    "file": "assets/PDFToWord-B8nfXL4w.js",
+    "name": "PDFToWord",
+    "src": "src/pages/PDFToWord.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_FileSaver.min-c40pLNAl.js",
+      "src/main.jsx"
+    ]
+  },
+  "src/pages/Protect.jsx": {
+    "file": "assets/Protect-DiF3roKo.js",
+    "name": "Protect",
+    "src": "src/pages/Protect.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_FileSaver.min-c40pLNAl.js",
+      "src/main.jsx"
+    ]
+  },
+  "src/pages/Rotate.jsx": {
+    "file": "assets/Rotate-DciGl04P.js",
+    "name": "Rotate",
+    "src": "src/pages/Rotate.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_FileSaver.min-c40pLNAl.js"
+    ]
+  },
+  "src/pages/Sign.jsx": {
+    "file": "assets/Sign-Dak_VuFw.js",
+    "name": "Sign",
+    "src": "src/pages/Sign.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.jsx",
+      "_FileSaver.min-c40pLNAl.js"
+    ],
+    "dynamicImports": [
+      "node_modules/react-signature-canvas/dist/index.mjs"
+    ]
+  },
+  "src/pages/Split.jsx": {
+    "file": "assets/Split-Bx7T25BX.js",
+    "name": "Split",
+    "src": "src/pages/Split.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.jsx",
+      "_FileSaver.min-c40pLNAl.js"
+    ]
+  },
+  "src/pages/Unlock.jsx": {
+    "file": "assets/Unlock-ZHgcgOFm.js",
+    "name": "Unlock",
+    "src": "src/pages/Unlock.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_FileSaver.min-c40pLNAl.js",
+      "src/main.jsx"
+    ]
+  },
+  "style.css": {
+    "file": "assets/style-BcaKrM6K.css",
+    "src": "style.css"
+  }
+}

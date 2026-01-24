@@ -14,7 +14,12 @@ const Organize = lazy(() => import('./pages/Organize'));
 const PDFToJPG = lazy(() => import('./pages/PDFToJPG'));
 const JPGToPDF = lazy(() => import('./pages/JPGToPDF'));
 const Sign = lazy(() => import('./pages/Sign'));
+
 const Edit = lazy(() => import('./pages/Edit'));
+const AllTools = lazy(() => import('./pages/AllTools'));
+const Workflows = lazy(() => import('./pages/Workflows'));
+const Pricing = lazy(() => import('./pages/Pricing'));
+const Updates = lazy(() => import('./pages/Updates'));
 
 const Loading = () => <div className="flex items-center justify-center min-h-[50vh]"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>;
 
@@ -32,4 +37,9 @@ export const routes = [
     { path: '/jpg-to-pdf', element: <Layout><Suspense fallback={<Loading />}><JPGToPDF /></Suspense></Layout> },
     { path: '/sign', element: <Layout><Suspense fallback={<Loading />}><Sign /></Suspense></Layout> },
     { path: '/edit', element: <Layout><Suspense fallback={<Loading />}><Edit /></Suspense></Layout> },
+
+    { path: '/tools', element: <Layout><Suspense fallback={<Loading />}><AllTools /></Suspense></Layout> },
+    { path: '/workflows', element: <Layout><Suspense fallback={<Loading />}><Workflows /></Suspense></Layout> },
+    { path: '/pricing', element: <Layout><Suspense fallback={<Loading />}><Pricing /></Suspense></Layout> },
+    { path: '/updates', element: <Layout><Suspense fallback={<Loading />}><Updates /></Suspense></Layout> },
 ];

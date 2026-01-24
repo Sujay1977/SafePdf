@@ -4,6 +4,8 @@ import { protectPDF } from '../utils/pdf';
 import { saveAs } from 'file-saver';
 import { Trash2, FileUp, ArrowRight, Loader2, Link, Shield, Lock } from 'lucide-react';
 import ClientOnly from '../components/ClientOnly';
+import { getToolTheme } from '../utils/theme';
+import ToolHeroIcon from '../components/ToolHeroIcon';
 
 const Protect = () => {
     const [file, setFile] = useState(null);
@@ -56,13 +58,16 @@ const Protect = () => {
                 {/* Left: Upload */}
                 <div className="flex flex-col gap-4">
                     {!file ? (
-                        <div {...getRootProps()} className="group relative flex flex-col items-center justify-center aspect-square rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 hover:border-primary transition-all cursor-pointer">
-                            <input {...getInputProps()} />
-                            <div className="flex flex-col items-center gap-2 text-center p-6">
-                                <ClientOnly>
-                                    <span className="material-symbols-outlined text-4xl text-slate-400 group-hover:text-primary transition-colors">cloud_upload</span>
-                                </ClientOnly>
-                                <p className="text-sm font-medium text-slate-900 dark:text-white">Dropp PDF here</p>
+                        <div {...getRootProps()} className="group relative flex flex-col items-center justify-center aspect-square rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 hover:border-blue-400 transition-all cursor-pointer shadow-sm hover:shadow-md">
+                            <input {...getInputProps()} className="hidden" />
+                            <div className="flex flex-col items-center gap-4 text-center p-6">
+                                <ToolHeroIcon icon="lock" theme={getToolTheme('/protect')} />
+                                <div className="space-y-2">
+                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">
+                                        Click to Select
+                                    </h3>
+                                    <p className="text-sm font-medium text-slate-900 dark:text-white">or drag and drop PDF</p>
+                                </div>
                             </div>
                         </div>
                     ) : (

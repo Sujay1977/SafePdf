@@ -4,6 +4,8 @@ import { useDropzone } from 'react-dropzone';
 import { getPageThumbnail, addSignatureToPDF } from '../utils/pdf';
 import { saveAs } from 'file-saver';
 import { Trash2, FileUp, ArrowRight, Loader2, PenTool, Check, X } from 'lucide-react';
+import { getToolTheme } from '../utils/theme';
+import ToolHeroIcon from '../components/ToolHeroIcon';
 const SignatureCanvas = React.lazy(() => import('react-signature-canvas'));
 import * as pdfjsLib from 'pdfjs-dist';
 
@@ -116,9 +118,19 @@ const Sign = () => {
             </div>
 
             {!file ? (
-                <div {...getRootProps()} className="w-full max-w-2xl h-64 border-2 border-dashed rounded-xl flex items-center justify-center cursor-pointer border-slate-300 dark:border-slate-700 hover:border-primary">
-                    <input {...getInputProps()} />
-                    <p className="dark:text-white">Drag & drop PDF</p>
+                <div {...getRootProps()} className="w-full max-w-3xl h-80 border-2 border-dashed rounded-3xl flex flex-col items-center justify-center cursor-pointer border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all shadow-sm hover:shadow-md group">
+                    <input {...getInputProps()} className="hidden" />
+                    <div className="flex flex-col items-center gap-4 text-center">
+                        <ToolHeroIcon icon="signature" theme={getToolTheme('/sign')} />
+                        <div className="space-y-2">
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                Select PDF to Sign
+                            </h3>
+                            <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
+                                or drag and drop file here
+                            </p>
+                        </div>
+                    </div>
                 </div>
             ) : (
                 <div className="flex flex-col lg:flex-row gap-8 w-full max-w-6xl">

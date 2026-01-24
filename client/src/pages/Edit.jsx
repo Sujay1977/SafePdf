@@ -9,6 +9,8 @@ import {
     Bold, Italic
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { getToolTheme } from '../utils/theme';
+import ToolHeroIcon from '../components/ToolHeroIcon';
 
 const Edit = () => {
     const [file, setFile] = useState(null);
@@ -223,13 +225,18 @@ const Edit = () => {
                 <h1 className="text-4xl font-black text-slate-900 dark:text-white mb-2">PDF Editor</h1>
                 <p className="text-slate-500">Upload a PDF to start editing</p>
             </div>
-            <div {...getRootProps()} className="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-12 bg-white dark:bg-slate-800 cursor-pointer hover:border-primary transition-colors">
-                <input {...getInputProps()} />
-                <div className="flex flex-col items-center gap-4">
-                    <div className="p-4 bg-blue-50 dark:bg-slate-700 rounded-full text-primary">
-                        <Type size={32} />
+            <div {...getRootProps()} className="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl p-12 bg-white dark:bg-slate-800 cursor-pointer hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all shadow-sm hover:shadow-md group w-full max-w-3xl">
+                <input {...getInputProps()} className="hidden" />
+                <div className="flex flex-col items-center gap-4 text-center">
+                    <ToolHeroIcon icon="edit_document" theme={getToolTheme('/edit-pdf')} />
+                    <div className="space-y-2">
+                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            Click to Upload PDF
+                        </h3>
+                        <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
+                            Start editing your document immediately
+                        </p>
                     </div>
-                    <p className="font-medium dark:text-white">Drag & drop or Click to Upload</p>
                 </div>
             </div>
         </div>

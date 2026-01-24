@@ -3,7 +3,9 @@ import { useDropzone } from 'react-dropzone';
 import { imagesToPDF } from '../utils/pdf';
 import { saveAs } from 'file-saver';
 import { Reorder } from 'framer-motion';
-import { Trash2, FileUp, ArrowRight, Loader2, Shield, GripVertical } from 'lucide-react';
+import { Trash2, FileUp, ArrowRight, Loader2, Shield, GripVertical, Image } from 'lucide-react';
+import { getToolTheme } from '../utils/theme';
+import ToolHeroIcon from '../components/ToolHeroIcon';
 
 const JPGToPDF = () => {
     const [files, setFiles] = useState([]);
@@ -56,32 +58,51 @@ const JPGToPDF = () => {
 
             <div className="w-full max-w-5xl flex flex-col lg:flex-row gap-8 items-start">
                 <div className="flex-1 w-full">
-                    <div className="flex flex-wrap items-center justify-between mb-4 gap-4">
-                        <h3 className="text-slate-900 dark:text-white text-lg font-bold">Selected Images ({files.length})</h3>
-                        <button onClick={() => setFiles([])} className="text-sm font-medium text-red-600 hover:text-red-700">Clear All</button>
-                    </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        <div {...getRootProps()} className="aspect-[3/4] rounded-xl border-2 border-dashed border-primary/40 bg-primary/5 hover:bg-primary/10 transition-colors cursor-pointer flex flex-col items-center justify-center gap-2">
-                            <input {...getInputProps()} />
-                            <div className="size-10 rounded-full bg-primary/20 text-primary flex items-center justify-center">
-                                <FileUp size={20} />
+                    {files.length === 0 ? (
+                        <div {...getRootProps()} className="relative flex flex-col items-center justify-center w-full h-80 rounded-3xl bg-white dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md">
+                            <input {...getInputProps()} className="hidden" />
+                            <div className="flex flex-col items-center gap-4 text-center">
+                                <ToolHeroIcon icon="picture_as_pdf" theme={getToolTheme('/jpg-to-pdf')} />
+                                <div className="space-y-2">
+                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                        Click to Select Images
+                                    </h3>
+                                    <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
+                                        or drag and drop files here
+                                    </p>
+                                </div>
                             </div>
-                            <span className="text-xs font-bold text-primary">Add Images</span>
                         </div>
+                    ) : (
+                        <div className="flex flex-col gap-4">
+                            <div className="flex flex-wrap items-center justify-between gap-4">
+                                <h3 className="text-slate-900 dark:text-white text-lg font-bold">Selected Images ({files.length})</h3>
+                                <button onClick={() => setFiles([])} className="text-sm font-medium text-red-600 hover:text-red-700">Clear All</button>
+                            </div>
 
-                        <Reorder.Group axis="y" values={files} onReorder={setFiles} className="contents">
-                            {files.map(file => (
-                                <Reorder.Item key={file.id} value={file} className="contents">
-                                    <div className="group relative aspect-[3/4] bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden cursor-grab active:cursor-grabbing">
-                                        <button onClick={() => removeFile(file.id)} className="absolute top-1 right-1 z-10 p-1 rounded-full bg-white text-slate-400 hover:text-red-500 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 size={12} /></button>
-                                        <img src={file.preview} alt="preview" className="w-full h-full object-cover" />
-                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                <div {...getRootProps()} className="aspect-[3/4] rounded-xl border-2 border-dashed border-primary/40 bg-primary/5 hover:bg-primary/10 transition-colors cursor-pointer flex flex-col items-center justify-center gap-2">
+                                    <input {...getInputProps()} />
+                                    <div className="size-10 rounded-full bg-primary/20 text-primary flex items-center justify-center">
+                                        <FileUp size={20} />
                                     </div>
-                                </Reorder.Item>
-                            ))}
-                        </Reorder.Group>
-                    </div>
+                                    <span className="text-xs font-bold text-primary">Add Images</span>
+                                </div>
+
+                                <Reorder.Group axis="y" values={files} onReorder={setFiles} className="contents">
+                                    {files.map(file => (
+                                        <Reorder.Item key={file.id} value={file} className="contents">
+                                            <div className="group relative aspect-[3/4] bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden cursor-grab active:cursor-grabbing">
+                                                <button onClick={() => removeFile(file.id)} className="absolute top-1 right-1 z-10 p-1 rounded-full bg-white text-slate-400 hover:text-red-500 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 size={12} /></button>
+                                                <img src={file.preview} alt="preview" className="w-full h-full object-cover" />
+                                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                                            </div>
+                                        </Reorder.Item>
+                                    ))}
+                                </Reorder.Group>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <div className="w-full lg:w-80 shrink-0 sticky top-24">
