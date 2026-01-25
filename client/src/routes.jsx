@@ -23,23 +23,30 @@ const Updates = lazy(() => import('./pages/Updates'));
 
 const Loading = () => <div className="flex items-center justify-center min-h-[50vh]"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>;
 
-export const routes = [
-    { path: '/', element: <Layout><Home /></Layout> },
-    { path: '/merge', element: <Layout><Suspense fallback={<Loading />}><Merge /></Suspense></Layout> },
-    { path: '/split', element: <Layout><Suspense fallback={<Loading />}><Split /></Suspense></Layout> },
-    { path: '/compress', element: <Layout><Suspense fallback={<Loading />}><Compress /></Suspense></Layout> },
-    { path: '/pdf-to-word', element: <Layout><Suspense fallback={<Loading />}><PDFToWord /></Suspense></Layout> },
-    { path: '/protect', element: <Layout><Suspense fallback={<Loading />}><Protect /></Suspense></Layout> },
-    { path: '/unlock', element: <Layout><Suspense fallback={<Loading />}><Unlock /></Suspense></Layout> },
-    { path: '/rotate', element: <Layout><Suspense fallback={<Loading />}><Rotate /></Suspense></Layout> },
-    { path: '/organize', element: <Layout><Suspense fallback={<Loading />}><Organize /></Suspense></Layout> },
-    { path: '/pdf-to-jpg', element: <Layout><Suspense fallback={<Loading />}><PDFToJPG /></Suspense></Layout> },
-    { path: '/jpg-to-pdf', element: <Layout><Suspense fallback={<Loading />}><JPGToPDF /></Suspense></Layout> },
-    { path: '/sign', element: <Layout><Suspense fallback={<Loading />}><Sign /></Suspense></Layout> },
-    { path: '/edit', element: <Layout><Suspense fallback={<Loading />}><Edit /></Suspense></Layout> },
+import App from './App';
 
-    { path: '/tools', element: <Layout><Suspense fallback={<Loading />}><AllTools /></Suspense></Layout> },
-    { path: '/workflows', element: <Layout><Suspense fallback={<Loading />}><Workflows /></Suspense></Layout> },
-    { path: '/pricing', element: <Layout><Suspense fallback={<Loading />}><Pricing /></Suspense></Layout> },
-    { path: '/updates', element: <Layout><Suspense fallback={<Loading />}><Updates /></Suspense></Layout> },
+export const routes = [
+    {
+        element: <App />,
+        children: [
+            { path: '/', element: <Layout><Home /></Layout> },
+            { path: '/merge', element: <Layout><Suspense fallback={<Loading />}><Merge /></Suspense></Layout> },
+            { path: '/split', element: <Layout><Suspense fallback={<Loading />}><Split /></Suspense></Layout> },
+            { path: '/compress', element: <Layout><Suspense fallback={<Loading />}><Compress /></Suspense></Layout> },
+            { path: '/pdf-to-word', element: <Layout><Suspense fallback={<Loading />}><PDFToWord /></Suspense></Layout> },
+            { path: '/protect', element: <Layout><Suspense fallback={<Loading />}><Protect /></Suspense></Layout> },
+            { path: '/unlock', element: <Layout><Suspense fallback={<Loading />}><Unlock /></Suspense></Layout> },
+            { path: '/rotate', element: <Layout><Suspense fallback={<Loading />}><Rotate /></Suspense></Layout> },
+            { path: '/organize', element: <Layout><Suspense fallback={<Loading />}><Organize /></Suspense></Layout> },
+            { path: '/pdf-to-jpg', element: <Layout><Suspense fallback={<Loading />}><PDFToJPG /></Suspense></Layout> },
+            { path: '/jpg-to-pdf', element: <Layout><Suspense fallback={<Loading />}><JPGToPDF /></Suspense></Layout> },
+            { path: '/sign', element: <Layout><Suspense fallback={<Loading />}><Sign /></Suspense></Layout> },
+            { path: '/edit', element: <Layout><Suspense fallback={<Loading />}><Edit /></Suspense></Layout> },
+
+            { path: '/tools', element: <Layout><Suspense fallback={<Loading />}><AllTools /></Suspense></Layout> },
+            { path: '/workflows', element: <Layout><Suspense fallback={<Loading />}><Workflows /></Suspense></Layout> },
+            { path: '/pricing', element: <Layout><Suspense fallback={<Loading />}><Pricing /></Suspense></Layout> },
+            { path: '/updates', element: <Layout><Suspense fallback={<Loading />}><Updates /></Suspense></Layout> },
+        ]
+    }
 ];
