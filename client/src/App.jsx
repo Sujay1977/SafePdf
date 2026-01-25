@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import ReactGA from 'react-ga4';
 
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 function App() {
     const location = useLocation();
@@ -17,6 +18,7 @@ function App() {
         <>
             <Outlet />
             <Analytics />
+            <SpeedInsights />
         </>
     );
 }

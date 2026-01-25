@@ -11,7 +11,7 @@ export default defineConfig({
     },
   },
   ssr: {
-    noExternal: ['react-helmet-async', 'file-saver', 'react-signature-canvas', 'jszip', 'pdf-lib', '@vercel/analytics', 'react-ga4'],
+    noExternal: ['react-helmet-async', 'file-saver', 'react-signature-canvas', 'jszip', 'pdf-lib', '@vercel/analytics', '@vercel/speed-insights', 'react-ga4'],
   },
   ssgOptions: {
     includedRoutes: async (paths, routes) => {
