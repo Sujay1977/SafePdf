@@ -1,3 +1,11 @@
-node_modules
+# Ignore all node_modules everywhere
+node_modules/
+client/node_modules/
+
+# Ignore all build outputs
+dist/
+client/dist/
+
+# Ignore logs and secrets
+*.log
 .env
-dist
