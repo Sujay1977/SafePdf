@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Heart, Github } from 'lucide-react';
 import { DodoPayments } from 'dodopayments-checkout';
@@ -10,16 +10,7 @@ const Header = () => {
     const location = useLocation();
     const [userAuth, setUserAuth] = useState(false);
 
-    // 10x FIX: Initialize globally to ensure the library is ready
-    useEffect(() => {
-        const publicKey = import.meta.env.VITE_DODO_PUBLIC_KEY;
-        if (publicKey) {
-            DodoPayments.Initialize({
-                publicKey: publicKey,
-                mode: 'live',
-            });
-        }
-    }, []);
+
 
     const handleSupportMe = (e) => {
         e.preventDefault();

@@ -328,15 +328,289 @@ export const protectPDF = async (file, password) => {
     return new Blob([pdfBytes], { type: 'application/pdf' });
 };
 
-export const unlockPDF = async (file, password) => {
-    const arrayBuffer = await file.arrayBuffer();
+// ─── Error Helper ────────────────────────────────────────────────────
+const createTypedError = (message, code) => {
+    const err = new Error(message);
+    err.code = code;
+    return err;
+};
+
+// ─── PDF Header Validation ──────────────────────────────────────────
+const isValidPDFHeader = (arrayBuffer) => {
+    if (arrayBuffer.byteLength < 5) return false;
+    const header = new Uint8Array(arrayBuffer, 0, 5);
+    // %PDF- = [0x25, 0x50, 0x44, 0x46, 0x2D]
+    return header[0] === 0x25 && header[1] === 0x50 &&
+        header[2] === 0x44 && header[3] === 0x46 && header[4] === 0x2D;
+};
+
+// ─── Encryption Detection ────────────────────────────────────────────
+/**
+ * Scans raw PDF bytes to determine the encryption scheme.
+ * Returns { isEncrypted, algorithm, keyLength, version, revision }.
+ *
+ * Limitations:
+ *   - Regex-based: can misidentify /V or /R from non-encrypt dictionaries
+ *     in edge cases. This is a best-effort heuristic used to pick the
+ *     optimal unlock path, not a security gate. PDF.js is the final
+ *     authority on whether the password is correct.
+ */
+export const detectEncryption = (arrayBuffer) => {
+    const result = {
+        isEncrypted: false,
+        algorithm: 'none',    // 'none' | 'RC4' | 'AES-128' | 'AES-256' | 'unknown'
+        keyLength: 0,
+        version: 0,           // /V value
+        revision: 0,          // /R value
+    };
+
     try {
-        const pdfDoc = await PDFDocument.load(arrayBuffer, { password });
-        const pdfBytes = await pdfDoc.save();
-        return new Blob([pdfBytes], { type: 'application/pdf' });
-    } catch (error) {
-        throw new Error("Incorrect password or file error");
+        const bytes = new Uint8Array(arrayBuffer);
+        const len = bytes.length;
+
+        // Search up to 16 KB from head and tail, or entire file if smaller
+        const searchSize = Math.min(len, 16384);
+        const head = bytes.slice(0, searchSize);
+        const tail = len > searchSize
+            ? bytes.slice(Math.max(0, len - searchSize))
+            : new Uint8Array(0); // already covered by head
+
+        const decoder = new TextDecoder('latin1');
+        const textToSearch = decoder.decode(head) + decoder.decode(tail);
+
+        // Check for /Encrypt reference
+        if (!(/\/Encrypt\b/.test(textToSearch))) {
+            return result; // Not encrypted
+        }
+        result.isEncrypted = true;
+
+        // Extract /V (encryption version)
+        const vMatch = textToSearch.match(/\/V\s+(\d+)/);
+        if (vMatch) result.version = parseInt(vMatch[1], 10);
+
+        // Extract /R (revision)
+        const rMatch = textToSearch.match(/\/R\s+(\d+)/);
+        if (rMatch) result.revision = parseInt(rMatch[1], 10);
+
+        // Extract /Length — but ONLY near /Filter /Standard context
+        // to avoid matching stream /Length values
+        const encryptBlock = textToSearch.match(
+            /\/Filter\s*\/Standard[^>]{0,500}/s
+        );
+        if (encryptBlock) {
+            const lengthMatch = encryptBlock[0].match(/\/Length\s+(\d+)/);
+            if (lengthMatch) {
+                const val = parseInt(lengthMatch[1], 10);
+                // Encryption key lengths are 40–256 bits; stream lengths are much larger
+                if (val >= 40 && val <= 256) {
+                    result.keyLength = val;
+                }
+            }
+        }
+
+        // Determine algorithm from V
+        // V=0/1 → RC4 40-bit, V=2 → RC4 128-bit, V=4 → AES-128 or RC4, V=5 → AES-256
+        if (result.version <= 2) {
+            result.algorithm = 'RC4';
+            if (!result.keyLength) {
+                result.keyLength = result.version <= 1 ? 40 : 128;
+            }
+        } else if (result.version === 4) {
+            // V=4 can be AES-128 or RC4-128 depending on /CFM
+            const cfmMatch = textToSearch.match(/\/CFM\s*\/(\w+)/);
+            if (cfmMatch && cfmMatch[1] === 'AESV2') {
+                result.algorithm = 'AES-128';
+                result.keyLength = 128;
+            } else {
+                result.algorithm = 'RC4';
+                result.keyLength = 128;
+            }
+        } else if (result.version === 5) {
+            result.algorithm = 'AES-256';
+            result.keyLength = 256;
+        } else {
+            result.algorithm = 'unknown';
+        }
+    } catch {
+        result.isEncrypted = true;
+        result.algorithm = 'unknown';
     }
+
+    return result;
+};
+
+// ─── PDF.js Fallback Unlock (handles AES-256) ────────────────────────
+/**
+ * Uses pdfjs-dist to decrypt the PDF (it supports AES-256), renders each
+ * page to canvas, and re-embeds images into a new pdf-lib document.
+ * Output is rasterized (lossy) but the unlock is reliable.
+ *
+ * Safeguards:
+ *   - MAX_PAGES (50) to prevent memory exhaustion
+ *   - Reduced scale on mobile (1.5× vs 2.0×)
+ *   - canvas.toBlob() instead of toDataURL to avoid base64 overhead
+ *   - Canvas refs nulled after each page for GC
+ */
+const MAX_UNLOCK_PAGES = 50;
+
+const unlockWithPdfJs = async (arrayBuffer, password) => {
+    const loadingTask = pdfjsLib.getDocument({
+        data: arrayBuffer,
+        password: password,
+    });
+
+    let pdf;
+    try {
+        pdf = await loadingTask.promise;
+    } catch (pdfJsError) {
+        const msg = pdfJsError?.message || '';
+        if (msg.includes('Incorrect') || msg.includes('password')) {
+            throw createTypedError('The password you entered is incorrect.', 'WRONG_PASSWORD');
+        }
+        if (msg.includes('Invalid PDF') || msg.includes('stream')) {
+            throw createTypedError('The PDF file appears to be damaged or corrupted.', 'CORRUPT_FILE');
+        }
+        throw createTypedError('Failed to process this PDF: ' + msg, 'UNKNOWN');
+    }
+
+    const numPages = pdf.numPages;
+    if (numPages > MAX_UNLOCK_PAGES) {
+        throw createTypedError(
+            `This PDF has ${numPages} pages. In-browser unlock is limited to ${MAX_UNLOCK_PAGES} pages. ` +
+            'Please use a smaller file or try the server-side unlock.',
+            'TOO_MANY_PAGES'
+        );
+    }
+
+    const newPdf = await PDFDocument.create();
+
+    // Detect mobile: reduce scale to save memory
+    const isMobile = typeof navigator !== 'undefined' && navigator.maxTouchPoints > 1;
+    const RENDER_SCALE = isMobile ? 1.5 : 2.0;
+
+    for (let i = 1; i <= numPages; i++) {
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: RENDER_SCALE });
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        await page.render({ canvasContext: ctx, viewport }).promise;
+
+        // Use toBlob → arrayBuffer (avoids 33% base64 overhead of toDataURL)
+        const imgBytes = await new Promise((resolve, reject) => {
+            canvas.toBlob(
+                (blob) => {
+                    if (!blob) return reject(new Error('Canvas toBlob returned null'));
+                    blob.arrayBuffer().then(resolve).catch(reject);
+                },
+                'image/jpeg',
+                0.92
+            );
+        });
+
+        // Release canvas memory immediately
+        canvas.width = 0;
+        canvas.height = 0;
+
+        const jpgImage = await newPdf.embedJpg(imgBytes);
+        const origWidth = viewport.width / RENDER_SCALE;
+        const origHeight = viewport.height / RENDER_SCALE;
+        const newPage = newPdf.addPage([origWidth, origHeight]);
+        newPage.drawImage(jpgImage, {
+            x: 0,
+            y: 0,
+            width: origWidth,
+            height: origHeight,
+        });
+    }
+
+    const pdfBytes = await newPdf.save();
+    return new Blob([pdfBytes], { type: 'application/pdf' });
+};
+
+// ─── Main Unlock Orchestrator ────────────────────────────────────────
+/**
+ * Production-ready PDF unlock with tiered strategy:
+ *   1. Validate file (header, size)
+ *   2. Detect encryption type
+ *   3. RC4 → try pdf-lib (lossless, preserves vectors)
+ *   4. AES / fallback → PDF.js render pipeline (lossy but reliable)
+ *
+ * Returns: { blob: Blob, method: string, lossless: boolean }
+ *
+ * Thrown errors always have a `.code` property:
+ *   WRONG_PASSWORD | NOT_ENCRYPTED | CORRUPT_FILE |
+ *   TOO_MANY_PAGES | UNKNOWN
+ */
+export const unlockPDF = async (file, password) => {
+    // ── Read file ──
+    let rawBuffer;
+    try {
+        rawBuffer = await file.arrayBuffer();
+    } catch {
+        throw createTypedError('Could not read the uploaded file.', 'CORRUPT_FILE');
+    }
+
+    // ── Validate header ──
+    if (rawBuffer.byteLength < 64 || !isValidPDFHeader(rawBuffer)) {
+        throw createTypedError(
+            'This file is not a valid PDF document.',
+            'CORRUPT_FILE'
+        );
+    }
+
+    // ── Single defensive clone — all consumers use this ──
+    const buffer = rawBuffer.slice(0);
+
+    // ── Step 1: Detect encryption ──
+    const encryption = detectEncryption(buffer);
+
+    if (!encryption.isEncrypted) {
+        throw createTypedError(
+            'This PDF is not password-protected.',
+            'NOT_ENCRYPTED'
+        );
+    }
+
+    const trimmedPassword = (password || '').trim();
+
+    // ── Step 2: Try pdf-lib for RC4 (lossless) ──
+    if (encryption.algorithm === 'RC4') {
+        try {
+            const pdfDoc = await PDFDocument.load(buffer.slice(0), {
+                password: trimmedPassword,
+            });
+            const pdfBytes = await pdfDoc.save();
+            return {
+                blob: new Blob([pdfBytes], { type: 'application/pdf' }),
+                method: 'pdf-lib',
+                lossless: true,
+            };
+        } catch (pdfLibError) {
+            // Inspect error: if it's clearly a wrong password, fail fast
+            // instead of wasting time on the PDF.js fallback
+            const msg = (pdfLibError?.message || '').toLowerCase();
+            if (msg.includes('password') || msg.includes('decrypt')) {
+                throw createTypedError(
+                    'The password you entered is incorrect.',
+                    'WRONG_PASSWORD'
+                );
+            }
+            // Other pdf-lib failure (corrupt xref, unsupported feature) →
+            // fall through to PDF.js
+        }
+    }
+
+    // ── Step 3: PDF.js fallback (AES-128, AES-256, or RC4 edge cases) ──
+    const blob = await unlockWithPdfJs(buffer.slice(0), trimmedPassword);
+    return {
+        blob,
+        method: 'pdfjs',
+        lossless: false,
+    };
 };
 
 export const rotatePDF = async (file, rotations) => {

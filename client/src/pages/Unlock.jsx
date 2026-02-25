@@ -28,15 +28,25 @@ const Unlock = () => {
     });
 
     const handleUnlock = async () => {
-        if (!file || !password) return;
+        if (!file || !password.trim()) {
+            setError("Please enter password");
+            return;
+        }
         setIsProcessing(true);
         setError('');
         try {
-            const unlockedBlob = await unlockPDF(file, password);
-            saveAs(unlockedBlob, `unlocked_${file.name}`);
+            const result = await unlockPDF(file, password.trim());
+            saveAs(result.blob, `unlocked_${file.name}`);
         } catch (error) {
             console.error("Unlock failed", error);
-            setError("Incorrect password or failed to unlock.");
+            const messages = {
+                WRONG_PASSWORD: "The password you entered is incorrect.",
+                NOT_ENCRYPTED: "This PDF is not password-protected. No unlock needed.",
+                CORRUPT_FILE: "This file appears to be damaged or is not a valid PDF.",
+                UNSUPPORTED_ENCRYPTION: "This encryption type is not supported in-browser.",
+                TOO_MANY_PAGES: "This PDF has too many pages for in-browser unlock. Try a shorter file.",
+            };
+            setError(messages[error.code] || "Failed to unlock. Please verify the password and try again.");
         }
         setIsProcessing(false);
     };

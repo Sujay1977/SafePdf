@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import ReactGA from 'react-ga4';
-
+import ScrollRestoration from './components/ScrollRestoration';
 import { Analytics } from '@vercel/analytics/react';
 
 function App() {
@@ -15,6 +15,7 @@ function App() {
 
     return (
         <>
+            <ScrollRestoration />
             <Outlet />
             <Analytics />
         </>

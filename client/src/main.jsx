@@ -10,7 +10,11 @@ if (import.meta.env.PROD) {
     ReactGA.initialize('G-SV9Q7DEW95');
 }
 
-const router = createBrowserRouter(routes);
+const router = createBrowserRouter(routes, {
+    future: {
+        v7_startTransition: true,
+    },
+});
 
 const rootElement = document.getElementById('root');
 if (rootElement.hasChildNodes()) {
