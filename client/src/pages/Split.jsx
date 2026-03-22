@@ -8,6 +8,7 @@ import { Trash2, FileUp, ArrowRight, Loader2, Check, Shield } from 'lucide-react
 import clsx from 'clsx';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
+import SplitContent from '../components/content/SplitContent';
 
 const Split = () => {
     const [file, setFile] = useState(null);
@@ -100,14 +101,42 @@ const Split = () => {
         }
     }
 
+    const splitFaqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How do I split a PDF online for free?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Upload your PDF to SafePDF, select the pages you want to extract by clicking on their thumbnails, then click 'Extract Pages'. The new PDF downloads instantly to your device." }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I extract specific pages from a PDF?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. SafePDF lets you select any combination of pages from your PDF and extract them into a new document. Just click the page thumbnails to select them." }
+            },
+            {
+                "@type": "Question",
+                "name": "Are my PDF files safe when splitting online?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. SafePDF processes PDFs entirely inside your browser. Your files are never uploaded to any server, ensuring complete privacy." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is there a limit on PDF size for splitting?",
+                "acceptedAnswer": { "@type": "Answer", "text": "There is no enforced limit. Your browser's available memory determines how large a file you can split, typically 200MB or more." }
+            }
+        ]
+    };
+
     return (
         <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
             <SEO
-                title="Split PDF | Extract Pages from PDF Online"
-                description="Split multiple PDF pages into separate documents securely in your browser. No upload required, 100% free and private."
+                title="Split PDF Online Free | Extract Pages Easily"
+                description="Split PDF files into separate pages instantly. No uploads required, fully secure."
                 url="/split"
             >
                 <link rel="canonical" href="https://safepdf.site/split" />
+                <script type="application/ld+json">{JSON.stringify(splitFaqSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
@@ -234,6 +263,7 @@ const Split = () => {
                     </div>
                 </div>
             )}
+            <SplitContent />
         </div>
     );
 };

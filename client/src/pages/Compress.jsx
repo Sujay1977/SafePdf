@@ -7,6 +7,8 @@ import clsx from 'clsx';
 import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
+import SEO from '../components/SEO';
+import CompressContent from '../components/content/CompressContent';
 
 const Compress = () => {
     const [file, setFile] = useState(null);
@@ -40,8 +42,43 @@ const Compress = () => {
         setIsProcessing(false);
     };
 
+    const compressFaqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Is it safe to compress a PDF online?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. SafePDF compresses PDF files entirely inside your browser. Your file is never uploaded to any server, making it 100% private and secure." }
+            },
+            {
+                "@type": "Question",
+                "name": "Will compressing a PDF reduce its quality?",
+                "acceptedAnswer": { "@type": "Answer", "text": "The 'Recommended' compression level preserves visual quality while significantly reducing file size. The 'Extreme' option trades some quality for maximum compression." }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the maximum file size I can compress?",
+                "acceptedAnswer": { "@type": "Answer", "text": "There is no hard limit enforced by SafePDF. The constraint is your browser's available memory, which typically supports files up to 200MB or more." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is compressing a PDF free?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes, SafePDF's PDF compression tool is completely free with no file size limits or watermarks." }
+            }
+        ]
+    };
+
     return (
         <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+            <SEO
+                title="Compress PDF Online Free | Reduce PDF Size Without Losing Quality"
+                description="Compress PDF files online for free. Reduce file size without losing quality. 100% secure and processed locally."
+                url="/compress"
+            >
+                <link rel="canonical" href="https://safepdf.site/compress" />
+                <script type="application/ld+json">{JSON.stringify(compressFaqSchema)}</script>
+            </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     Compress PDF File
@@ -138,6 +175,7 @@ const Compress = () => {
                     </div>
                 </div>
             </div>
+            <CompressContent />
         </div>
     );
 };

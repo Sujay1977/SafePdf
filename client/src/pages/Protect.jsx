@@ -6,6 +6,8 @@ import { Trash2, FileUp, ArrowRight, Loader2, Link, Shield, Lock } from 'lucide-
 import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
+import SEO from '../components/SEO';
+import ProtectContent from '../components/content/ProtectContent';
 
 const Protect = () => {
     const [file, setFile] = useState(null);
@@ -43,8 +45,43 @@ const Protect = () => {
         setIsProcessing(false);
     };
 
+    const protectFaqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How do I add a password to a PDF?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's Protect PDF tool: upload your PDF, enter a password, confirm it, then click 'Protect PDF'. The password-protected file downloads instantly." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is my password sent to SafePDF's servers?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. SafePDF encrypts your PDF entirely inside your browser. Your password and your file never leave your device." }
+            },
+            {
+                "@type": "Question",
+                "name": "What encryption standard does SafePDF use for PDF protection?",
+                "acceptedAnswer": { "@type": "Answer", "text": "SafePDF uses standard AES-based PDF encryption as defined in the PDF specification, compatible with all major PDF readers including Adobe Acrobat." }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I remove the password from a PDF later?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use SafePDF's Unlock PDF tool to remove the password from a PDF you own." }
+            }
+        ]
+    };
+
     return (
         <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+            <SEO
+                title="Protect PDF with Password Online | Encrypt PDF Securely"
+                description="Add password protection to your PDF files. Secure encryption directly in your browser."
+                url="/protect"
+            >
+                <link rel="canonical" href="https://safepdf.site/protect" />
+                <script type="application/ld+json">{JSON.stringify(protectFaqSchema)}</script>
+            </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     Protect PDF
@@ -141,6 +178,7 @@ const Protect = () => {
                     </div>
                 </div>
             </div>
+            <ProtectContent />
         </div>
     );
 };

@@ -31,6 +31,7 @@ const Footer = () => {
                             <Link to="/tools" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">All Tools</Link>
                             <Link to="/workflows" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">Workflows</Link>
                             <Link to="/pricing" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">Pricing (Free)</Link>
+                            <Link to="/blog" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">Blog</Link>
                             <Link to="/updates" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">Updates</Link>
                         </div>
                     </div>
@@ -44,6 +45,23 @@ const Footer = () => {
                             <Link to="/compress" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">Compress PDF</Link>
                             <Link to="/pdf-to-word" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">PDF to Word</Link>
                             <Link to="/protect" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">Protect PDF</Link>
+                            <Link to="/unlock" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">Unlock PDF</Link>
+                        </div>
+                    </div>
+
+                    {/* Column 4: Blog */}
+                    <div className="flex flex-col gap-6">
+                        <h4 className="font-semibold text-slate-900 dark:text-white text-base">Blog</h4>
+                        <div className="flex flex-col gap-3">
+                            <Link to="/blog/how-to-split-pdf-online-free" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">How to Split PDF Online</Link>
+                            <Link to="/blog/pdf-to-word-converter-online-free" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">PDF to Word Converter</Link>
+                            <Link to="/blog/jpg-to-pdf-converter-free" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">JPG to PDF Converter</Link>
+                            <Link to="/blog/how-to-edit-pdf-online-free" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">How to Edit PDF Online</Link>
+                            <Link to="/blog/how-to-sign-pdf-online-free" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">How to Sign PDF Online</Link>
+                            <Link to="/blog/how-to-unlock-pdf-without-password" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">How to Unlock PDF</Link>
+                            <Link to="/blog/how-to-rotate-pdf-pages-online" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">How to Rotate PDF Pages</Link>
+                            <Link to="/blog/compress-pdf-without-losing-quality" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">Compress Without Quality Loss</Link>
+                            <Link to="/blog" className="text-blue-600 dark:text-blue-400 font-semibold text-sm hover:underline transition-colors">View All Posts →</Link>
                         </div>
                     </div>
 

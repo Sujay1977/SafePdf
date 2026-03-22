@@ -7,6 +7,7 @@ import { Trash2, GripVertical, FileUp, ArrowRight, Loader2, CheckCircle, Shield 
 import { Reorder } from 'framer-motion';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
+import MergeContent from '../components/content/MergeContent';
 
 const Merge = () => {
     const [files, setFiles] = useState([]);
@@ -60,14 +61,42 @@ const Merge = () => {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     };
 
+    const mergeFaqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How do I merge PDF files online for free?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Upload your PDF files to SafePDF, arrange them in your desired order by dragging and dropping, then click 'Merge PDF'. Your merged file downloads instantly." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is there a limit on how many PDFs I can merge?",
+                "acceptedAnswer": { "@type": "Answer", "text": "SafePDF does not impose a limit on the number of PDFs you can merge. The only constraint is your browser's available memory." }
+            },
+            {
+                "@type": "Question",
+                "name": "Are my merged PDF files secure?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. All merging happens inside your browser using client-side JavaScript. Your files are never sent to any server." }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I reorder PDFs before merging?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes! SafePDF lets you drag and drop PDF thumbnails to reorder them before merging, giving you full control over the final document." }
+            }
+        ]
+    };
+
     return (
         <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
             <SEO
-                title="Merge PDF | Combine PDF Files for Free"
-                description="Merge multiple PDF files into one document securely in your browser. No upload required, 100% free and private."
+                title="Merge PDF Files Online Free | Combine PDFs Instantly"
+                description="Merge multiple PDF files into one instantly. Free, secure, and works directly in your browser."
                 url="/merge"
             >
                 <link rel="canonical" href="https://safepdf.site/merge" />
+                <script type="application/ld+json">{JSON.stringify(mergeFaqSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
@@ -180,6 +209,7 @@ const Merge = () => {
                     </div>
                 </div>
             </div>
+            <MergeContent />
         </div>
     );
 };

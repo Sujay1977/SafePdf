@@ -53,6 +53,7 @@ const Header = () => {
         { name: 'Split PDF', path: '/split' },
         { name: 'Compress PDF', path: '/compress' },
         { name: 'Convert PDF', path: '/pdf-to-word' },
+        { name: 'Blog', path: '/blog' },
         { name: 'All Tools', path: '/tools' },
     ];
 

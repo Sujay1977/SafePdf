@@ -48,23 +48,32 @@ const Home = () => {
     return (
         <div className="flex flex-col w-full">
             <SEO
-                title="SafePDF | Secure, Private PDF Processing & Tools"
-                description="Secure, Private PDF Processing. SafePDF offers free, client-side tools to merge, split, compress, and edit PDFs directly in your browser without uploading files."
+                title="Free Online PDF Tools | SafePDF - Merge, Split, Compress & More"
+                description="Free, secure PDF tools that work in your browser. Merge, split, compress, protect, convert and edit PDFs online — no uploads, no data collection."
             >
                 <link rel="canonical" href="https://safepdf.site/" />
                 <script type="application/ld+json">
                     {JSON.stringify({
                         "@context": "https://schema.org",
-                        "@type": "SoftwareApplication",
+                        "@type": "WebApplication",
                         "name": "SafePDF",
+                        "url": "https://safepdf.site",
+                        "description": "Free, secure, and client-side PDF tools. Merge, split, compress, protect, and convert PDFs online — your documents never leave your device.",
                         "applicationCategory": "BusinessApplication",
                         "operatingSystem": "Web-based",
+                        "browserRequirements": "Requires JavaScript",
                         "offers": {
                             "@type": "Offer",
                             "price": "0",
-                            "priceCurrency": "USD"
+                            "priceCurrency": "USD",
+                            "availability": "https://schema.org/InStock"
                         },
-                        "featureList": "Merge PDF, Split PDF, Compress PDF, Edit PDF, Client-side Security"
+                        "featureList": "Merge PDF, Split PDF, Compress PDF, Protect PDF, Unlock PDF, Rotate PDF, Convert PDF to Word, PDF to JPG, JPG to PDF, Sign PDF, Edit PDF",
+                        "creator": {
+                            "@type": "Person",
+                            "name": "Sujay",
+                            "url": "https://x.com/sujay__raj"
+                        }
                     })}
                 </script>
             </SEO>
