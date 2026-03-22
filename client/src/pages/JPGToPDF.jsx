@@ -6,6 +6,8 @@ import { Reorder } from 'framer-motion';
 import { Trash2, FileUp, ArrowRight, Loader2, Shield, GripVertical, Image } from 'lucide-react';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
+import SEO from '../components/SEO';
+import JPGToPDFContent from '../components/content/JPGToPDFContent';
 
 const JPGToPDF = () => {
     const [files, setFiles] = useState([]);
@@ -45,8 +47,33 @@ const JPGToPDF = () => {
         setIsProcessing(false);
     };
 
+    const jpgToPdfFaqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Can I combine multiple JPG files into one PDF?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes! You can upload multiple images simultaneously. SafePDF will place each image onto its own page." }
+            },
+            {
+                "@type": "Question",
+                "name": "Are my photos uploaded to the internet?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. SafePDF works entirely offline inside your web browser. Your private photos never leave your computer." }
+            }
+        ]
+    };
+
     return (
         <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+            <SEO
+                title="Convert JPG to PDF Online Free | Secure Image Converter"
+                description="Easily convert JPG, PNG, and WebP images into a single PDF document securely in your browser. 100% free and private."
+                url="/jpg-to-pdf"
+            >
+                <link rel="canonical" href="https://safepdf.site/jpg-to-pdf" />
+                <script type="application/ld+json">{JSON.stringify(jpgToPdfFaqSchema)}</script>
+            </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     JPG to PDF
@@ -128,6 +155,7 @@ const JPGToPDF = () => {
                     </div>
                 </div>
             </div>
+            <JPGToPDFContent />
         </div>
     );
 };

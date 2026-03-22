@@ -8,6 +8,8 @@ import { Trash2, FileUp, ArrowRight, Loader2, GripVertical, Shield, Plus } from 
 import clsx from 'clsx';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
+import SEO from '../components/SEO';
+import OrganizeContent from '../components/content/OrganizeContent';
 
 const Organize = () => {
     const [file, setFile] = useState(null);
@@ -69,8 +71,33 @@ const Organize = () => {
         setIsProcessing(false);
     };
 
+    const organizeFaqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Does organizing pages change the text or images in my PDF?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. SafePDF extracts and repackages the entire page exactly as it was originally created." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is there a limit to how many pages I can organize?",
+                "acceptedAnswer": { "@type": "Answer", "text": "There are no strict limits from SafePDF. The capacity is determined solely by your computer's memory." }
+            }
+        ]
+    };
+
     return (
         <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+            <SEO
+                title="Organize PDF Pages Online Free | Sort, Delete, Reorder"
+                description="Easily reorder, sort, or delete PDF pages securely in your web browser. Drag and drop organization, completely free, and no data uploaded."
+                url="/organize"
+            >
+                <link rel="canonical" href="https://safepdf.site/organize" />
+                <script type="application/ld+json">{JSON.stringify(organizeFaqSchema)}</script>
+            </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     Organize PDF
@@ -145,6 +172,7 @@ const Organize = () => {
                     </div>
                 </div>
             )}
+            <OrganizeContent />
         </div>
     );
 };

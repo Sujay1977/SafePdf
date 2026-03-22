@@ -11,6 +11,8 @@ import {
 import { Link } from 'react-router-dom';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
+import SEO from '../components/SEO';
+import EditContent from '../components/content/EditContent';
 
 const Edit = () => {
     const [file, setFile] = useState(null);
@@ -219,27 +221,57 @@ const Edit = () => {
         setIsProcessing(false);
     };
 
+    const editFaqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Is it free to edit PDFs?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes, SafePDF is completely free to use. There are no limits on the number of PDFs you can edit." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is it safe to edit confidential documents like bank statements?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. SafePDF processes everything directly within your computer's memory, so no data is uploaded." }
+            }
+        ]
+    };
+
     if (!file) return (
-        <div className="flex-grow flex flex-col items-center justify-center p-8 bg-gray-50 dark:bg-slate-900">
-            <div className="text-center mb-8">
-                <h1 className="text-4xl font-black text-slate-900 dark:text-white mb-2">PDF Editor</h1>
-                <p className="text-slate-500">Upload a PDF to start editing</p>
-            </div>
-            <div {...getRootProps()} className="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl p-12 bg-white dark:bg-slate-800 cursor-pointer hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all shadow-sm hover:shadow-md group w-full max-w-3xl">
-                <input {...getInputProps()} className="hidden" />
-                <div className="flex flex-col items-center gap-4 text-center">
-                    <ToolHeroIcon icon="edit_document" theme={getToolTheme('/edit-pdf')} />
-                    <div className="space-y-2">
-                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                            Click to Upload PDF
-                        </h3>
-                        <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
-                            Start editing your document immediately
-                        </p>
+        <>
+            <SEO
+                title="Edit PDF Online Free | Add Text, Highlight, Annotate"
+                description="The best free browser-based PDF editor. Add text, erase, highlight, and annotate your PDF files securely online without uploading them."
+                url="/edit-pdf"
+            >
+                <link rel="canonical" href="https://safepdf.site/edit-pdf" />
+                <script type="application/ld+json">{JSON.stringify(editFaqSchema)}</script>
+            </SEO>
+            <div className="flex-grow flex flex-col items-center justify-center p-8 bg-gray-50 dark:bg-slate-900">
+                <div className="text-center mb-8 mt-12">
+                    <h1 className="text-4xl font-black text-slate-900 dark:text-white mb-2">PDF Editor</h1>
+                    <p className="text-slate-500">Upload a PDF to start editing</p>
+                </div>
+                <div {...getRootProps()} className="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl p-12 bg-white dark:bg-slate-800 cursor-pointer hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all shadow-sm hover:shadow-md group w-full max-w-3xl">
+                    <input {...getInputProps()} className="hidden" />
+                    <div className="flex flex-col items-center gap-4 text-center">
+                        <ToolHeroIcon icon="edit_document" theme={getToolTheme('/edit-pdf')} />
+                        <div className="space-y-2">
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                Click to Upload PDF
+                            </h3>
+                            <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
+                                Start editing your document immediately
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div className="bg-gray-50 dark:bg-slate-900">
+                <EditContent />
+            </div>
+        </>
     );
 
     const activePage = pages[activePageIndex];

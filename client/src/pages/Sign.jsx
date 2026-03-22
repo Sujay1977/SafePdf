@@ -6,6 +6,7 @@ import { saveAs } from 'file-saver';
 import { Trash2, FileUp, ArrowRight, Loader2, PenTool, Check, X } from 'lucide-react';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
+import SignContent from '../components/content/SignContent';
 const SignatureCanvas = React.lazy(() => import('react-signature-canvas'));
 import * as pdfjsLib from 'pdfjs-dist';
 
@@ -82,14 +83,32 @@ const Sign = () => {
         setSigPosition({ x, y });
     };
 
+    const signFaqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Is this electronic signature legally binding?",
+                "acceptedAnswer": { "@type": "Answer", "text": "In most jurisdictions, yes. Electronic signatures are legally binding for most agreements." }
+            },
+            {
+                "@type": "Question",
+                "name": "Does SafePDF save my drawn signature?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. SafePDF does not store, save, or upload your signature." }
+            }
+        ]
+    };
+
     return (
         <div className="flex-grow flex flex-col items-center w-full px-4 py-8 relative">
             <SEO
-                title="Sign PDF | Electronically Sign PDF Documents"
-                description="Sign your PDF documents online directly in your browser. No upload required, 100% free and private."
+                title="Sign PDF Online Free | Add Electronic Signature Securely"
+                description="Sign your PDF documents online directly in your browser. Draw your signature, place it, and download. 100% free and private."
                 url="/sign"
             >
                 <link rel="canonical" href="https://safepdf.site/sign" />
+                <script type="application/ld+json">{JSON.stringify(signFaqSchema)}</script>
             </SEO>
             {showSigCanvas && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
@@ -180,6 +199,7 @@ const Sign = () => {
                     </div>
                 </div>
             )}
+            <SignContent />
         </div>
     );
 };

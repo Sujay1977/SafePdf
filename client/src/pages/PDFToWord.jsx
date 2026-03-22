@@ -6,6 +6,8 @@ import { Trash2, FileUp, ArrowRight, Loader2, Link, Shield, FileText } from 'luc
 import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
+import SEO from '../components/SEO';
+import PDFToWordContent from '../components/content/PDFToWordContent';
 
 const PDFToWord = () => {
     const [file, setFile] = useState(null);
@@ -36,8 +38,33 @@ const PDFToWord = () => {
         setIsProcessing(false);
     };
 
+    const pdfToWordFaqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Can it convert scanned PDFs into Word?",
+                "acceptedAnswer": { "@type": "Answer", "text": "If the PDF consists solely of scanned images without a readable text layer, it requires OCR. This tool requires a valid text layer in the PDF to function." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is my document uploaded to the cloud?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Never. Like all SafePDF tools, the conversion happens locally on your own computer." }
+            }
+        ]
+    };
+
     return (
         <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+            <SEO
+                title="Convert PDF to Word Online Free | Convert to DOCX Securely"
+                description="Convert your PDF files to editable Word documents (DOCX) instantly and securely in your browser. 100% free with no uploads."
+                url="/pdf-to-word"
+            >
+                <link rel="canonical" href="https://safepdf.site/pdf-to-word" />
+                <script type="application/ld+json">{JSON.stringify(pdfToWordFaqSchema)}</script>
+            </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     PDF to Word
@@ -97,6 +124,7 @@ const PDFToWord = () => {
                     </p>
                 </div>
             </div>
+            <PDFToWordContent />
         </div>
     );
 };

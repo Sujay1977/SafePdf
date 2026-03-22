@@ -6,6 +6,8 @@ import { Trash2, FileUp, ArrowRight, Loader2, Image, Shield, Images } from 'luci
 import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
+import SEO from '../components/SEO';
+import PDFToJPGContent from '../components/content/PDFToJPGContent';
 
 const PDFToJPG = () => {
     const [file, setFile] = useState(null);
@@ -36,8 +38,33 @@ const PDFToJPG = () => {
         setIsProcessing(false);
     };
 
+    const pdfToJpgFaqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Will I lose image quality during conversion?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. SafePDF generates the JPG images using a high pixel density multiplier to ensure the resulting images look exactly like the original PDF document." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is it free to convert PDF files to images?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes, absolutely. SafePDF does not have premium tiers, file size limits, or daily usage caps." }
+            }
+        ]
+    };
+
     return (
         <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+            <SEO
+                title="Convert PDF to JPG Online Free | Extract High-Quality Images"
+                description="Instantly convert PDF pages to high-quality JPG images securely in your browser. Download all extracted pages as a ZIP file. 100% free and client-side."
+                url="/pdf-to-jpg"
+            >
+                <link rel="canonical" href="https://safepdf.site/pdf-to-jpg" />
+                <script type="application/ld+json">{JSON.stringify(pdfToJpgFaqSchema)}</script>
+            </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     PDF to JPG
@@ -96,6 +123,7 @@ const PDFToJPG = () => {
                     </p>
                 </div>
             </div>
+            <PDFToJPGContent />
         </div>
     );
 };

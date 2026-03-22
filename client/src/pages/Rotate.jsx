@@ -7,6 +7,8 @@ import { Trash2, FileUp, ArrowRight, Loader2, RotateCw, RotateCcw, Shield } from
 import clsx from 'clsx';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
+import SEO from '../components/SEO';
+import RotateContent from '../components/content/RotateContent';
 
 const Rotate = () => {
     const [file, setFile] = useState(null);
@@ -90,8 +92,33 @@ const Rotate = () => {
         setIsProcessing(false);
     };
 
+    const rotateFaqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Will rotating my PDF reduce its quality?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. Rotating a PDF file simply alters the orientation metadata of the pages. Quality is retained 100%." }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I rotate just one page instead of the whole document?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes! SafePDF provides separate rotate buttons under each page thumbnail, allowing individual rotation." }
+            }
+        ]
+    };
+
     return (
         <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+            <SEO
+                title="Rotate PDF Pages Online Free | Delete & Straighten Files"
+                description="Easily rotate individual PDF pages or entire documents instantly. Client-side, secure, completely free, and no watermarks."
+                url="/rotate"
+            >
+                <link rel="canonical" href="https://safepdf.site/rotate" />
+                <script type="application/ld+json">{JSON.stringify(rotateFaqSchema)}</script>
+            </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     Rotate PDF
@@ -178,6 +205,7 @@ const Rotate = () => {
                     </div>
                 </div>
             )}
+            <RotateContent />
         </div>
     );
 };

@@ -7,6 +7,8 @@ import clsx from 'clsx';
 import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
+import SEO from '../components/SEO';
+import UnlockContent from '../components/content/UnlockContent';
 
 const Unlock = () => {
     const [file, setFile] = useState(null);
@@ -51,8 +53,33 @@ const Unlock = () => {
         setIsProcessing(false);
     };
 
+    const unlockFaqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Can I unlock a PDF if I don't know the password?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. SafePDF is not a password cracking tool. You must know the current password to decrypt the file." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is it safe to type my password here?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Because SafePDF operates entirely client-side, your password is never transmitted over the internet." }
+            }
+        ]
+    };
+
     return (
         <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+            <SEO
+                title="Unlock PDF Online Free | Remove PDF Passwords Securely"
+                description="Remove password protection from PDF files securely in your browser. Free, instant, and 100% private."
+                url="/unlock"
+            >
+                <link rel="canonical" href="https://safepdf.site/unlock" />
+                <script type="application/ld+json">{JSON.stringify(unlockFaqSchema)}</script>
+            </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     Unlock PDF
@@ -141,6 +168,7 @@ const Unlock = () => {
                     </div>
                 </div>
             </div>
+            <UnlockContent />
         </div>
     );
 };
