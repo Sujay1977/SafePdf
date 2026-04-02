@@ -115,7 +115,7 @@ const Home = () => {
                                 onClick={scrollToTools}
                                 className="group flex items-center justify-center gap-3 h-14 px-8 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-lg font-bold shadow-xl shadow-slate-900/10 hover:shadow-2xl hover:shadow-slate-900/20 hover:-translate-y-1 transition-all duration-300 min-w-[200px]"
                             >
-                                Get Started
+                                Start Editing Your PDF
                                 <ClientOnly>
                                     <span className="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
                                 </ClientOnly>

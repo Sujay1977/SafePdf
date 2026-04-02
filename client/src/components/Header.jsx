@@ -113,7 +113,7 @@ const Header = () => {
                         onClick={handleGetStarted}
                         className="hidden sm:flex items-center justify-center px-6 py-2.5 rounded-full bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 text-sm font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 active:scale-95"
                     >
-                        {userAuth ? 'Dashboard' : 'Get Started'}
+                        {userAuth ? 'Dashboard' : 'Explore Tools'}
                     </button>
 
                     <button
@@ -170,7 +170,7 @@ const Header = () => {
                             }}
                             className="flex items-center justify-center px-5 py-3.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-bold shadow-md"
                         >
-                            {userAuth ? 'Dashboard' : 'Get Started'}
+                            {userAuth ? 'Dashboard' : 'Explore Tools'}
                         </button>
                     </div>
                 </div>
