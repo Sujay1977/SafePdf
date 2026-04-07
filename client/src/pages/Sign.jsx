@@ -52,9 +52,12 @@ const Sign = () => {
         setShowSigCanvas(false);
     };
 
+    const [signError, setSignError] = useState('');
+
     const handleSign = async () => {
         if (!file || !signature) return;
         setIsProcessing(true);
+        setSignError('');
         try {
             // Mock size for signature
             const signatureWidth = 0.2; // 20% of page width
@@ -70,7 +73,12 @@ const Sign = () => {
             saveAs(blob, `signed_${file.name}`);
         } catch (e) {
             console.error(e);
-            alert("Sign failed");
+            const msg = (e?.message || '').toLowerCase();
+            if (msg.includes('encrypt') || msg.includes('password') || msg.includes('decrypt')) {
+                setSignError('This PDF is password protected. Please unlock it first using the Unlock tool.');
+            } else {
+                setSignError('Something went wrong. Please try another file.');
+            }
         }
         setIsProcessing(false);
     };
@@ -196,6 +204,11 @@ const Sign = () => {
                         <button onClick={handleSign} disabled={!signature || isProcessing} className="w-full py-4 bg-primary text-white font-bold rounded-xl shadow-lg hover:bg-blue-600 transition-colors disabled:bg-slate-400">
                             {isProcessing ? <Loader2 className="animate-spin mx-auto" /> : "Download Signed PDF"}
                         </button>
+                        {signError && (
+                            <p className="mt-3 text-sm text-red-600 dark:text-red-400 text-center font-medium leading-snug">
+                                {signError}
+                            </p>
+                        )}
                     </div>
                 </div>
             )}

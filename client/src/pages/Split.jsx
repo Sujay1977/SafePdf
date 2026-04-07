@@ -150,18 +150,20 @@ const Split = () => {
             {!file ? (
                 <div className="w-full max-w-3xl mx-auto">
                     <div {...getRootProps()} className="relative flex flex-col items-center justify-center w-full h-80 rounded-3xl bg-white dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md">
-                        <input {...getInputProps()} className="hidden" />
-                        <div className="flex flex-col items-center gap-4 text-center">
-                            <ToolHeroIcon icon="call_split" theme={getToolTheme('/split')} />
-                            <div className="space-y-2">
-                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                                    Click to Select PDF
-                                </h3>
-                                <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
-                                    or drag and drop file here
-                                </p>
+                        <label htmlFor="split-upload" className="cursor-pointer w-full h-full flex flex-col items-center justify-center">
+                            <div className="flex flex-col items-center gap-4 text-center">
+                                <ToolHeroIcon icon="call_split" theme={getToolTheme('/split')} />
+                                <div className="space-y-2">
+                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                        Click to Select PDF
+                                    </h3>
+                                    <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
+                                        or drag and drop file here
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        </label>
+                        <input {...getInputProps()} id="split-upload" name="split-upload" aria-label="Upload PDF document" className="hidden" />
                     </div>
                 </div>
             ) : (

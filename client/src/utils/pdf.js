@@ -174,7 +174,7 @@ export const getPageTextCheck = async (file, pageIndex) => {
 
 export const extractPages = async (file, pageIndices) => {
     const arrayBuffer = await file.arrayBuffer();
-    const pdfDoc = await PDFDocument.load(arrayBuffer);
+    const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
     const newPdf = await PDFDocument.create();
 
     const copiedPages = await newPdf.copyPages(pdfDoc, pageIndices);
@@ -297,7 +297,7 @@ export const mergePDFs = async (files) => {
 
     for (const file of files) {
         const arrayBuffer = await file.arrayBuffer();
-        const pdf = await PDFDocument.load(arrayBuffer);
+        const pdf = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
         const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
         copiedPages.forEach((page) => mergedPdf.addPage(page));
     }
@@ -308,7 +308,7 @@ export const mergePDFs = async (files) => {
 
 export const protectPDF = async (file, password) => {
     const arrayBuffer = await file.arrayBuffer();
-    const pdfDoc = await PDFDocument.load(arrayBuffer);
+    const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
 
     pdfDoc.encrypt({
         userPassword: password,
@@ -615,7 +615,7 @@ export const unlockPDF = async (file, password) => {
 
 export const rotatePDF = async (file, rotations) => {
     const arrayBuffer = await file.arrayBuffer();
-    const pdfDoc = await PDFDocument.load(arrayBuffer);
+    const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
     const pages = pdfDoc.getPages();
 
     Object.keys(rotations).forEach(pageIndex => {
@@ -699,7 +699,7 @@ export const imagesToPDF = async (files) => {
 
 export const addSignatureToPDF = async (file, signatureImageBase64, position) => {
     const arrayBuffer = await file.arrayBuffer();
-    const pdfDoc = await PDFDocument.load(arrayBuffer);
+    const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
     const pages = pdfDoc.getPages();
     const page = pages[position.pageIndex];
 
@@ -757,10 +757,25 @@ const getStandardFont = (family, bold, italic) => {
     return StandardFonts.Helvetica;
 };
 
+// ─── Text Sanitizer ─────────────────────────────────────────────────
+/**
+ * Strips characters that WinAnsi (pdf-lib default) cannot encode.
+ * - Removes carriage returns (\r) and tab chars (normalised to space)
+ * - Keeps printable ASCII (0x20–0x7E) and newlines; removes everything else
+ * Returns an empty string rather than crashing if the input is falsy.
+ */
+const sanitizeText = (text) => {
+    if (!text) return '';
+    return String(text)
+        .replace(/\r/g, '')          // remove carriage returns
+        .replace(/\t/g, ' ')         // tabs → single space
+        .replace(/[^\x20-\x7E\n]/g, ''); // keep printable ASCII + newline only
+};
+
 // NEW: Comprehensive Annotation Support with "True Edit" Logic
 export const applyAnnotations = async (file, annotations) => {
     const arrayBuffer = await file.arrayBuffer();
-    const pdfDoc = await PDFDocument.load(arrayBuffer);
+    const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
     const pages = pdfDoc.getPages();
 
     // Embed Standard Fonts as needed
@@ -777,6 +792,13 @@ export const applyAnnotations = async (file, annotations) => {
         const { width: pageWidth, height: pageHeight } = page.getSize();
         const x = ann.x * pageWidth;
         const y = pageHeight - (ann.y * pageHeight); // Top-left origin conversion
+
+        // Guard: skip annotation if coordinates are invalid (NaN/Infinity)
+        if (!Number.isFinite(x) || !Number.isFinite(y)) {
+            console.warn('applyAnnotations: skipping annotation with invalid coordinates', { x: ann.x, y: ann.y, computed: { x, y } });
+            continue;
+        }
+
         const annColor = hexToRgb(ann.color || '#000000');
         const borderColor = hexToRgb(ann.strokeColor || '#000000');
 
@@ -797,49 +819,68 @@ export const applyAnnotations = async (file, annotations) => {
                 opacity: 1
             });
 
-            // Draw new text
+                    // Draw new text — split on \n first, then word-wrap each logical line
             const fontSize = ann.fontSize || 12;
-            const text = ann.text;
-            const maxWidth = maskW * 1.5; // Allow more expansion
+            const lineHeight = fontSize * 1.2;
+            const rawText = sanitizeText(ann.text);
+            const logicalLines = rawText.split('\n');
+            const maxWidth = maskW * 1.5;
 
-            // Word Wrap
-            const words = text.split(' ');
-            let line = '';
             let currentTempY = pdfTopY - fontSize;
 
-            for (let n = 0; n < words.length; n++) {
-                const testLine = line + words[n] + ' ';
-                const testWidth = font.widthOfTextAtSize(testLine, fontSize);
-                if (testWidth > maxWidth && n > 0) {
-                    page.drawText(line, {
+            for (const logicalLine of logicalLines) {
+                // Word-wrap each logical line
+                const words = logicalLine.split(' ');
+                let line = '';
+
+                for (let n = 0; n < words.length; n++) {
+                    const testLine = line + words[n] + ' ';
+                    const testWidth = font.widthOfTextAtSize(testLine, fontSize);
+                    if (testWidth > maxWidth && n > 0) {
+                        const safeLine = sanitizeText(line);
+                        if (safeLine) {
+                            console.log('Drawing replacement text:', safeLine);
+                            page.drawText(safeLine, {
+                                x: maskX,
+                                y: currentTempY,
+                                size: fontSize,
+                                font: font,
+                                color: annColor,
+                            });
+                        }
+                        line = words[n] + ' ';
+                        currentTempY -= lineHeight;
+                    } else {
+                        line = testLine;
+                    }
+                }
+                // Draw remaining text on this logical line
+                const safeRemainder = sanitizeText(line);
+                if (safeRemainder) {
+                    console.log('Drawing replacement text:', safeRemainder);
+                    page.drawText(safeRemainder, {
                         x: maskX,
                         y: currentTempY,
                         size: fontSize,
                         font: font,
                         color: annColor,
                     });
-                    line = words[n] + ' ';
-                    currentTempY -= (fontSize * 1.2);
-                } else {
-                    line = testLine;
                 }
+                currentTempY -= lineHeight; // advance past this logical line
             }
-            page.drawText(line, {
-                x: maskX,
-                y: currentTempY,
-                size: fontSize,
-                font: font,
-                color: annColor,
-            });
             continue;
         }
 
-        // Standard annotations
+        // Standard text annotation — split on \n, draw each line
         if (ann.type === 'text') {
             const textSize = ann.fontSize || 12;
+            const lineHeight = textSize * 1.2;
+            const safeText = sanitizeText(ann.text);
+            const lines = safeText.split('\n');
+
             if (ann.backgroundColor) {
-                // ... Patch mask logic ...
-                const textWidth = font.widthOfTextAtSize(ann.text, textSize);
+                // Background rect sized to first line only (simple approximation)
+                const textWidth = font.widthOfTextAtSize(lines[0] || '', textSize);
                 const textHeight = textSize;
                 page.drawRectangle({
                     x: x,
@@ -851,12 +892,18 @@ export const applyAnnotations = async (file, annotations) => {
                 });
             }
 
-            page.drawText(ann.text, {
-                x: x + (ann.backgroundColor ? 2 : 0),
-                y: y - textSize,
-                size: textSize,
-                font: font,
-                color: annColor,
+            const drawX = x + (ann.backgroundColor ? 2 : 0);
+            lines.forEach((line, i) => {
+                const safeLine = sanitizeText(line);
+                if (!safeLine) return; // skip blank lines
+                console.log('Drawing text:', safeLine);
+                page.drawText(safeLine, {
+                    x: drawX,
+                    y: y - textSize - (i * lineHeight),
+                    size: textSize,
+                    font: font,
+                    color: annColor,
+                });
             });
         }
         // ... (Rect, Circle, Line etc. use defaults/existing)

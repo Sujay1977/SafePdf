@@ -94,16 +94,18 @@ const Compress = () => {
                     {!file ? (
                         <div className="w-full">
                             <div {...getRootProps()} className="relative flex flex-col items-center justify-center h-80 rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 hover:border-blue-400 transition-all cursor-pointer group shadow-sm hover:shadow-md">
-                                <input {...getInputProps()} className="hidden" />
-                                <div className="flex flex-col items-center gap-4 text-center">
-                                    <ToolHeroIcon icon="compress" theme={getToolTheme('/compress')} />
-                                    <div className="space-y-2">
-                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">
-                                            Click to Select PDF
-                                        </h3>
-                                        <p className="text-sm font-medium text-slate-500 dark:text-slate-400">or drag and drop file here</p>
+                                <label htmlFor="compress-upload" className="cursor-pointer w-full h-full flex flex-col items-center justify-center">
+                                    <div className="flex flex-col items-center gap-4 text-center">
+                                        <ToolHeroIcon icon="compress" theme={getToolTheme('/compress')} />
+                                        <div className="space-y-2">
+                                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">
+                                                Click to Select PDF
+                                            </h3>
+                                            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">or drag and drop file here</p>
+                                        </div>
                                     </div>
-                                </div>
+                                </label>
+                                <input {...getInputProps()} id="compress-upload" name="compress-upload" aria-label="Upload PDF document" className="hidden" />
                             </div>
                         </div>
                     ) : (
@@ -143,13 +145,13 @@ const Compress = () => {
                                 { id: 'recommended', label: 'Recommended', desc: 'Good quality, good compression', badge: 'Best' },
                                 { id: 'less', label: 'Less Compression', desc: 'High quality, less compression' }
                             ].map((opt) => (
-                                <label key={opt.id} className={clsx(
+                                <label key={opt.id} htmlFor={`compression-${opt.id}`} className={clsx(
                                     "relative flex cursor-pointer rounded-lg border p-4 shadow-sm focus:outline-none transition-all",
                                     level === opt.id
                                         ? "border-primary bg-primary/5 ring-1 ring-primary" // Selected
                                         : "border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900" // Unselected
                                 )}>
-                                    <input type="radio" name="compression" value={opt.id} checked={level === opt.id} onChange={() => setLevel(opt.id)} className="sr-only" />
+                                    <input id={`compression-${opt.id}`} type="radio" name="compression" aria-label={`${opt.label} compression`} value={opt.id} checked={level === opt.id} onChange={() => setLevel(opt.id)} className="sr-only" />
                                     <span className="flex flex-1">
                                         <span className="flex flex-col">
                                             <div className="flex items-center gap-2">

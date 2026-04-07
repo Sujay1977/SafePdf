@@ -94,7 +94,7 @@ const Unlock = () => {
                 <div className="flex flex-col gap-4">
                     {!file ? (
                         <div {...getRootProps()} className="group relative flex flex-col items-center justify-center aspect-square rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 hover:border-blue-400 transition-all cursor-pointer shadow-sm hover:shadow-md">
-                            <input {...getInputProps()} className="hidden" />
+                            <input {...getInputProps()} id="file-upload" name="file-upload" aria-label="Upload PDF document" className="hidden" />
                             <div className="flex flex-col items-center gap-4 text-center p-6">
                                 <ToolHeroIcon icon="lock_open" theme={getToolTheme('/unlock')} />
                                 <div className="space-y-2">
@@ -131,7 +131,7 @@ const Unlock = () => {
 
                         <div className="flex flex-col gap-4">
                             <div className="flex flex-col gap-2">
-                                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Password</label>
+                                <label htmlFor="password" className="text-sm font-bold text-slate-700 dark:text-slate-300">Password</label>
                                 <input
                                     type="password"
                                     value={password}

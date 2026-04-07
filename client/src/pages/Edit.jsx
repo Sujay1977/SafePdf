@@ -191,32 +191,63 @@ const Edit = () => {
             const replacements = Object.keys(editedTextSchema).map(idx => {
                 const original = pageTextItems[idx];
                 const state = editedTextSchema[idx];
+
+                // original.x and original.y are the normalized coords returned by getPageTextCheck
+                // (normX/normY are NOT on the returned object — x/y are the normalized values)
+                const normX = Number.isFinite(original.x) ? original.x : 0;
+                const normY = Number.isFinite(original.y) ? original.y : 0;
+                const normW = Number.isFinite(original.normWidth) ? original.normWidth : 0;
+                const normH = Number.isFinite(original.normHeight) ? original.normHeight : 0;
+                const safeFontSize = Number.isFinite(state.fontSize) && state.fontSize > 0 ? state.fontSize : 12;
+
+                if (!Number.isFinite(original.x) || !Number.isFinite(original.y)) {
+                    console.warn('Invalid coordinates for text item', idx, original);
+                }
+
                 return {
                     id: `rep-${idx}`,
                     type: 'text',
                     isReplacement: true,
                     pageIndex: activePageIndex,
-                    x: original.normX,
-                    y: original.normY + original.normHeight,
+                    x: normX,
+                    y: normY + normH,
                     text: state.text,
-                    fontSize: state.fontSize,
+                    fontSize: safeFontSize,
                     fontFamily: state.fontFamily,
                     isBold: state.isBold,
                     isItalic: state.isItalic,
                     color: state.color,
-                    originalX: original.normX,
-                    originalY: original.normY,
-                    originalWidth: original.normWidth,
-                    originalHeight: original.normHeight
+                    originalX: normX,
+                    originalY: normY,
+                    originalWidth: normW,
+                    originalHeight: normH
                 };
             });
 
-            const finalAnnotations = [...annotations, ...replacements];
+            // Filter out any replacement that still has bad coordinates
+            const validReplacements = replacements.filter(r =>
+                Number.isFinite(r.x) && Number.isFinite(r.y) &&
+                Number.isFinite(r.originalX) && Number.isFinite(r.originalY)
+            );
+
+            // Also guard regular annotations
+            const validAnnotations = annotations.filter(a =>
+                Number.isFinite(a.x) && Number.isFinite(a.y)
+            );
+
+            console.log('Saving annotations:', validAnnotations.length, 'replacements:', validReplacements.length);
+
+            const finalAnnotations = [...validAnnotations, ...validReplacements];
             const blob = await applyAnnotations(file, finalAnnotations);
             saveAs(blob, `edited_${file.name}`);
         } catch (e) {
             console.error(e);
-            alert("Failed to save edits");
+            const msg = e?.message || '';
+            if (msg.includes('NaN') || msg.includes('number')) {
+                alert('Some elements have invalid positions. Please reselect text and try again.');
+            } else {
+                alert('Failed to save edits. Please try again.');
+            }
         }
         setIsProcessing(false);
     };
@@ -254,18 +285,20 @@ const Edit = () => {
                     <p className="text-slate-500">Upload a PDF to start editing</p>
                 </div>
                 <div {...getRootProps()} className="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl p-12 bg-white dark:bg-slate-800 cursor-pointer hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all shadow-sm hover:shadow-md group w-full max-w-3xl">
-                    <input {...getInputProps()} className="hidden" />
-                    <div className="flex flex-col items-center gap-4 text-center">
-                        <ToolHeroIcon icon="edit_document" theme={getToolTheme('/edit-pdf')} />
-                        <div className="space-y-2">
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                                Click to Upload PDF
-                            </h3>
-                            <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
-                                Start editing your document immediately
-                            </p>
+                    <label htmlFor="edit-upload" className="cursor-pointer w-full h-full flex flex-col items-center justify-center">
+                        <div className="flex flex-col items-center gap-4 text-center">
+                            <ToolHeroIcon icon="edit_document" theme={getToolTheme('/edit-pdf')} />
+                            <div className="space-y-2">
+                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                    Click to Upload PDF
+                                </h3>
+                                <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
+                                    Start editing your document immediately
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </label>
+                    <input {...getInputProps()} id="edit-upload" name="edit-upload" aria-label="Upload PDF document" className="hidden" />
                 </div>
             </div>
             <div className="bg-gray-50 dark:bg-slate-900">
@@ -302,8 +335,8 @@ const Edit = () => {
                         <div className="w-px h-4 bg-gray-200"></div>
 
                         {/* Font Family */}
-                        <select
-                            className="bg-transparent text-sm border-none focus:ring-0 p-0 w-24 text-slate-700 font-medium cursor-pointer"
+                        <label htmlFor={`font-family-${selectedContentIdx}`} className="sr-only">Font Family</label>
+                        <select id={`font-family-${selectedContentIdx}`} name={`font-family-${selectedContentIdx}`} className="bg-transparent text-sm border-none focus:ring-0 p-0 w-24 text-slate-700 font-medium cursor-pointer"
                             value={getEditedState(selectedContentIdx).fontFamily}
                             onChange={(e) => updateContentEdit(selectedContentIdx, { fontFamily: e.target.value })}
                         >
@@ -313,8 +346,8 @@ const Edit = () => {
                         <div className="w-px h-4 bg-gray-200"></div>
 
                         {/* Font Size */}
-                        <input
-                            type="number"
+                        <label htmlFor={`font-size-${selectedContentIdx}`} className="sr-only">Font Size</label>
+                        <input id={`font-size-${selectedContentIdx}`} name={`font-size-${selectedContentIdx}`} type="number"
                             className="w-12 bg-transparent text-sm border-none focus:ring-0 p-0 text-center"
                             value={Math.round(getEditedState(selectedContentIdx).fontSize)}
                             onChange={(e) => updateContentEdit(selectedContentIdx, { fontSize: Number(e.target.value) })}
@@ -394,7 +427,9 @@ const Edit = () => {
 
                                                 {/* Editor or Preview */}
                                                 {isSelected ? (
-                                                    <textarea
+                                                    <React.Fragment>
+                                                        <label htmlFor={`text-editor-${idx}`} className="sr-only">Edit text content</label>
+                                                        <textarea id={`text-editor-${idx}`} name={`text-editor-${idx}`}
                                                         value={state.text}
                                                         autoFocus
                                                         onChange={(e) => updateContentEdit(idx, { text: e.target.value })}
@@ -408,6 +443,7 @@ const Edit = () => {
                                                             whiteSpace: 'pre-wrap'
                                                         }}
                                                     />
+                                                    </React.Fragment>
                                                 ) : (
                                                     // Invisible overlay to capture clicks, but lets you see original text
                                                     <div className="w-full h-full cursor-text" title={`Font: ${state.fontFamily}, Size: ${Math.round(state.fontSize)}px`} />

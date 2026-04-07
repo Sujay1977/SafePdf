@@ -112,18 +112,20 @@ const Merge = () => {
                 <div className="flex-1 w-full">
                     {files.length === 0 ? (
                         <div {...getRootProps()} className="relative flex flex-col items-center justify-center w-full h-80 rounded-3xl bg-white dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md">
-                            <input {...getInputProps()} className="hidden" />
-                            <div className="flex flex-col items-center gap-4 text-center">
-                                <ToolHeroIcon icon="call_merge" theme={getToolTheme('/merge')} />
-                                <div className="space-y-2">
-                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                                        Click to Select PDFs
-                                    </h3>
-                                    <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
-                                        or drag and drop files here
-                                    </p>
+                            <label htmlFor="merge-upload" className="cursor-pointer w-full h-full flex flex-col items-center justify-center">
+                                <div className="flex flex-col items-center gap-4 text-center">
+                                    <ToolHeroIcon icon="call_merge" theme={getToolTheme('/merge')} />
+                                    <div className="space-y-2">
+                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                            Click to Select PDFs
+                                        </h3>
+                                        <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
+                                            or drag and drop files here
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
+                            </label>
+                            <input {...getInputProps()} id="merge-upload" name="merge-upload" aria-label="Upload PDF document" className="hidden" />
                         </div>
                     ) : (
                         <div>
@@ -140,7 +142,7 @@ const Merge = () => {
                             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 gap-4">
                                 {/* Drop Zone (Small) */}
                                 <div {...getRootProps()} className="group relative flex flex-col items-center justify-center gap-3 aspect-[3/4] rounded-xl border-2 border-dashed border-primary/40 bg-primary/5 hover:bg-primary/10 transition-colors cursor-pointer">
-                                    <input {...getInputProps()} />
+                                    <input {...getInputProps()} id="file-upload-extra" name="file-upload-extra" aria-label="Upload additional document" />
                                     <div className="size-12 rounded-full bg-primary/20 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
                                         <FileUp size={24} />
                                     </div>

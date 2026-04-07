@@ -5,6 +5,8 @@ client/node_modules/
 # Ignore all build outputs
 dist/
 client/dist/
+.vite
+.vite-react-ssg-temp
 
 # Ignore logs and secrets
 *.log
