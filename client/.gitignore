@@ -1,13 +1,19 @@
-# Ignore all node_modules everywhere
+# Dependencies
 node_modules/
-client/node_modules/
 
-# Ignore all build outputs
+# Build output
 dist/
-client/dist/
 .vite
 .vite-react-ssg-temp
 
-# Ignore logs and secrets
+# Logs
 *.log
+
+# Environment variables
 .env
+
+# Vercel
+.vercel
+
+# OS files
+.DS_Store
