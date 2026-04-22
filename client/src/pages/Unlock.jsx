@@ -77,7 +77,6 @@ const Unlock = () => {
                 description="Remove password protection from PDF files securely in your browser. Free, instant, and 100% private."
                 url="/unlock"
             >
-                <link rel="canonical" href="https://safepdf.site/unlock" />
                 <script type="application/ld+json">{JSON.stringify(unlockFaqSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">

@@ -58,7 +58,6 @@ export default function BlogLayout({
     return (
         <>
             <SEO title={title} description={description} url={`/blog/${slug}`} type="article">
-                <link rel="canonical" href={`https://safepdf.site/blog/${slug}`} />
                 <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
                 <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
             </SEO>

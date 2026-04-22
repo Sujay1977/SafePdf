@@ -62,7 +62,6 @@ const PDFToWord = () => {
                 description="Convert your PDF files to editable Word documents (DOCX) instantly and securely in your browser. 100% free with no uploads."
                 url="/pdf-to-word"
             >
-                <link rel="canonical" href="https://safepdf.site/pdf-to-word" />
                 <script type="application/ld+json">{JSON.stringify(pdfToWordFaqSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">

@@ -115,7 +115,6 @@ const Sign = () => {
                 description="Sign your PDF documents online directly in your browser. Draw your signature, place it, and download. 100% free and private."
                 url="/sign"
             >
-                <link rel="canonical" href="https://safepdf.site/sign" />
                 <script type="application/ld+json">{JSON.stringify(signFaqSchema)}</script>
             </SEO>
             {showSigCanvas && (

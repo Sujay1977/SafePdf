@@ -62,7 +62,6 @@ const PDFToJPG = () => {
                 description="Instantly convert PDF pages to high-quality JPG images securely in your browser. Download all extracted pages as a ZIP file. 100% free and client-side."
                 url="/pdf-to-jpg"
             >
-                <link rel="canonical" href="https://safepdf.site/pdf-to-jpg" />
                 <script type="application/ld+json">{JSON.stringify(pdfToJpgFaqSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">

@@ -95,7 +95,6 @@ const Organize = () => {
                 description="Easily reorder, sort, or delete PDF pages securely in your web browser. Drag and drop organization, completely free, and no data uploaded."
                 url="/organize"
             >
-                <link rel="canonical" href="https://safepdf.site/organize" />
                 <script type="application/ld+json">{JSON.stringify(organizeFaqSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">

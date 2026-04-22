@@ -276,7 +276,6 @@ const Edit = () => {
                 description="The best free browser-based PDF editor. Add text, erase, highlight, and annotate your PDF files securely online without uploading them."
                 url="/edit-pdf"
             >
-                <link rel="canonical" href="https://safepdf.site/edit-pdf" />
                 <script type="application/ld+json">{JSON.stringify(editFaqSchema)}</script>
             </SEO>
             <div className="flex-grow flex flex-col items-center justify-center p-8 bg-gray-50 dark:bg-slate-900">

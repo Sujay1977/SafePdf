@@ -71,7 +71,6 @@ const JPGToPDF = () => {
                 description="Easily convert JPG, PNG, and WebP images into a single PDF document securely in your browser. 100% free and private."
                 url="/jpg-to-pdf"
             >
-                <link rel="canonical" href="https://safepdf.site/jpg-to-pdf" />
                 <script type="application/ld+json">{JSON.stringify(jpgToPdfFaqSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">

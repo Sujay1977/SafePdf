@@ -76,7 +76,6 @@ const Compress = () => {
                 description="Compress PDF files online for free. Reduce file size without losing quality. 100% secure and processed locally."
                 url="/compress"
             >
-                <link rel="canonical" href="https://safepdf.site/compress" />
                 <script type="application/ld+json">{JSON.stringify(compressFaqSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">

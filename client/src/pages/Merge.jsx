@@ -95,7 +95,6 @@ const Merge = () => {
                 description="Merge multiple PDF files into one instantly. Free, secure, and works directly in your browser."
                 url="/merge"
             >
-                <link rel="canonical" href="https://safepdf.site/merge" />
                 <script type="application/ld+json">{JSON.stringify(mergeFaqSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">

@@ -135,7 +135,6 @@ const Split = () => {
                 description="Split PDF files into separate pages instantly. No uploads required, fully secure."
                 url="/split"
             >
-                <link rel="canonical" href="https://safepdf.site/split" />
                 <script type="application/ld+json">{JSON.stringify(splitFaqSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">

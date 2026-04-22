@@ -161,7 +161,6 @@ export default function BlogIndex() {
                 description="Practical PDF guides and tutorials. Learn how to compress, merge, split, protect, and convert PDFs online for free using SafePDF's browser-based tools."
                 url="/blog"
             >
-                <link rel="canonical" href="https://safepdf.site/blog" />
                 <script type="application/ld+json">{JSON.stringify(blogIndexSchema)}</script>
             </SEO>
 

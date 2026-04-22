@@ -51,7 +51,6 @@ const Home = () => {
                 title="Free Online PDF Tools | SafePDF - Merge, Split, Compress & More"
                 description="Free, secure PDF tools that work in your browser. Merge, split, compress, protect, convert and edit PDFs online — no uploads, no data collection."
             >
-                <link rel="canonical" href="https://safepdf.site/" />
                 <script type="application/ld+json">
                     {JSON.stringify({
                         "@context": "https://schema.org",

@@ -116,7 +116,6 @@ const Rotate = () => {
                 description="Easily rotate individual PDF pages or entire documents instantly. Client-side, secure, completely free, and no watermarks."
                 url="/rotate"
             >
-                <link rel="canonical" href="https://safepdf.site/rotate" />
                 <script type="application/ld+json">{JSON.stringify(rotateFaqSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">

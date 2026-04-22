@@ -79,7 +79,6 @@ const Protect = () => {
                 description="Add password protection to your PDF files. Secure encryption directly in your browser."
                 url="/protect"
             >
-                <link rel="canonical" href="https://safepdf.site/protect" />
                 <script type="application/ld+json">{JSON.stringify(protectFaqSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
