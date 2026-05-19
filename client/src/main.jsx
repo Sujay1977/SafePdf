@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { routes } from './routes.jsx'
 import './index.css'
 import ReactGA from 'react-ga4'
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 if (import.meta.env.PROD) {
     ReactGA.initialize('G-SV9Q7DEW95');
@@ -23,6 +24,7 @@ if (rootElement.hasChildNodes()) {
             <HelmetProvider>
                 <RouterProvider router={router} />
             </HelmetProvider>
+            <SpeedInsights />
         </React.StrictMode>
     ));
 } else {
@@ -31,6 +33,7 @@ if (rootElement.hasChildNodes()) {
             <HelmetProvider>
                 <RouterProvider router={router} />
             </HelmetProvider>
+            <SpeedInsights />
         </React.StrictMode>,
     );
 }
