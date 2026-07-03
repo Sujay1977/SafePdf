@@ -1,5 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RelatedTools from '../RelatedTools';
+
+export const mergeFaqs = [
+    {
+        q: 'How do I merge PDF files online for free?',
+        a: "Upload your PDF files to SafePDF, arrange them in your desired order by dragging and dropping, then click 'Merge PDF'. Your merged file downloads instantly."
+    },
+    {
+        q: 'Is there a limit on how many PDFs I can merge?',
+        a: "SafePDF does not impose a limit on the number of PDFs you can merge. The only constraint is your browser's available memory."
+    },
+    {
+        q: 'Are my merged PDF files secure?',
+        a: "Absolutely. All merging happens inside your browser using client-side JavaScript. Your files are never sent to any server."
+    },
+    {
+        q: 'Can I reorder PDFs before merging?',
+        a: "Yes! SafePDF lets you drag and drop PDF thumbnails to reorder them before merging, giving you full control over the final document."
+    }
+];
 
 export default function MergeContent() {
     return (
@@ -95,60 +115,10 @@ export default function MergeContent() {
                 </div>
 
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    More PDF Tools From SafePDF
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-                    {[
-                        { to: '/compress', label: '📦 Compress PDF', desc: 'Reduce PDF file size' },
-                        { to: '/split', label: '✂️ Split PDF', desc: 'Extract specific pages' },
-                        { to: '/protect', label: '🔒 Protect PDF', desc: 'Password-encrypt a PDF' },
-                        { to: '/rotate', label: '🔄 Rotate PDF', desc: 'Rotate pages in a PDF' },
-                    ].map((tool) => (
-                        <Link
-                            key={tool.to}
-                            to={tool.to}
-                            className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-400 hover:shadow-md transition-all group"
-                        >
-                            <p className="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">{tool.label}</p>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{tool.desc}</p>
-                        </Link>
-                    ))}
-                </div>
-
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
                     Frequently Asked Questions — Merge PDF
                 </h2>
-                <div className="space-y-5">
-                    {[
-                        {
-                            q: 'How can I merge PDF files online for free?',
-                            a: 'Go to safepdf.site/merge, upload your PDF files, drag to arrange them in the order you want, and click Merge PDF. The combined file downloads instantly — free, no account required.'
-                        },
-                        {
-                            q: 'How many PDFs can I merge at once?',
-                            a: 'SafePDF has no preset limit on the number of PDFs you can merge. You can combine as many files as your browser memory allows — typically dozens or more.'
-                        },
-                        {
-                            q: 'Will the quality of my PDFs be reduced after merging?',
-                            a: 'No. SafePDF merges PDFs without recompressing or altering any content. Text, images, and formatting are preserved exactly as they appear in the originals.'
-                        },
-                        {
-                            q: 'Can I merge password-protected PDFs?',
-                            a: 'Password-protected PDFs need to be unlocked first. Use the SafePDF Unlock PDF tool to remove the password, then merge them.'
-                        },
-                        {
-                            q: 'Is the PDF merger free to use?',
-                            a: 'Yes, completely free. No file limits, no watermarks, no subscription required. SafePDF is built to be permanently free for everyone.'
-                        },
-                        {
-                            q: 'Is it safe to merge confidential PDFs online?',
-                            a: 'With SafePDF yes — your PDF documents are merged entirely inside your browser. No data is uploaded to any server. Your files never leave your device.'
-                        },
-                        {
-                            q: 'Can I reorder pages after merging PDFs?',
-                            a: 'Yes. After merging, use SafePDF\'s Organize PDF tool to reorder, delete, or duplicate individual pages in the combined document.'
-                        },
-                    ].map(({ q, a }) => (
+                <div className="space-y-5 mb-12">
+                    {mergeFaqs.map(({ q, a }) => (
                         <div key={q} className="p-5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700">
                             <h3 className="font-bold text-slate-900 dark:text-white mb-2">{q}</h3>
                             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{a}</p>
@@ -156,21 +126,19 @@ export default function MergeContent() {
                     ))}
                 </div>
 
-                {/* Related Guides */}
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    Related Guides
-                </h2>
-                <div className="flex flex-col gap-3 mb-8">
-                    {[
+                <RelatedTools 
+                    tools={[
+                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                        { to: '/split', emoji: '✂️', label: 'Split PDF', desc: 'Extract specific pages' },
+                        { to: '/protect', emoji: '🔒', label: 'Protect PDF', desc: 'Password-encrypt a PDF' },
+                        { to: '/rotate', emoji: '🔄', label: 'Rotate PDF', desc: 'Rotate pages in a PDF' },
+                    ]}
+                    blogs={[
                         { to: '/blog/how-to-merge-pdf-online-free', label: 'How to Merge PDF Files Online for Free (Full Guide)' },
                         { to: '/blog/how-to-organize-pdf-pages', label: 'How to Organize PDF Pages After Merging' },
                         { to: '/blog/best-free-pdf-tools-2026', label: 'Best Free PDF Tools in 2026' },
-                    ].map((b) => (
-                        <Link key={b.to} to={b.to} className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-                            <span>→</span><span>{b.label}</span>
-                        </Link>
-                    ))}
-                </div>
+                    ]}
+                />
 
             </div>
         </section>

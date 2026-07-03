@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
-import EditContent from '../components/content/EditContent';
+import EditContent, { editFaqs } from '../components/content/EditContent';
 
 const Edit = () => {
     const [file, setFile] = useState(null);
@@ -255,28 +255,47 @@ const Edit = () => {
     const editFaqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Is it free to edit PDFs?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes, SafePDF is completely free to use. There are no limits on the number of PDFs you can edit." }
-            },
-            {
-                "@type": "Question",
-                "name": "Is it safe to edit confidential documents like bank statements?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. SafePDF processes everything directly within your computer's memory, so no data is uploaded." }
-            }
-        ]
+        "mainEntity": editFaqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+        }))
     };
 
+    const pageSchema = [
+        editFaqSchema,
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "SafePDF Edit",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux, Chrome OS",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
+                { "@type": "ListItem", "position": 2, "name": "Edit PDF", "item": "https://safepdf.site/edit-pdf" }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Edit PDF Online Free | Add Text, Highlight, Annotate",
+            "url": "https://safepdf.site/edit-pdf"
+        }
+    ];
+
     if (!file) return (
-        <>
+        <article className="flex flex-col flex-grow">
             <SEO
-                title="Edit PDF Online Free | Add Text, Highlight, Annotate"
-                description="The best free browser-based PDF editor. Add text, erase, highlight, and annotate your PDF files securely online without uploading them."
+                title="Edit PDF Online Free | SafePDF"
+                description="Free browser-based PDF editor. Add text, erase, highlight, and annotate your PDF files securely online without uploads."
                 url="/edit-pdf"
             >
-                <script type="application/ld+json">{JSON.stringify(editFaqSchema)}</script>
+                <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
             <div className="flex-grow flex flex-col items-center justify-center p-8 bg-gray-50 dark:bg-slate-900">
                 <div className="text-center mb-8 mt-12">
@@ -288,9 +307,9 @@ const Edit = () => {
                         <div className="flex flex-col items-center gap-4 text-center">
                             <ToolHeroIcon icon="edit_document" theme={getToolTheme('/edit-pdf')} />
                             <div className="space-y-2">
-                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                <h2 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                     Click to Upload PDF
-                                </h3>
+                                </h2>
                                 <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
                                     Start editing your document immediately
                                 </p>
@@ -303,7 +322,7 @@ const Edit = () => {
             <div className="bg-gray-50 dark:bg-slate-900">
                 <EditContent />
             </div>
-        </>
+        </article>
     );
 
     const activePage = pages[activePageIndex];
@@ -314,17 +333,17 @@ const Edit = () => {
             {/* Toolbar */}
             <div className="absolute top-20 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
                 <div className="flex items-center gap-1 p-2 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-gray-200 dark:border-slate-700">
-                    <button onClick={() => setTool('select')} className={`p-2 rounded-lg ${tool === 'select' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><MousePointer2 size={20} /></button>
+                    <button onClick={() => setTool('select')} aria-label="Select Tool" className={`p-2 rounded-lg ${tool === 'select' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><MousePointer2 size={20} /></button>
                     <div className="w-px h-6 bg-gray-200 dark:bg-slate-700 mx-1"></div>
-                    <button onClick={() => setTool('edit-content')} className={`p-2 rounded-lg ${tool === 'edit-content' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Edit3 size={20} /></button>
+                    <button onClick={() => setTool('edit-content')} aria-label="Edit Content Tool" className={`p-2 rounded-lg ${tool === 'edit-content' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Edit3 size={20} /></button>
                     <div className="w-px h-6 bg-gray-200 dark:bg-slate-700 mx-1"></div>
-                    <button onClick={() => setTool('text')} className={`p-2 rounded-lg ${tool === 'text' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Type size={20} /></button>
-                    <button onClick={() => setTool('rect')} className={`p-2 rounded-lg ${tool === 'rect' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Square size={20} /></button>
-                    <button onClick={() => setTool('eraser')} className={`p-2 rounded-lg ${tool === 'eraser' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Eraser size={20} /></button>
-                    <button onClick={() => setTool('highlight')} className={`p-2 rounded-lg ${tool === 'highlight' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Highlighter size={20} /></button>
+                    <button onClick={() => setTool('text')} aria-label="Add Text Tool" className={`p-2 rounded-lg ${tool === 'text' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Type size={20} /></button>
+                    <button onClick={() => setTool('rect')} aria-label="Draw Rectangle Tool" className={`p-2 rounded-lg ${tool === 'rect' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Square size={20} /></button>
+                    <button onClick={() => setTool('eraser')} aria-label="Eraser Tool" className={`p-2 rounded-lg ${tool === 'eraser' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Eraser size={20} /></button>
+                    <button onClick={() => setTool('highlight')} aria-label="Highlight Tool" className={`p-2 rounded-lg ${tool === 'highlight' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Highlighter size={20} /></button>
                     <div className="w-px h-6 bg-gray-200 dark:bg-slate-700 mx-1"></div>
-                    <button onClick={handleUndo} disabled={historyIndex < 0} className="p-2 rounded-lg text-slate-500 hover:bg-gray-50 disabled:opacity-30"><Undo size={20} /></button>
-                    <button onClick={handleRedo} disabled={historyIndex >= history.length - 1} className="p-2 rounded-lg text-slate-500 hover:bg-gray-50 disabled:opacity-30"><Redo size={20} /></button>
+                    <button onClick={handleUndo} disabled={historyIndex < 0} aria-label="Undo" className="p-2 rounded-lg text-slate-500 hover:bg-gray-50 disabled:opacity-30"><Undo size={20} /></button>
+                    <button onClick={handleRedo} disabled={historyIndex >= history.length - 1} aria-label="Redo" className="p-2 rounded-lg text-slate-500 hover:bg-gray-50 disabled:opacity-30"><Redo size={20} /></button>
                 </div>
 
                 {/* Text Properties Bar (Contextual) */}
@@ -358,12 +377,14 @@ const Edit = () => {
                         {/* Bold/Italic */}
                         <button
                             onClick={() => updateContentEdit(selectedContentIdx, { isBold: !getEditedState(selectedContentIdx).isBold })}
+                            aria-label="Toggle Bold"
                             className={`p-1 rounded ${getEditedState(selectedContentIdx).isBold ? 'bg-blue-100 text-blue-600' : 'text-slate-500 hover:bg-gray-50'}`}
                         >
                             <Bold size={16} />
                         </button>
                         <button
                             onClick={() => updateContentEdit(selectedContentIdx, { isItalic: !getEditedState(selectedContentIdx).isItalic })}
+                            aria-label="Toggle Italic"
                             className={`p-1 rounded ${getEditedState(selectedContentIdx).isItalic ? 'bg-blue-100 text-blue-600' : 'text-slate-500 hover:bg-gray-50'}`}
                         >
                             <Italic size={16} />
@@ -376,9 +397,9 @@ const Edit = () => {
             <div className="flex-1 flex overflow-hidden relative">
                 <div className="w-64 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 overflow-y-auto hidden md:block">
                     <div className="p-4">
-                        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Pages</h3>
+                        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Pages</h2>
                         <div className="aspect-[1/1.4] bg-gray-100 rounded-lg border-2 border-primary ring-2 ring-primary/20 relative overflow-hidden">
-                            {activePage && <img src={activePage.thumbnail} className="w-full h-full object-contain" />}
+                            {activePage && <img src={activePage.thumbnail} alt="PDF Page Preview" loading="lazy" decoding="async" className="w-full h-full object-contain" />}
                             <div className="absolute bottom-1 right-1 bg-black/50 text-white text-[10px] px-1.5 py-0.5 rounded">1</div>
                         </div>
                     </div>
@@ -390,7 +411,7 @@ const Edit = () => {
                             style={{ width: activePage.originalWidth, height: activePage.originalHeight, transform: 'scale(1)', transformOrigin: 'top center' }}
                             onClick={handleCanvasClick}
                         >
-                            <img src={activePage.thumbnail} className="absolute inset-0 w-full h-full pointer-events-none select-none" />
+                            <img src={activePage.thumbnail} alt="PDF Page Preview" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full pointer-events-none select-none" />
 
                             {/* Content Edit Layer */}
                             {tool === 'edit-content' && (

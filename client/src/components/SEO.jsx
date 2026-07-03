@@ -1,23 +1,30 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-export default function SEO({ title, description, image, url, type = 'website', children }) {
+export default function SEO({ title, description, image, url, type = 'website', robots = 'index, follow', themeColor = '#ffffff', language = 'en', children }) {
     const siteTitle = 'SafePDF';
-    const siteDescription = 'Free, secure, and client-side PDF tools. Merge, split, compress, and edit files in your browser. Your documents never leave your device for complete privacy.';
+    const siteDescription = 'SafePDF is a free online PDF toolkit and a privacy-focused alternative to iLovePDF. Merge, split, compress, and edit PDFs locally.';
     const siteUrl = 'https://safepdf.site';
     const defaultImage = `${siteUrl}/og-image.png`;
 
-    const metaTitle = title ? `${title} | ${siteTitle}` : `${siteTitle} - Free Online PDF Tools`;
+    // If title already includes SafePDF, don't append it again
+    const metaTitle = title 
+        ? (title.includes('SafePDF') ? title : `${title} | ${siteTitle}`) 
+        : `Free Online PDF Tools | ${siteTitle}`;
+        
     const metaDescription = description || siteDescription;
     const metaImage = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : defaultImage;
     const metaUrl = url ? `${siteUrl}${url}` : siteUrl;
 
     return (
-        <Helmet>
+        <Helmet htmlAttributes={{ lang: language }}>
             {/* Standard metadata */}
             <title>{metaTitle}</title>
             <meta name='description' content={metaDescription} />
             <link rel="canonical" href={metaUrl} />
+            <meta name="robots" content={robots} />
+            <meta name="theme-color" content={themeColor} />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
             {/* Facebook tags */}
             <meta property='og:type' content={type} />

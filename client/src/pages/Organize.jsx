@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
-import OrganizeContent from '../components/content/OrganizeContent';
+import OrganizeContent, { organizeFaqs } from '../components/content/OrganizeContent';
 
 const Organize = () => {
     const [file, setFile] = useState(null);
@@ -74,48 +74,67 @@ const Organize = () => {
     const organizeFaqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Does organizing pages change the text or images in my PDF?",
-                "acceptedAnswer": { "@type": "Answer", "text": "No. SafePDF extracts and repackages the entire page exactly as it was originally created." }
-            },
-            {
-                "@type": "Question",
-                "name": "Is there a limit to how many pages I can organize?",
-                "acceptedAnswer": { "@type": "Answer", "text": "There are no strict limits from SafePDF. The capacity is determined solely by your computer's memory." }
-            }
-        ]
+        "mainEntity": organizeFaqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+        }))
     };
 
+    const pageSchema = [
+        organizeFaqSchema,
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "SafePDF Organize",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux, Chrome OS",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
+                { "@type": "ListItem", "position": 2, "name": "Organize PDF", "item": "https://safepdf.site/organize" }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Organize PDF Pages Online Free | Sort, Delete, Reorder",
+            "url": "https://safepdf.site/organize"
+        }
+    ];
+
     return (
-        <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+        <article className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
             <SEO
-                title="Organize PDF Pages Online Free | Sort, Delete, Reorder"
-                description="Easily reorder, sort, or delete PDF pages securely in your web browser. Drag and drop organization, completely free, and no data uploaded."
+                title="Organize PDF Pages Online Free | SafePDF"
+                description="Reorder, sort, or delete PDF pages securely in your web browser. Drag and drop organization, completely free and private."
                 url="/organize"
             >
-                <script type="application/ld+json">{JSON.stringify(organizeFaqSchema)}</script>
+                <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     Organize PDF
                 </h1>
                 <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Sort, delete, and reorder PDF pages.
+                    Sort, delete, and reorder Portable Document Format (PDF) pages natively in your browser on Windows, macOS, or Linux.
                 </p>
             </div>
 
             {!file ? (
                 <div className="w-full max-w-3xl mx-auto">
                     <div {...getRootProps()} className="relative flex flex-col items-center justify-center w-full h-80 rounded-3xl bg-white dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md">
-                        <input {...getInputProps()} className="hidden" />
+                        <input {...getInputProps()} id="organize-upload" name="organize-upload" aria-label="Upload PDF document" className="hidden" />
                         <div className="flex flex-col items-center gap-4 text-center">
                             <ToolHeroIcon icon="low_priority" theme={getToolTheme('/organize')} />
                             <div className="space-y-2">
-                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                <h2 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                     Click to Select PDF
-                                </h3>
+                                </h2>
                                 <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
                                     or drag and drop file here
                                 </p>
@@ -128,7 +147,7 @@ const Organize = () => {
                     {/* Left: Reorder Grid */}
                     <div className="flex-1 w-full bg-slate-100 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 md:p-8">
                         <div className="flex justify-between items-center mb-6">
-                            <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200">Drag to Reorder</h3>
+                            <h2 className="text-lg font-bold text-slate-700 dark:text-slate-200">Drag to Reorder</h2>
                             <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">{pages.length} Pages</span>
                         </div>
 
@@ -139,8 +158,8 @@ const Organize = () => {
                                 {pages.map((page) => (
                                     <Reorder.Item key={page.id} value={page} className="group relative flex flex-col gap-2 cursor-grab active:cursor-grabbing">
                                         <div className="relative w-full aspect-[1/1.4] bg-white dark:bg-slate-700 rounded-lg shadow-sm border border-slate-200 dark:border-slate-600 hover:border-primary dark:hover:border-primary transition-all hover:scale-[1.02]">
-                                            <button onClick={(e) => { e.stopPropagation(); removePage(page.id); }} className="absolute -top-2 -right-2 z-10 p-1.5 rounded-full bg-white dark:bg-slate-600 text-slate-400 hover:text-red-500 hover:bg-red-50 shadow-md border border-slate-200 dark:border-slate-500 opacity-0 group-hover:opacity-100 transition-all"><Trash2 size={14} /></button>
-                                            <img src={page.thumbnail} alt={`Page ${page.pageNumber}`} className="w-full h-full object-contain p-2" />
+                                            <button onClick={(e) => { e.stopPropagation(); removePage(page.id); }} aria-label="Remove page" className="absolute -top-2 -right-2 z-10 p-1.5 rounded-full bg-white dark:bg-slate-600 text-slate-400 hover:text-red-500 hover:bg-red-50 shadow-md border border-slate-200 dark:border-slate-500 opacity-0 group-hover:opacity-100 transition-all"><Trash2 size={14} /></button>
+                                            <img src={page.thumbnail} alt={`Page ${page.pageNumber}`} loading="lazy" decoding="async" className="w-full h-full object-contain p-2" />
                                             <div className="absolute top-2 left-2 bg-black/50 text-white text-xs px-2 py-0.5 rounded backdrop-blur-sm">P. {page.pageNumber}</div>
                                         </div>
                                         <div className="flex justify-center">
@@ -155,7 +174,7 @@ const Organize = () => {
                     {/* Right: Actions */}
                     <div className="w-full lg:w-80 shrink-0 flex flex-col gap-6 sticky top-24">
                         <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-6">
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6">Organize Options</h3>
+                            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-6">Organize Options</h2>
                             <button
                                 onClick={handleSave}
                                 disabled={isProcessing}
@@ -172,7 +191,7 @@ const Organize = () => {
                 </div>
             )}
             <OrganizeContent />
-        </div>
+        </article>
     );
 };
 

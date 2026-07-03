@@ -1,5 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RelatedTools from '../RelatedTools';
+
+export const compressFaqs = [
+    {
+        q: 'Is it safe to compress a PDF online?',
+        a: "Yes. SafePDF compresses PDF files entirely inside your browser. Your file is never uploaded to any server, making it 100% private and secure."
+    },
+    {
+        q: 'Will compressing a PDF reduce its quality?',
+        a: "The 'Recommended' compression level preserves visual quality while significantly reducing file size. The 'Extreme' option trades some quality for maximum compression."
+    },
+    {
+        q: 'What is the maximum file size I can compress?',
+        a: "There is no hard limit enforced by SafePDF. The constraint is your browser's available memory, which typically supports files up to 200MB or more."
+    },
+    {
+        q: 'Is compressing a PDF free?',
+        a: "Yes, SafePDF's PDF compression tool is completely free with no file size limits or watermarks."
+    }
+];
 
 export default function CompressContent() {
     return (
@@ -118,63 +138,11 @@ export default function CompressContent() {
                     </table>
                 </div>
 
-                {/* Internal Links */}
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    Other Free PDF Tools You Might Need
+                    Frequently Asked Questions — Compress PDF
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-                    {[
-                        { to: '/merge', label: '📄 Merge PDF', desc: 'Combine multiple PDFs into one' },
-                        { to: '/split', label: '✂️ Split PDF', desc: 'Extract pages from a PDF' },
-                        { to: '/protect', label: '🔒 Protect PDF', desc: 'Add password encryption' },
-                        { to: '/pdf-to-word', label: '📝 PDF to Word', desc: 'Convert PDF to DOCX' },
-                    ].map((tool) => (
-                        <Link
-                            key={tool.to}
-                            to={tool.to}
-                            className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-400 hover:shadow-md transition-all group"
-                        >
-                            <p className="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">{tool.label}</p>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{tool.desc}</p>
-                        </Link>
-                    ))}
-                </div>
-
-                {/* FAQ */}
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    Frequently Asked Questions About PDF Compression
-                </h2>
-                <div className="space-y-5">
-                    {[
-                        {
-                            q: 'Is it safe to compress a PDF online?',
-                            a: 'Yes. SafePDF compresses your PDF entirely inside your browser using local JavaScript. Your file is never uploaded to any server, making the process completely private and GDPR-compliant.'
-                        },
-                        {
-                            q: 'How to compress a PDF online for free?',
-                            a: 'Go to safepdf.site/compress, upload your PDF, choose a compression level (Recommended is best for most files), and click Compress PDF. Your optimized file downloads instantly.'
-                        },
-                        {
-                            q: 'Will compressing a PDF reduce its quality?',
-                            a: "The 'Recommended' level produces minimal visual difference while achieving good size reduction. 'Extreme' compression may reduce image quality but is fine for text-heavy documents or documents where visual sharpness isn't critical."
-                        },
-                        {
-                            q: 'How much can I reduce a PDF file size?',
-                            a: 'Results vary based on the content of the PDF. Image-heavy PDFs often see 50-80% size reduction. Text-only PDFs may see 10-30% reduction. Scanned PDFs can often be compressed significantly.'
-                        },
-                        {
-                            q: 'Is there a file size limit for PDF compression?',
-                            a: "SafePDF imposes no file size limit. The only constraint is your browser's available RAM — most modern computers can handle PDFs up to 200 MB or more."
-                        },
-                        {
-                            q: 'Can I compress a PDF without losing its text quality?',
-                            a: 'Yes. SafePDF uses smart compression that removes redundant metadata and optimizes image streams without affecting text rendering. Text always remains sharp and selectable at all compression levels.'
-                        },
-                        {
-                            q: 'Does PDF compression work on mobile (iPhone/Android)?',
-                            a: 'Yes. SafePDF works in Safari on iOS and Chrome on Android. You can upload, compress, and download PDFs entirely from your phone without installing any app.'
-                        },
-                    ].map(({ q, a }) => (
+                <div className="space-y-5 mb-12">
+                    {compressFaqs.map(({ q, a }) => (
                         <div key={q} className="p-5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700">
                             <h3 className="font-bold text-slate-900 dark:text-white mb-2">{q}</h3>
                             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{a}</p>
@@ -182,21 +150,19 @@ export default function CompressContent() {
                     ))}
                 </div>
 
-                {/* Related Guides */}
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    Related Guides
-                </h2>
-                <div className="flex flex-col gap-3 mb-8">
-                    {[
+                <RelatedTools 
+                    tools={[
+                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs into one' },
+                        { to: '/split', emoji: '✂️', label: 'Split PDF', desc: 'Extract pages from a PDF' },
+                        { to: '/protect', emoji: '🔒', label: 'Protect PDF', desc: 'Add password encryption' },
+                        { to: '/pdf-to-word', emoji: '📝', label: 'PDF to Word', desc: 'Convert PDF to DOCX' },
+                    ]}
+                    blogs={[
                         { to: '/blog/compress-pdf-without-losing-quality', label: 'How to Compress PDF Without Losing Quality (Full Guide)' },
                         { to: '/blog/is-pdf-compression-safe', label: 'Is PDF Compression Safe? What You Need to Know' },
                         { to: '/blog/best-free-pdf-tools-2026', label: 'Best Free PDF Tools in 2026' },
-                    ].map((b) => (
-                        <Link key={b.to} to={b.to} className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-                            <span>→</span><span>{b.label}</span>
-                        </Link>
-                    ))}
-                </div>
+                    ]}
+                />
 
             </div>
         </section>

@@ -8,7 +8,7 @@ import { Trash2, FileUp, ArrowRight, Loader2, Check, Shield } from 'lucide-react
 import clsx from 'clsx';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
-import SplitContent from '../components/content/SplitContent';
+import SplitContent, { splitFaqs } from '../components/content/SplitContent';
 
 const Split = () => {
     const [file, setFile] = useState(null);
@@ -104,45 +104,54 @@ const Split = () => {
     const splitFaqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "How do I split a PDF online for free?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Upload your PDF to SafePDF, select the pages you want to extract by clicking on their thumbnails, then click 'Extract Pages'. The new PDF downloads instantly to your device." }
-            },
-            {
-                "@type": "Question",
-                "name": "Can I extract specific pages from a PDF?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes. SafePDF lets you select any combination of pages from your PDF and extract them into a new document. Just click the page thumbnails to select them." }
-            },
-            {
-                "@type": "Question",
-                "name": "Are my PDF files safe when splitting online?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes. SafePDF processes PDFs entirely inside your browser. Your files are never uploaded to any server, ensuring complete privacy." }
-            },
-            {
-                "@type": "Question",
-                "name": "Is there a limit on PDF size for splitting?",
-                "acceptedAnswer": { "@type": "Answer", "text": "There is no enforced limit. Your browser's available memory determines how large a file you can split, typically 200MB or more." }
-            }
-        ]
+        "mainEntity": splitFaqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+        }))
     };
 
+    const pageSchema = [
+        splitFaqSchema,
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "SafePDF Split",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux, Chrome OS",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
+                { "@type": "ListItem", "position": 2, "name": "Split PDF", "item": "https://safepdf.site/split" }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Split PDF Online Free | Extract Pages Easily",
+            "url": "https://safepdf.site/split"
+        }
+    ];
+
     return (
-        <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+        <article className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
             <SEO
-                title="Split PDF Online Free | Extract Pages Easily"
-                description="Split PDF files into separate pages instantly. No uploads required, fully secure."
+                title="Split PDF Online Free | SafePDF"
+                description="Split PDF files into separate pages instantly. No uploads required, fully secure without Adobe Acrobat."
                 url="/split"
             >
-                <script type="application/ld+json">{JSON.stringify(splitFaqSchema)}</script>
+                <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     Split PDF File
                 </h1>
                 <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Select specific pages to extract into a new PDF document.
+                    Select specific pages to extract into a new Portable Document Format (PDF) document. Works locally in your browser on Windows, macOS, or Linux.
                 </p>
             </div>
 
@@ -153,9 +162,9 @@ const Split = () => {
                             <div className="flex flex-col items-center gap-4 text-center">
                                 <ToolHeroIcon icon="call_split" theme={getToolTheme('/split')} />
                                 <div className="space-y-2">
-                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                         Click to Select PDF
-                                    </h3>
+                                    </h2>
                                     <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
                                         or drag and drop file here
                                     </p>
@@ -170,9 +179,9 @@ const Split = () => {
                     {/* Left Column: Grid */}
                     <div className="flex-1 w-full bg-slate-100 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 md:p-8">
                         <div className="flex justify-between items-center mb-6">
-                            <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                            <h2 className="text-lg font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
                                 Page Preview
-                            </h3>
+                            </h2>
                             <div className="flex items-center gap-4">
                                 <button onClick={selectAll} className="text-sm font-medium text-primary hover:text-primary/80 transition-colors">
                                     {selectedPages.size === pages.length ? 'Deselect All' : 'Select All'}
@@ -200,7 +209,7 @@ const Split = () => {
                                                 "relative w-full aspect-[1/1.4] bg-white dark:bg-slate-700 rounded-lg shadow-sm border-2 overflow-hidden transition-all hover:-translate-y-1",
                                                 isSelected ? "border-primary" : "border-transparent border-slate-200 dark:border-slate-600 hover:border-primary/50"
                                             )}>
-                                                <img src={page.thumbnail} alt={`Page ${page.pageNumber}`} className={clsx("w-full h-full object-contain", isSelected ? "opacity-40" : "opacity-100")} />
+                                                <img src={page.thumbnail} alt={`Page ${page.pageNumber}`} loading="lazy" decoding="async" className={clsx("w-full h-full object-contain", isSelected ? "opacity-40" : "opacity-100")} />
 
                                                 {isSelected && (
                                                     <div className="absolute inset-0 bg-primary/10 flex items-center justify-center">
@@ -225,7 +234,7 @@ const Split = () => {
                     <div className="w-full lg:w-96 shrink-0 flex flex-col gap-6">
                         <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-6 sticky top-24">
                             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-700">
-                                <h3 className="text-lg font-bold text-slate-900 dark:text-white">Split Options</h3>
+                                <h2 className="text-lg font-bold text-slate-900 dark:text-white">Split Options</h2>
                             </div>
 
                             <div className="space-y-6">
@@ -265,7 +274,7 @@ const Split = () => {
                 </div>
             )}
             <SplitContent />
-        </div>
+        </article>
     );
 };
 

@@ -7,7 +7,7 @@ import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
-import PDFToWordContent from '../components/content/PDFToWordContent';
+import PDFToWordContent, { pdfToWordFaqs } from '../components/content/PDFToWordContent';
 
 const PDFToWord = () => {
     const [file, setFile] = useState(null);
@@ -41,35 +41,55 @@ const PDFToWord = () => {
     const pdfToWordFaqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Can it convert scanned PDFs into Word?",
-                "acceptedAnswer": { "@type": "Answer", "text": "If the PDF consists solely of scanned images without a readable text layer, it requires OCR. This tool requires a valid text layer in the PDF to function." }
-            },
-            {
-                "@type": "Question",
-                "name": "Is my document uploaded to the cloud?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Never. Like all SafePDF tools, the conversion happens locally on your own computer." }
-            }
-        ]
+        "mainEntity": pdfToWordFaqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+        }))
     };
 
+    const pageSchema = [
+        pdfToWordFaqSchema,
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "SafePDF PDF to Word",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux, Chrome OS",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
+                { "@type": "ListItem", "position": 2, "name": "PDF to Word", "item": "https://safepdf.site/pdf-to-word" }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Convert PDF to Word Online Free | SafePDF",
+            "url": "https://safepdf.site/pdf-to-word"
+        }
+    ];
+
     return (
-        <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+        <article className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
             <SEO
-                title="Convert PDF to Word Online Free | Convert to DOCX Securely"
-                description="Convert your PDF files to editable Word documents (DOCX) instantly and securely in your browser. 100% free with no uploads."
+                title="Convert PDF to Word Online Free | SafePDF"
+                description="Convert your PDF files to editable Word documents (DOCX) instantly and securely in your browser on Windows, Mac, or Linux."
                 url="/pdf-to-word"
             >
-                <script type="application/ld+json">{JSON.stringify(pdfToWordFaqSchema)}</script>
+                <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     PDF to Word
                 </h1>
                 <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Convert your PDF files to editable Word documents (DOCX).
+                    Convert your Portable Document Format (PDF) files to editable Word documents (DOCX). Works completely locally without uploads.
+
                     <br /><span className="text-sm italic opacity-75">(Note: Client-side conversion extracts text but may lose complex layout)</span>
                 </p>
             </div>
@@ -77,13 +97,13 @@ const PDFToWord = () => {
             <div className="w-full max-w-3xl mx-auto">
                 {!file ? (
                     <div {...getRootProps()} className="group relative flex flex-col items-center justify-center h-80 rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 hover:border-blue-400 transition-all cursor-pointer shadow-sm hover:shadow-md">
-                        <input {...getInputProps()} className="hidden" />
+                        <input {...getInputProps()} id="pdf-to-word-upload" name="pdf-to-word-upload" aria-label="Upload PDF document" className="hidden" />
                         <div className="flex flex-col items-center gap-4 text-center">
                             <ToolHeroIcon icon="article" theme={getToolTheme('/pdf-to-word')} />
                             <div className="space-y-2">
-                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">
+                                <h2 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">
                                     Click to Select PDF
-                                </h3>
+                                </h2>
                                 <p className="text-sm font-medium text-slate-900 dark:text-white">or drag and drop file here</p>
                             </div>
                         </div>
@@ -94,7 +114,7 @@ const PDFToWord = () => {
                             <FileText size={40} />
                         </div>
                         <div className="text-center">
-                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{file.name}</h3>
+                            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{file.name}</h2>
                             <p className="text-slate-500 dark:text-slate-400">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                         </div>
 
@@ -124,7 +144,7 @@ const PDFToWord = () => {
                 </div>
             </div>
             <PDFToWordContent />
-        </div>
+        </article>
     );
 };
 

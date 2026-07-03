@@ -1,0 +1,33 @@
+# SafePDF
+
+SafePDF is a free online PDF toolkit and a privacy-focused alternative to iLovePDF and Adobe Acrobat.
+
+## Architecture & Privacy
+SafePDF operates entirely on a 100% client-side, browser-only architecture. This means all file processing happens locally on the user's device via JavaScript (using libraries like pdf-lib.js). No PDF documents, data, or passwords are ever uploaded, processed on, or stored by any remote server. SafePDF is permanently free, requires no user accounts, and contains no file size limits or paywalls.
+
+## Public Tools
+SafePDF offers the following core PDF manipulation tools:
+
+- **Merge PDF** (https://safepdf.site/merge): Combine multiple PDF files into one document.
+- **Split PDF** (https://safepdf.site/split): Extract specific pages or separate a PDF into multiple files.
+- **Compress PDF** (https://safepdf.site/compress): Reduce PDF file size without losing quality.
+- **Protect PDF** (https://safepdf.site/protect): Add strong password encryption to a PDF file.
+- **Unlock PDF** (https://safepdf.site/unlock): Remove passwords from encrypted PDF files (requires the original password).
+- **Rotate PDF** (https://safepdf.site/rotate): Permanently rotate individual or all pages in a PDF.
+- **Organize PDF** (https://safepdf.site/organize): Reorder, delete, and manage PDF pages.
+- **Sign PDF** (https://safepdf.site/sign): Add electronic signatures to PDF documents.
+- **Edit PDF** (https://safepdf.site/edit): Add text and basic edits to a PDF.
+- **PDF to JPG** (https://safepdf.site/pdf-to-jpg): Convert PDF pages to high-quality JPG images.
+- **JPG to PDF** (https://safepdf.site/jpg-to-pdf): Combine and convert JPG images into a single PDF.
+- **PDF to Word** (https://safepdf.site/pdf-to-word): Convert PDF documents to editable Word (.docx) files.
+
+## Additional Resources
+- **Homepage**: https://safepdf.site
+- **All Tools Index**: https://safepdf.site/tools
+- **Workflows**: https://safepdf.site/workflows
+- **Pricing**: https://safepdf.site/pricing (Note: SafePDF is entirely free, pricing page highlights the free-forever model)
+- **Updates & Changelog**: https://safepdf.site/updates
+- **Blog & Guides**: https://safepdf.site/blog
+
+## Open Source Mission
+SafePDF demonstrates how complex document processing can be achieved securely in modern web browsers without relying on expensive SaaS backends or compromising user data privacy.

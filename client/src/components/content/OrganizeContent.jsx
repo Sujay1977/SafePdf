@@ -1,5 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RelatedTools from '../RelatedTools';
+
+export const organizeFaqs = [
+    {
+        q: 'Does organizing pages change the text or images in my PDF?',
+        a: "No. SafePDF extracts and repackages the entire page exactly as it was originally created."
+    },
+    {
+        q: 'Is there a limit to how many pages I can organize?',
+        a: "There are no strict limits from SafePDF. The capacity is determined solely by your computer's memory."
+    }
+];
 
 export default function OrganizeContent() {
     return (
@@ -83,16 +95,29 @@ export default function OrganizeContent() {
                 </div>
 
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    Related Guides
+                    Frequently Asked Questions — Organize PDF
                 </h2>
-                <div className="flex flex-col gap-3 mb-8">
-                    <Link to="/blog/how-to-organize-pdf-pages" className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-                        <span>→</span><span>How to Organize PDF Pages: A Complete Guide</span>
-                    </Link>
-                    <Link to="/merge" className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-                        <span>→</span><span>Need to combine multiple documents? Try Merge PDF</span>
-                    </Link>
+                <div className="space-y-5 mb-12">
+                    {organizeFaqs.map(({ q, a }) => (
+                        <div key={q} className="p-5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <h3 className="font-bold text-slate-900 dark:text-white mb-2">{q}</h3>
+                            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{a}</p>
+                        </div>
+                    ))}
                 </div>
+
+                <RelatedTools 
+                    tools={[
+                        { to: '/split', emoji: '✂️', label: 'Split PDF', desc: 'Extract pages from PDF' },
+                        { to: '/rotate', emoji: '🔄', label: 'Rotate PDF', desc: 'Rotate pages in PDF' },
+                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                    ]}
+                    blogs={[
+                        { to: '/blog/how-to-organize-pdf-pages', label: 'How to Organize PDF Pages: A Complete Guide' },
+                        { to: '/merge', label: 'Need to combine multiple documents? Try Merge PDF' }
+                    ]}
+                />
 
             </div>
         </section>

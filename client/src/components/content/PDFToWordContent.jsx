@@ -1,5 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RelatedTools from '../RelatedTools';
+
+export const pdfToWordFaqs = [
+    {
+        q: 'Can it convert scanned PDFs into Word?',
+        a: "If the PDF consists solely of scanned images without a readable text layer, it requires OCR. This tool requires a valid text layer in the PDF to function."
+    },
+    {
+        q: 'Is my document uploaded to the cloud?',
+        a: "Never. Like all SafePDF tools, the conversion happens locally on your own computer."
+    }
+];
 
 export default function PDFToWordContent() {
     return (
@@ -83,16 +95,29 @@ export default function PDFToWordContent() {
                 </div>
 
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    Related Guides
+                    Frequently Asked Questions — PDF to Word
                 </h2>
-                <div className="flex flex-col gap-3 mb-8">
-                    <Link to="/edit-pdf" className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-                        <span>→</span><span>Looking to edit without converting? Try Edit PDF</span>
-                    </Link>
-                    <Link to="/pdf-to-jpg" className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-                        <span>→</span><span>Need the pages as pictures instead? Try PDF to JPG</span>
-                    </Link>
+                <div className="space-y-5 mb-12">
+                    {pdfToWordFaqs.map(({ q, a }) => (
+                        <div key={q} className="p-5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <h3 className="font-bold text-slate-900 dark:text-white mb-2">{q}</h3>
+                            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{a}</p>
+                        </div>
+                    ))}
                 </div>
+
+                <RelatedTools 
+                    tools={[
+                        { to: '/edit-pdf', emoji: '✏️', label: 'Edit PDF', desc: 'Add text and edit PDF' },
+                        { to: '/sign', emoji: '✍️', label: 'Sign PDF', desc: 'Add signature to PDF' },
+                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                    ]}
+                    blogs={[
+                        { to: '/edit-pdf', label: 'Looking to edit without converting? Try Edit PDF' },
+                        { to: '/pdf-to-jpg', label: 'Need the pages as pictures instead? Try PDF to JPG' }
+                    ]}
+                />
 
             </div>
         </section>

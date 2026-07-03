@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
-import RotateContent from '../components/content/RotateContent';
+import RotateContent, { rotateFaqs } from '../components/content/RotateContent';
 
 const Rotate = () => {
     const [file, setFile] = useState(null);
@@ -95,48 +95,67 @@ const Rotate = () => {
     const rotateFaqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Will rotating my PDF reduce its quality?",
-                "acceptedAnswer": { "@type": "Answer", "text": "No. Rotating a PDF file simply alters the orientation metadata of the pages. Quality is retained 100%." }
-            },
-            {
-                "@type": "Question",
-                "name": "Can I rotate just one page instead of the whole document?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes! SafePDF provides separate rotate buttons under each page thumbnail, allowing individual rotation." }
-            }
-        ]
+        "mainEntity": rotateFaqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+        }))
     };
 
+    const pageSchema = [
+        rotateFaqSchema,
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "SafePDF Rotate",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux, Chrome OS",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
+                { "@type": "ListItem", "position": 2, "name": "Rotate PDF", "item": "https://safepdf.site/rotate" }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Rotate PDF Pages Online Free | Delete & Straighten Files",
+            "url": "https://safepdf.site/rotate"
+        }
+    ];
+
     return (
-        <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+        <article className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
             <SEO
-                title="Rotate PDF Pages Online Free | Delete & Straighten Files"
-                description="Easily rotate individual PDF pages or entire documents instantly. Client-side, secure, completely free, and no watermarks."
+                title="Rotate PDF Pages Online Free | SafePDF"
+                description="Easily rotate individual PDF pages or entire documents instantly. Client-side, secure, completely free without Adobe Acrobat."
                 url="/rotate"
             >
-                <script type="application/ld+json">{JSON.stringify(rotateFaqSchema)}</script>
+                <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     Rotate PDF
                 </h1>
                 <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Rotate specific pages or the entire document.
+                    Rotate specific pages or the entire Portable Document Format (PDF) document natively in your browser on Windows, macOS, or Linux.
                 </p>
             </div>
 
             {!file ? (
                 <div className="w-full max-w-3xl mx-auto">
                     <div {...getRootProps()} className="relative flex flex-col items-center justify-center w-full h-80 rounded-3xl bg-white dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md">
-                        <input {...getInputProps()} className="hidden" />
+                        <input {...getInputProps()} id="rotate-upload" name="rotate-upload" aria-label="Upload PDF document" className="hidden" />
                         <div className="flex flex-col items-center gap-4 text-center">
                             <ToolHeroIcon icon="rotate_right" theme={getToolTheme('/rotate')} />
                             <div className="space-y-2">
-                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                <h2 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                     Click to Select PDF
-                                </h3>
+                                </h2>
                                 <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
                                     or drag and drop file here
                                 </p>
@@ -149,7 +168,7 @@ const Rotate = () => {
                     {/* Left: Grid */}
                     <div className="flex-1 w-full bg-slate-100 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 md:p-8">
                         <div className="flex justify-between items-center mb-6">
-                            <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200">Page Preview</h3>
+                            <h2 className="text-lg font-bold text-slate-700 dark:text-slate-200">Page Preview</h2>
                             <div className="flex gap-2">
                                 <button onClick={() => rotateAll('ccw')} className="px-3 py-2 bg-white dark:bg-slate-700 rounded-lg shadow-sm border border-slate-200 dark:border-slate-600 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors flex items-center gap-2">
                                     <RotateCcw size={16} /> Rotate All Left
@@ -170,13 +189,13 @@ const Rotate = () => {
                                         <div key={index} className="flex flex-col gap-2">
                                             <div className="relative w-full aspect-[1/1.4] bg-white dark:bg-slate-700 rounded-lg shadow-sm border border-slate-200 dark:border-slate-600 flex items-center justify-center overflow-hidden">
                                                 <div className="w-full h-full p-2 transition-transform duration-300" style={{ transform: `rotate(${rotation}deg)` }}>
-                                                    <img src={page.thumbnail} alt={`Page ${page.pageNumber}`} className="w-full h-full object-contain" />
+                                                    <img src={page.thumbnail} alt={`Page ${page.pageNumber}`} loading="lazy" decoding="async" className="w-full h-full object-contain" />
                                                 </div>
                                                 <div className="absolute top-2 left-2 bg-black/50 text-white text-xs px-2 py-0.5 rounded backdrop-blur-sm">P. {page.pageNumber}</div>
                                             </div>
                                             <div className="flex justify-center gap-2">
-                                                <button onClick={() => rotatePage(index, 'ccw')} className="p-1.5 rounded-full bg-white dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-600 shadow-sm"><RotateCcw size={14} /></button>
-                                                <button onClick={() => rotatePage(index, 'cw')} className="p-1.5 rounded-full bg-white dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-600 shadow-sm"><RotateCw size={14} /></button>
+                                                <button onClick={() => rotatePage(index, 'ccw')} aria-label={`Rotate page ${page.pageNumber} left`} className="p-1.5 rounded-full bg-white dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-600 shadow-sm"><RotateCcw size={14} /></button>
+                                                <button onClick={() => rotatePage(index, 'cw')} aria-label={`Rotate page ${page.pageNumber} right`} className="p-1.5 rounded-full bg-white dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-600 shadow-sm"><RotateCw size={14} /></button>
                                             </div>
                                         </div>
                                     );
@@ -188,7 +207,7 @@ const Rotate = () => {
                     {/* Right: Actions */}
                     <div className="w-full lg:w-80 shrink-0 flex flex-col gap-6 sticky top-24">
                         <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-6">
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6">Rotate Options</h3>
+                            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-6">Rotate Options</h2>
                             <button
                                 onClick={handleSave}
                                 disabled={isProcessing}
@@ -205,7 +224,7 @@ const Rotate = () => {
                 </div>
             )}
             <RotateContent />
-        </div>
+        </article>
     );
 };
 

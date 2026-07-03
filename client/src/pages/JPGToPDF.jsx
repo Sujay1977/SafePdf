@@ -7,7 +7,7 @@ import { Trash2, FileUp, ArrowRight, Loader2, Shield, GripVertical, Image } from
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
-import JPGToPDFContent from '../components/content/JPGToPDFContent';
+import JPGToPDFContent, { jpgToPdfFaqs } from '../components/content/JPGToPDFContent';
 
 const JPGToPDF = () => {
     const [files, setFiles] = useState([]);
@@ -50,35 +50,54 @@ const JPGToPDF = () => {
     const jpgToPdfFaqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Can I combine multiple JPG files into one PDF?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes! You can upload multiple images simultaneously. SafePDF will place each image onto its own page." }
-            },
-            {
-                "@type": "Question",
-                "name": "Are my photos uploaded to the internet?",
-                "acceptedAnswer": { "@type": "Answer", "text": "No. SafePDF works entirely offline inside your web browser. Your private photos never leave your computer." }
-            }
-        ]
+        "mainEntity": jpgToPdfFaqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+        }))
     };
 
+    const pageSchema = [
+        jpgToPdfFaqSchema,
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "SafePDF JPG to PDF",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux, Chrome OS",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
+                { "@type": "ListItem", "position": 2, "name": "JPG to PDF", "item": "https://safepdf.site/jpg-to-pdf" }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Convert JPG to PDF Online Free | Secure Image Converter",
+            "url": "https://safepdf.site/jpg-to-pdf"
+        }
+    ];
+
     return (
-        <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+        <article className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
             <SEO
-                title="Convert JPG to PDF Online Free | Secure Image Converter"
-                description="Easily convert JPG, PNG, and WebP images into a single PDF document securely in your browser. 100% free and private."
+                title="Convert JPG to PDF Online Free | SafePDF"
+                description="Convert JPG, PNG, and WebP images into a single PDF document securely in your browser. 100% free, fast, and private."
                 url="/jpg-to-pdf"
             >
-                <script type="application/ld+json">{JSON.stringify(jpgToPdfFaqSchema)}</script>
+                <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     JPG to PDF
                 </h1>
                 <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Convert JPG, PNG images to PDF documents. Drag to reorder.
+                    Convert JPG, PNG images to Portable Document Format (PDF) documents. Works completely locally in your browser on Windows, macOS, or Linux. Drag to reorder.
                 </p>
             </div>
 
@@ -90,9 +109,9 @@ const JPGToPDF = () => {
                                 <div className="flex flex-col items-center gap-4 text-center">
                                     <ToolHeroIcon icon="picture_as_pdf" theme={getToolTheme('/jpg-to-pdf')} />
                                     <div className="space-y-2">
-                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                             Click to Select Images
-                                        </h3>
+                                        </h2>
                                         <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
                                             or drag and drop files here
                                         </p>
@@ -104,7 +123,7 @@ const JPGToPDF = () => {
                     ) : (
                         <div className="flex flex-col gap-4">
                             <div className="flex flex-wrap items-center justify-between gap-4">
-                                <h3 className="text-slate-900 dark:text-white text-lg font-bold">Selected Images ({files.length})</h3>
+                                <h2 className="text-slate-900 dark:text-white text-lg font-bold">Selected Images ({files.length})</h2>
                                 <button onClick={() => setFiles([])} className="text-sm font-medium text-red-600 hover:text-red-700">Clear All</button>
                             </div>
 
@@ -121,8 +140,8 @@ const JPGToPDF = () => {
                                     {files.map(file => (
                                         <Reorder.Item key={file.id} value={file} className="contents">
                                             <div className="group relative aspect-[3/4] bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden cursor-grab active:cursor-grabbing">
-                                                <button onClick={() => removeFile(file.id)} className="absolute top-1 right-1 z-10 p-1 rounded-full bg-white text-slate-400 hover:text-red-500 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 size={12} /></button>
-                                                <img src={file.preview} alt="preview" className="w-full h-full object-cover" />
+                                                <button onClick={() => removeFile(file.id)} aria-label="Remove image" className="absolute top-1 right-1 z-10 p-1 rounded-full bg-white text-slate-400 hover:text-red-500 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 size={12} /></button>
+                                                <img src={file.preview} alt={`Preview of ${file.file?.name || 'image'}`} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
                                             </div>
                                         </Reorder.Item>
@@ -135,7 +154,7 @@ const JPGToPDF = () => {
 
                 <div className="w-full lg:w-80 shrink-0 sticky top-24">
                     <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-6 flex flex-col gap-6">
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-white">Convert Options</h3>
+                        <h2 className="text-lg font-bold text-slate-900 dark:text-white">Convert Options</h2>
                         <button
                             onClick={handleConvert}
                             disabled={files.length === 0 || isProcessing}
@@ -157,7 +176,7 @@ const JPGToPDF = () => {
                 </div>
             </div>
             <JPGToPDFContent />
-        </div>
+        </article>
     );
 };
 

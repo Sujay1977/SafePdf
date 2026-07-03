@@ -47,37 +47,28 @@ const Home = () => {
 
     return (
         <div className="flex flex-col w-full">
-            <SEO
-                title="Free Online PDF Tools | SafePDF - Merge, Split, Compress & More"
-                description="Free, secure PDF tools that work in your browser. Merge, split, compress, protect, convert and edit PDFs online — no uploads, no data collection."
-            >
+            <SEO>
                 <script type="application/ld+json">
-                    {JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "WebApplication",
-                        "name": "SafePDF",
-                        "url": "https://safepdf.site",
-                        "description": "Free, secure, and client-side PDF tools. Merge, split, compress, protect, and convert PDFs online — your documents never leave your device.",
-                        "applicationCategory": "BusinessApplication",
-                        "operatingSystem": "Web-based",
-                        "browserRequirements": "Requires JavaScript",
-                        "offers": {
-                            "@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "USD",
-                            "availability": "https://schema.org/InStock"
+                    {JSON.stringify([
+                        {
+                            "@context": "https://schema.org",
+                            "@type": "WebSite",
+                            "name": "SafePDF",
+                            "url": "https://safepdf.site",
+                            "description": "SafePDF is a free online PDF toolkit and a privacy-focused alternative to iLovePDF. Merge, split, compress, convert, protect and edit PDF files directly in your browser with no uploads, no signup and no data collection."
                         },
-                        "featureList": "Merge PDF, Split PDF, Compress PDF, Protect PDF, Unlock PDF, Rotate PDF, Convert PDF to Word, PDF to JPG, JPG to PDF, Sign PDF, Edit PDF",
-                        "creator": {
-                            "@type": "Person",
-                            "name": "Sujay",
-                            "url": "https://x.com/sujay__raj"
+                        {
+                            "@context": "https://schema.org",
+                            "@type": "Organization",
+                            "name": "SafePDF",
+                            "url": "https://safepdf.site",
+                            "logo": "https://safepdf.site/logo.png"
                         }
-                    })}
+                    ])}
                 </script>
             </SEO>
             {/* Hero Section */}
-            <div className="w-full relative overflow-hidden bg-slate-50 dark:bg-slate-900 border-b border-slate-200/50 dark:border-slate-800/50">
+            <header className="w-full relative overflow-hidden bg-slate-50 dark:bg-slate-900 border-b border-slate-200/50 dark:border-slate-800/50">
                 {/* Background Details */}
                 <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-100/50 dark:bg-blue-900/10 rounded-full blur-[100px] translate-x-1/3 -translate-y-1/4 pointer-events-none" />
 
@@ -162,10 +153,10 @@ const Home = () => {
 
                     </div>
                 </div>
-            </div>
+            </header>
 
             {/* Search Bar */}
-            <div className="w-full bg-background-light dark:bg-background-dark -mt-6 z-20 relative">
+            <section className="w-full bg-background-light dark:bg-background-dark -mt-6 z-20 relative">
                 <div className="max-w-[800px] mx-auto px-4 md:px-10">
                     <div className="bg-white dark:bg-slate-800 p-2 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700">
                         <label className="flex items-center h-14 w-full">
@@ -175,6 +166,7 @@ const Home = () => {
                                 </ClientOnly>
                             </div>
                             <input
+                                aria-label="Search for PDF tools (e.g. Merge, Split)..."
                                 className="flex w-full flex-1 bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-lg font-medium focus:outline-0 focus:ring-0 px-2 h-full"
                                 placeholder="Search for PDF tools (e.g. Merge, Split)..."
                                 value={searchQuery}
@@ -184,10 +176,11 @@ const Home = () => {
                         </label>
                     </div>
                 </div>
-            </div>
+            </section>
 
             {/* Tools Grid Section */}
-            <div ref={toolsRef} id="all-tools" className="w-full bg-background-light dark:bg-background-dark pt-4">
+            <section ref={toolsRef} id="all-tools" className="w-full bg-background-light dark:bg-background-dark pt-4">
+                <h2 className="sr-only">All PDF Tools</h2>
 
                 <ToolHeaderFilters
                     activeCategory={activeCategory}
@@ -218,7 +211,7 @@ const Home = () => {
                                         </ClientOnly>
                                     </div>
                                     <div className="flex flex-col gap-1">
-                                        <h4 className="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">{tool.title}</h4>
+                                        <h3 className="text-slate-900 dark:text-white text-lg font-bold group-hover:text-primary transition-colors">{tool.title}</h3>
                                         <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{tool.description}</p>
                                     </div>
                                 </Link>
@@ -235,7 +228,7 @@ const Home = () => {
                 {/* Features Section */}
                 <PrivacySection />
                 <WhySafePdf />
-            </div>
+            </section>
         </div>
     );
 };

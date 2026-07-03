@@ -1,5 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RelatedTools from '../RelatedTools';
+
+export const protectFaqs = [
+    {
+        q: 'How do I add a password to a PDF?',
+        a: "Use SafePDF's Protect PDF tool: upload your PDF, enter a password, confirm it, then click 'Protect PDF'. The password-protected file downloads instantly."
+    },
+    {
+        q: "Is my password sent to SafePDF's servers?",
+        a: "No. SafePDF encrypts your PDF entirely inside your browser. Your password and your file never leave your device."
+    },
+    {
+        q: 'What encryption standard does SafePDF use for PDF protection?',
+        a: "SafePDF uses standard AES-based PDF encryption as defined in the PDF specification, compatible with all major PDF readers including Adobe Acrobat."
+    },
+    {
+        q: 'Can I remove the password from a PDF later?',
+        a: "Yes. Use SafePDF's Unlock PDF tool to remove the password from a PDF you own."
+    }
+];
 
 export default function ProtectContent() {
     return (
@@ -104,60 +124,10 @@ export default function ProtectContent() {
                 </div>
 
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    Related PDF Security Tools
+                    Frequently Asked Questions — Protect PDF
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-                    {[
-                        { to: '/unlock', label: '🔓 Unlock PDF', desc: 'Remove password from PDF' },
-                        { to: '/merge', label: '📄 Merge PDF', desc: 'Combine multiple PDFs' },
-                        { to: '/compress', label: '📦 Compress PDF', desc: 'Reduce PDF file size' },
-                        { to: '/sign', label: '✍️ Sign PDF', desc: 'Add signature to PDF' },
-                    ].map((tool) => (
-                        <Link
-                            key={tool.to}
-                            to={tool.to}
-                            className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-400 hover:shadow-md transition-all group"
-                        >
-                            <p className="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">{tool.label}</p>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{tool.desc}</p>
-                        </Link>
-                    ))}
-                </div>
-
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    FAQ — PDF Password Protection
-                </h2>
-                <div className="space-y-5">
-                    {[
-                        {
-                            q: 'How do I add a password to a PDF for free?',
-                            a: "Use SafePDF's Protect PDF tool: upload your PDF, enter a strong password, confirm it, and click 'Protect PDF'. Your encrypted PDF downloads instantly with no cost, no watermark, and no account needed."
-                        },
-                        {
-                            q: 'How do I protect a PDF with a password online without Adobe?',
-                            a: 'Go to safepdf.site/protect, upload your PDF, enter and confirm a strong password, click Protect PDF, and download the encrypted file. No Adobe subscription needed — free and works in any browser.'
-                        },
-                        {
-                            q: "Is my password sent to SafePDF's servers?",
-                            a: 'Never. SafePDF runs entirely in your browser. Your password and your file never leave your device. The encryption happens locally in your browser tab.'
-                        },
-                        {
-                            q: 'What type of encryption does SafePDF use?',
-                            a: 'SafePDF applies standard PDF password-based encryption as specified by the PDF standard (ISO 32000), using the pdf-lib library. The output is compatible with all standard PDF readers.'
-                        },
-                        {
-                            q: 'Can I remove the password from a PDF later?',
-                            a: "Yes. Use SafePDF's Unlock PDF tool. You'll need to know the current password to remove it."
-                        },
-                        {
-                            q: 'What happens if I forget the PDF password?',
-                            a: 'SafePDF does not store passwords and cannot recover them. Make sure to record your password securely before encrypting the file. Use a password manager for best results.'
-                        },
-                        {
-                            q: 'Is password-protected PDF encryption strong enough for sensitive documents?',
-                            a: 'Yes. PDF password encryption using a strong password (12+ characters, mixed types) is cryptographically secure. For highly regulated industries, combine PDF encryption with secure file transfer (TLS) for best compliance.'
-                        },
-                    ].map(({ q, a }) => (
+                <div className="space-y-5 mb-12">
+                    {protectFaqs.map(({ q, a }) => (
                         <div key={q} className="p-5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700">
                             <h3 className="font-bold text-slate-900 dark:text-white mb-2">{q}</h3>
                             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{a}</p>
@@ -165,21 +135,19 @@ export default function ProtectContent() {
                     ))}
                 </div>
 
-                {/* Related Guides */}
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    Related Guides
-                </h2>
-                <div className="flex flex-col gap-3 mb-8">
-                    {[
+                <RelatedTools 
+                    tools={[
+                        { to: '/unlock', emoji: '🔓', label: 'Unlock PDF', desc: 'Remove password from PDF' },
+                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                        { to: '/sign', emoji: '✍️', label: 'Sign PDF', desc: 'Add signature to PDF' },
+                    ]}
+                    blogs={[
                         { to: '/blog/how-to-protect-pdf-with-password', label: 'How to Protect a PDF with a Password (Free & Secure)' },
                         { to: '/blog/how-to-protect-pdf-with-password-securely', label: 'PDF Password Security Best Practices Guide' },
                         { to: '/blog/how-to-unlock-pdf-without-password', label: 'How to Unlock a Password-Protected PDF' },
-                    ].map((b) => (
-                        <Link key={b.to} to={b.to} className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-                            <span>→</span><span>{b.label}</span>
-                        </Link>
-                    ))}
-                </div>
+                    ]}
+                />
 
             </div>
         </section>

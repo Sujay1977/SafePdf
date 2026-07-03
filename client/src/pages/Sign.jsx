@@ -6,7 +6,7 @@ import { saveAs } from 'file-saver';
 import { Trash2, FileUp, ArrowRight, Loader2, PenTool, Check, X } from 'lucide-react';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
-import SignContent from '../components/content/SignContent';
+import SignContent, { signFaqs } from '../components/content/SignContent';
 const SignatureCanvas = React.lazy(() => import('react-signature-canvas'));
 import * as pdfjsLib from 'pdfjs-dist';
 
@@ -94,33 +94,52 @@ const Sign = () => {
     const signFaqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Is this electronic signature legally binding?",
-                "acceptedAnswer": { "@type": "Answer", "text": "In most jurisdictions, yes. Electronic signatures are legally binding for most agreements." }
-            },
-            {
-                "@type": "Question",
-                "name": "Does SafePDF save my drawn signature?",
-                "acceptedAnswer": { "@type": "Answer", "text": "No. SafePDF does not store, save, or upload your signature." }
-            }
-        ]
+        "mainEntity": signFaqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+        }))
     };
 
+    const pageSchema = [
+        signFaqSchema,
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "SafePDF Sign",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux, Chrome OS",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
+                { "@type": "ListItem", "position": 2, "name": "Sign PDF", "item": "https://safepdf.site/sign" }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Sign PDF Online Free | Add Electronic Signature Securely",
+            "url": "https://safepdf.site/sign"
+        }
+    ];
+
     return (
-        <div className="flex-grow flex flex-col items-center w-full px-4 py-8 relative">
+        <article className="flex-grow flex flex-col items-center w-full px-4 py-8 relative">
             <SEO
-                title="Sign PDF Online Free | Add Electronic Signature Securely"
-                description="Sign your PDF documents online directly in your browser. Draw your signature, place it, and download. 100% free and private."
+                title="Sign PDF Online Free | SafePDF"
+                description="Sign PDF documents online directly in your browser. Draw your signature and place it securely without any data uploads."
                 url="/sign"
             >
-                <script type="application/ld+json">{JSON.stringify(signFaqSchema)}</script>
+                <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
             {showSigCanvas && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
                     <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl w-full max-w-lg">
-                        <h3 className="text-lg font-bold mb-4 text-slate-900 dark:text-white">Draw Signature</h3>
+                        <h2 className="text-lg font-bold mb-4 text-slate-900 dark:text-white">Draw Signature</h2>
                         <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white">
                             <React.Suspense fallback={<div>Loading...</div>}>
                                 <SignatureCanvas
@@ -145,13 +164,13 @@ const Sign = () => {
 
             {!file ? (
                 <div {...getRootProps()} className="w-full max-w-3xl h-80 border-2 border-dashed rounded-3xl flex flex-col items-center justify-center cursor-pointer border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all shadow-sm hover:shadow-md group">
-                    <input {...getInputProps()} className="hidden" />
+                    <input {...getInputProps()} id="sign-upload" name="sign-upload" aria-label="Upload PDF document" className="hidden" />
                     <div className="flex flex-col items-center gap-4 text-center">
                         <ToolHeroIcon icon="signature" theme={getToolTheme('/sign')} />
                         <div className="space-y-2">
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                 Select PDF to Sign
-                            </h3>
+                            </h2>
                             <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
                                 or drag and drop file here
                             </p>
@@ -163,7 +182,7 @@ const Sign = () => {
                     <div className="flex-1 bg-slate-100 dark:bg-slate-800/50 rounded-xl p-8 flex justify-center overflow-auto min-h-[500px]">
                         {page && (
                             <div className="relative shadow-lg cursor-crosshair" onClick={handleClickPage}>
-                                <img src={page.thumbnail} alt="Page" className="max-w-full h-auto" />
+                                <img src={page.thumbnail} alt="PDF Page Preview" loading="lazy" decoding="async" className="max-w-full h-auto" />
                                 {signature && (
                                     <div
                                         style={{
@@ -175,7 +194,7 @@ const Sign = () => {
                                         }}
                                         className="border-2 border-blue-500 border-dashed bg-white/30"
                                     >
-                                        <img src={signature} alt="Sig" className="w-full" />
+                                        <img src={signature} alt="Drawn Signature" loading="lazy" decoding="async" className="w-full" />
                                     </div>
                                 )}
                             </div>
@@ -184,7 +203,7 @@ const Sign = () => {
 
                     <div className="w-80 shrink-0 flex flex-col gap-4">
                         <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
-                            <h3 className="font-bold mb-4 dark:text-white">Actions</h3>
+                            <h2 className="font-bold mb-4 dark:text-white">Actions</h2>
                             <button onClick={() => setShowSigCanvas(true)} className="w-full py-3 bg-white border-2 border-slate-200 dark:bg-slate-700 dark:border-slate-600 dark:text-white rounded-lg font-bold mb-4 hover:border-primary transition-colors">
                                 {signature ? 'Redraw Signature' : 'Create Signature'}
                             </button>
@@ -212,7 +231,7 @@ const Sign = () => {
                 </div>
             )}
             <SignContent />
-        </div>
+        </article>
     );
 };
 

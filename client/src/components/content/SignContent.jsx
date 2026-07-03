@@ -1,5 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RelatedTools from '../RelatedTools';
+
+export const signFaqs = [
+    {
+        q: 'Is this electronic signature legally binding?',
+        a: "In most jurisdictions, yes. Electronic signatures are legally binding for most agreements."
+    },
+    {
+        q: 'Does SafePDF save my drawn signature?',
+        a: "No. SafePDF does not store, save, or upload your signature."
+    }
+];
 
 export default function SignContent() {
     return (
@@ -83,16 +95,29 @@ export default function SignContent() {
                 </div>
 
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    Related Guides
+                    Frequently Asked Questions — Sign PDF
                 </h2>
-                <div className="flex flex-col gap-3 mb-8">
-                    <Link to="/blog/how-to-sign-pdf-online-free" className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-                        <span>→</span><span>How to Electronically Sign a PDF for Free</span>
-                    </Link>
-                    <Link to="/edit-pdf" className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-                        <span>→</span><span>Need to fill out text fields first? Try Edit PDF</span>
-                    </Link>
+                <div className="space-y-5 mb-12">
+                    {signFaqs.map(({ q, a }) => (
+                        <div key={q} className="p-5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <h3 className="font-bold text-slate-900 dark:text-white mb-2">{q}</h3>
+                            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{a}</p>
+                        </div>
+                    ))}
                 </div>
+
+                <RelatedTools 
+                    tools={[
+                        { to: '/protect', emoji: '🔒', label: 'Protect PDF', desc: 'Add password to PDF' },
+                        { to: '/edit-pdf', emoji: '✏️', label: 'Edit PDF', desc: 'Add text and edit PDF' },
+                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                    ]}
+                    blogs={[
+                        { to: '/blog/how-to-sign-pdf-online-free', label: 'How to Electronically Sign a PDF for Free' },
+                        { to: '/edit-pdf', label: 'Need to fill out text fields first? Try Edit PDF' }
+                    ]}
+                />
 
             </div>
         </section>

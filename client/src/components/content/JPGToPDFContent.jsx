@@ -1,5 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RelatedTools from '../RelatedTools';
+
+export const jpgToPdfFaqs = [
+    {
+        q: 'Can I combine multiple JPG files into one PDF?',
+        a: "Yes! You can upload multiple images simultaneously. SafePDF will place each image onto its own page."
+    },
+    {
+        q: 'Are my photos uploaded to the internet?',
+        a: "No. SafePDF works entirely offline inside your web browser. Your private photos never leave your computer."
+    }
+];
 
 export default function JPGToPDFContent() {
     return (
@@ -83,16 +95,29 @@ export default function JPGToPDFContent() {
                 </div>
 
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    Related Guides
+                    Frequently Asked Questions — JPG to PDF
                 </h2>
-                <div className="flex flex-col gap-3 mb-8">
-                    <Link to="/blog/how-to-convert-jpg-to-pdf" className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-                        <span>→</span><span>How to Convert Images to PDF Formats Like a Pro</span>
-                    </Link>
-                    <Link to="/pdf-to-word" className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-                        <span>→</span><span>Looking to convert a PDF to a Word Document? Try PDF to Word</span>
-                    </Link>
+                <div className="space-y-5 mb-12">
+                    {jpgToPdfFaqs.map(({ q, a }) => (
+                        <div key={q} className="p-5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <h3 className="font-bold text-slate-900 dark:text-white mb-2">{q}</h3>
+                            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{a}</p>
+                        </div>
+                    ))}
                 </div>
+
+                <RelatedTools 
+                    tools={[
+                        { to: '/pdf-to-jpg', emoji: '📸', label: 'PDF to JPG', desc: 'Extract images from PDF' },
+                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                        { to: '/organize', emoji: '🗂️', label: 'Organize PDF', desc: 'Reorder and delete pages' },
+                    ]}
+                    blogs={[
+                        { to: '/blog/how-to-convert-jpg-to-pdf', label: 'How to Convert Images to PDF Formats Like a Pro' },
+                        { to: '/pdf-to-word', label: 'Looking to convert a PDF to a Word Document? Try PDF to Word' }
+                    ]}
+                />
 
             </div>
         </section>

@@ -1,5 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RelatedTools from '../RelatedTools';
+
+export const rotateFaqs = [
+    {
+        q: 'Will rotating my PDF reduce its quality?',
+        a: "No. Rotating a PDF file simply alters the orientation metadata of the pages. Quality is retained 100%."
+    },
+    {
+        q: 'Can I rotate just one page instead of the whole document?',
+        a: "Yes! SafePDF provides separate rotate buttons under each page thumbnail, allowing individual rotation."
+    }
+];
 
 export default function RotateContent() {
     return (
@@ -83,16 +95,29 @@ export default function RotateContent() {
                 </div>
 
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    Related Guides
+                    Frequently Asked Questions — Rotate PDF
                 </h2>
-                <div className="flex flex-col gap-3 mb-8">
-                    <Link to="/blog/how-to-rotate-pdf-pages" className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-                        <span>→</span><span>How to Permanently Rotate PDF Pages</span>
-                    </Link>
-                    <Link to="/organize" className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-                        <span>→</span><span>Need to delete or reorder pages? Try Organize PDF</span>
-                    </Link>
+                <div className="space-y-5 mb-12">
+                    {rotateFaqs.map(({ q, a }) => (
+                        <div key={q} className="p-5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <h3 className="font-bold text-slate-900 dark:text-white mb-2">{q}</h3>
+                            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{a}</p>
+                        </div>
+                    ))}
                 </div>
+
+                <RelatedTools 
+                    tools={[
+                        { to: '/organize', emoji: '🗂️', label: 'Organize PDF', desc: 'Reorder and delete pages' },
+                        { to: '/split', emoji: '✂️', label: 'Split PDF', desc: 'Extract pages from PDF' },
+                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                    ]}
+                    blogs={[
+                        { to: '/blog/how-to-rotate-pdf-pages', label: 'How to Permanently Rotate PDF Pages' },
+                        { to: '/organize', label: 'Need to delete or reorder pages? Try Organize PDF' }
+                    ]}
+                />
 
             </div>
         </section>

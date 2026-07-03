@@ -8,7 +8,7 @@ import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
-import CompressContent from '../components/content/CompressContent';
+import CompressContent, { compressFaqs } from '../components/content/CompressContent';
 
 const Compress = () => {
     const [file, setFile] = useState(null);
@@ -45,45 +45,54 @@ const Compress = () => {
     const compressFaqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Is it safe to compress a PDF online?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes. SafePDF compresses PDF files entirely inside your browser. Your file is never uploaded to any server, making it 100% private and secure." }
-            },
-            {
-                "@type": "Question",
-                "name": "Will compressing a PDF reduce its quality?",
-                "acceptedAnswer": { "@type": "Answer", "text": "The 'Recommended' compression level preserves visual quality while significantly reducing file size. The 'Extreme' option trades some quality for maximum compression." }
-            },
-            {
-                "@type": "Question",
-                "name": "What is the maximum file size I can compress?",
-                "acceptedAnswer": { "@type": "Answer", "text": "There is no hard limit enforced by SafePDF. The constraint is your browser's available memory, which typically supports files up to 200MB or more." }
-            },
-            {
-                "@type": "Question",
-                "name": "Is compressing a PDF free?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes, SafePDF's PDF compression tool is completely free with no file size limits or watermarks." }
-            }
-        ]
+        "mainEntity": compressFaqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+        }))
     };
 
+    const pageSchema = [
+        compressFaqSchema,
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "SafePDF Compress",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux, Chrome OS",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
+                { "@type": "ListItem", "position": 2, "name": "Compress PDF", "item": "https://safepdf.site/compress" }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Compress PDF Online Free | Reduce PDF Size Without Losing Quality",
+            "url": "https://safepdf.site/compress"
+        }
+    ];
+
     return (
-        <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+        <article className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
             <SEO
-                title="Compress PDF Online Free | Reduce PDF Size Without Losing Quality"
-                description="Compress PDF files online for free. Reduce file size without losing quality. 100% secure and processed locally."
+                title="Compress PDF Online Free | SafePDF"
+                description="Compress PDF files online for free. Reduce file size without losing quality. 100% secure and processed locally in your browser."
                 url="/compress"
             >
-                <script type="application/ld+json">{JSON.stringify(compressFaqSchema)}</script>
+                <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     Compress PDF File
                 </h1>
                 <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Reduce file size locally. No servers involved.
+                    Reduce Portable Document Format (PDF) file size locally. Works entirely in your browser on Windows, macOS, Linux, Chrome, and Firefox without needing Adobe Acrobat.
                 </p>
             </div>
 
@@ -97,9 +106,9 @@ const Compress = () => {
                                     <div className="flex flex-col items-center gap-4 text-center">
                                         <ToolHeroIcon icon="compress" theme={getToolTheme('/compress')} />
                                         <div className="space-y-2">
-                                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">
+                                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">
                                                 Click to Select PDF
-                                            </h3>
+                                            </h2>
                                             <p className="text-sm font-medium text-slate-500 dark:text-slate-400">or drag and drop file here</p>
                                         </div>
                                     </div>
@@ -109,7 +118,7 @@ const Compress = () => {
                         </div>
                     ) : (
                         <div className="flex flex-col gap-3">
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white px-1">Selected File</h3>
+                            <h2 className="text-lg font-bold text-slate-900 dark:text-white px-1">Selected File</h2>
                             <div className="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 relative overflow-hidden">
                                 <div className="flex-shrink-0 size-12 rounded-lg bg-red-100 dark:bg-red-900/20 flex items-center justify-center text-red-600 dark:text-red-400">
                                     <ClientOnly>
@@ -134,7 +143,7 @@ const Compress = () => {
                 <div className="lg:col-span-5 flex flex-col h-full">
                     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 p-6 flex flex-col gap-6 sticky top-24">
                         <div>
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Compression Level</h3>
+                            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Compression Level</h2>
                             <p className="text-sm text-slate-500 dark:text-slate-400">Choose how much to reduce file size.</p>
                         </div>
 
@@ -177,7 +186,7 @@ const Compress = () => {
                 </div>
             </div>
             <CompressContent />
-        </div>
+        </article>
     );
 };
 

@@ -8,7 +8,7 @@ import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
-import UnlockContent from '../components/content/UnlockContent';
+import UnlockContent, { unlockFaqs } from '../components/content/UnlockContent';
 
 const Unlock = () => {
     const [file, setFile] = useState(null);
@@ -56,35 +56,54 @@ const Unlock = () => {
     const unlockFaqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Can I unlock a PDF if I don't know the password?",
-                "acceptedAnswer": { "@type": "Answer", "text": "No. SafePDF is not a password cracking tool. You must know the current password to decrypt the file." }
-            },
-            {
-                "@type": "Question",
-                "name": "Is it safe to type my password here?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Because SafePDF operates entirely client-side, your password is never transmitted over the internet." }
-            }
-        ]
+        "mainEntity": unlockFaqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+        }))
     };
 
+    const pageSchema = [
+        unlockFaqSchema,
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "SafePDF Unlock",
+            "applicationCategory": "SecurityApplication",
+            "operatingSystem": "Windows, macOS, Linux, Chrome OS",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
+                { "@type": "ListItem", "position": 2, "name": "Unlock PDF", "item": "https://safepdf.site/unlock" }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Unlock PDF Online Free | Remove PDF Passwords Securely",
+            "url": "https://safepdf.site/unlock"
+        }
+    ];
+
     return (
-        <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+        <article className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
             <SEO
-                title="Unlock PDF Online Free | Remove PDF Passwords Securely"
-                description="Remove password protection from PDF files securely in your browser. Free, instant, and 100% private."
+                title="Unlock PDF Online Free | SafePDF"
+                description="Remove password protection from PDF files securely in your browser on Windows, macOS, or Linux. Free, instant, and 100% private."
                 url="/unlock"
             >
-                <script type="application/ld+json">{JSON.stringify(unlockFaqSchema)}</script>
+                <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     Unlock PDF
                 </h1>
                 <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Remove password security from PDFs, making them free to use.
+                    Remove password security from Portable Document Format (PDF) files locally in your browser on Windows, macOS, and Linux without needing Adobe Acrobat.
                 </p>
             </div>
 
@@ -97,9 +116,9 @@ const Unlock = () => {
                             <div className="flex flex-col items-center gap-4 text-center p-6">
                                 <ToolHeroIcon icon="lock_open" theme={getToolTheme('/unlock')} />
                                 <div className="space-y-2">
-                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">
+                                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">
                                         Click to Select
-                                    </h3>
+                                    </h2>
                                     <p className="text-sm font-medium text-slate-900 dark:text-white">or drag and drop PDF</p>
                                 </div>
                             </div>
@@ -113,7 +132,7 @@ const Unlock = () => {
                                 <UnlockIcon size={40} />
                             </div>
                             <div className="text-center">
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 break-all">{file.name}</h3>
+                                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2 break-all">{file.name}</h2>
                                 <p className="text-slate-500 dark:text-slate-400">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                             </div>
                         </div>
@@ -124,7 +143,7 @@ const Unlock = () => {
                 <div className="flex flex-col gap-6">
                     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 flex flex-col gap-6">
                         <div>
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Unlock Settings</h3>
+                            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Unlock Settings</h2>
                             <p className="text-sm text-slate-500 dark:text-slate-400">Enter the current password to remove it.</p>
                         </div>
 
@@ -132,6 +151,9 @@ const Unlock = () => {
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="password" className="text-sm font-bold text-slate-700 dark:text-slate-300">Password</label>
                                 <input
+                                    id="unlock-password"
+                                    name="unlock-password"
+                                    aria-label="Enter password to unlock PDF"
                                     type="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
@@ -168,7 +190,7 @@ const Unlock = () => {
                 </div>
             </div>
             <UnlockContent />
-        </div>
+        </article>
     );
 };
 

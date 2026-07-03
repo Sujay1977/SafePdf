@@ -1,5 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RelatedTools from '../RelatedTools';
+
+export const splitFaqs = [
+    {
+        q: 'How do I split a PDF online for free?',
+        a: "Upload your PDF to SafePDF, select the pages you want to extract by clicking on their thumbnails, then click 'Extract Pages'. The new PDF downloads instantly to your device."
+    },
+    {
+        q: 'Can I extract specific pages from a PDF?',
+        a: "Yes. SafePDF lets you select any combination of pages from your PDF and extract them into a new document. Just click the page thumbnails to select them."
+    },
+    {
+        q: 'Are my PDF files safe when splitting online?',
+        a: "Yes. SafePDF processes PDFs entirely inside your browser. Your files are never uploaded to any server, ensuring complete privacy."
+    },
+    {
+        q: 'Is there a limit on PDF size for splitting?',
+        a: "There is no enforced limit. Your browser's available memory determines how large a file you can split, typically 200MB or more."
+    }
+];
 
 export default function SplitContent() {
     return (
@@ -86,60 +106,10 @@ export default function SplitContent() {
                 </ul>
 
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    Explore More SafePDF Tools
+                    Frequently Asked Questions — Split PDF
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-                    {[
-                        { to: '/merge', label: '📄 Merge PDF', desc: 'Combine PDFs into one' },
-                        { to: '/compress', label: '📦 Compress PDF', desc: 'Reduce PDF file size' },
-                        { to: '/protect', label: '🔒 Protect PDF', desc: 'Add password encryption' },
-                        { to: '/organize', label: '🗂️ Organize PDF', desc: 'Reorder & delete pages' },
-                    ].map((tool) => (
-                        <Link
-                            key={tool.to}
-                            to={tool.to}
-                            className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-400 hover:shadow-md transition-all group"
-                        >
-                            <p className="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">{tool.label}</p>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{tool.desc}</p>
-                        </Link>
-                    ))}
-                </div>
-
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    FAQ — Splitting PDFs Online
-                </h2>
-                <div className="space-y-5">
-                    {[
-                        {
-                            q: 'How do I split a PDF online for free?',
-                            a: 'Go to safepdf.site/split, upload your PDF, select the pages you want to extract by clicking their thumbnails, then click Extract Pages. Your new PDF downloads instantly — no account, no uploads to servers.'
-                        },
-                        {
-                            q: 'How do I split a PDF into individual pages?',
-                            a: 'Upload your PDF to SafePDF, click "Select All" to select every page, then click "Extract Pages". SafePDF will create a new PDF with all the pages in the same order. Alternatively, select specific pages to extract only those.'
-                        },
-                        {
-                            q: 'Can I extract non-consecutive pages from a PDF?',
-                            a: 'Yes. Click on any individual page thumbnails to select them regardless of order. SafePDF will extract exactly the pages you select.'
-                        },
-                        {
-                            q: 'Is there a page limit for PDF splitting?',
-                            a: 'No. SafePDF can display and process PDFs with any number of pages. Very large PDFs may take a moment to load their thumbnails, but the extraction works for the full document.'
-                        },
-                        {
-                            q: 'Will splitting a PDF reduce its quality?',
-                            a: 'No. SafePDF extracts pages without recompressing or modifying the content. The extracted pages are identical in quality to the original.'
-                        },
-                        {
-                            q: 'Is it safe to split a PDF with confidential information?',
-                            a: 'Yes. SafePDF splits PDFs entirely in your browser — your file is never uploaded to any server. It works safely for medical records, legal documents, financial statements, and other sensitive files.'
-                        },
-                        {
-                            q: 'Can I split a PDF on my phone?',
-                            a: 'Yes. SafePDF works in mobile browsers on iPhone (Safari) and Android (Chrome). Upload, select pages, and download the split PDF entirely from your phone — no app installation needed.'
-                        },
-                    ].map(({ q, a }) => (
+                <div className="space-y-5 mb-12">
+                    {splitFaqs.map(({ q, a }) => (
                         <div key={q} className="p-5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700">
                             <h3 className="font-bold text-slate-900 dark:text-white mb-2">{q}</h3>
                             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{a}</p>
@@ -147,21 +117,19 @@ export default function SplitContent() {
                     ))}
                 </div>
 
-                {/* Related Guides */}
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    Related Guides
-                </h2>
-                <div className="flex flex-col gap-3 mb-8">
-                    {[
+                <RelatedTools 
+                    tools={[
+                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine PDFs into one' },
+                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                        { to: '/protect', emoji: '🔒', label: 'Protect PDF', desc: 'Add password encryption' },
+                        { to: '/organize', emoji: '🗂️', label: 'Organize PDF', desc: 'Reorder & delete pages' },
+                    ]}
+                    blogs={[
                         { to: '/blog/how-to-split-pdf-online-free', label: 'How to Split a PDF Online Free — Full Guide' },
                         { to: '/blog/how-to-organize-pdf-pages', label: 'How to Organize PDF Pages (Reorder & Delete)' },
                         { to: '/blog/how-to-merge-pdf-online-free', label: 'How to Merge PDF Files Free' },
-                    ].map((b) => (
-                        <Link key={b.to} to={b.to} className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-                            <span>→</span><span>{b.label}</span>
-                        </Link>
-                    ))}
-                </div>
+                    ]}
+                />
 
             </div>
         </section>

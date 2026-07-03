@@ -7,7 +7,7 @@ import { Trash2, GripVertical, FileUp, ArrowRight, Loader2, CheckCircle, Shield 
 import { Reorder } from 'framer-motion';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
-import MergeContent from '../components/content/MergeContent';
+import MergeContent, { mergeFaqs } from '../components/content/MergeContent';
 
 const Merge = () => {
     const [files, setFiles] = useState([]);
@@ -64,45 +64,54 @@ const Merge = () => {
     const mergeFaqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "How do I merge PDF files online for free?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Upload your PDF files to SafePDF, arrange them in your desired order by dragging and dropping, then click 'Merge PDF'. Your merged file downloads instantly." }
-            },
-            {
-                "@type": "Question",
-                "name": "Is there a limit on how many PDFs I can merge?",
-                "acceptedAnswer": { "@type": "Answer", "text": "SafePDF does not impose a limit on the number of PDFs you can merge. The only constraint is your browser's available memory." }
-            },
-            {
-                "@type": "Question",
-                "name": "Are my merged PDF files secure?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. All merging happens inside your browser using client-side JavaScript. Your files are never sent to any server." }
-            },
-            {
-                "@type": "Question",
-                "name": "Can I reorder PDFs before merging?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes! SafePDF lets you drag and drop PDF thumbnails to reorder them before merging, giving you full control over the final document." }
-            }
-        ]
+        "mainEntity": mergeFaqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+        }))
     };
 
+    const pageSchema = [
+        mergeFaqSchema,
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "SafePDF Merge",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux, Chrome OS",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
+                { "@type": "ListItem", "position": 2, "name": "Merge PDF", "item": "https://safepdf.site/merge" }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Merge PDF Files Online Free | Combine PDFs Instantly",
+            "url": "https://safepdf.site/merge"
+        }
+    ];
+
     return (
-        <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+        <article className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
             <SEO
-                title="Merge PDF Files Online Free | Combine PDFs Instantly"
-                description="Merge multiple PDF files into one instantly. Free, secure, and works directly in your browser."
+                title="Merge PDF Files Online Free | SafePDF"
+                description="Merge multiple PDF files into one instantly. Free, secure, and works directly in your browser without Adobe Acrobat."
                 url="/merge"
             >
-                <script type="application/ld+json">{JSON.stringify(mergeFaqSchema)}</script>
+                <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     Merge PDF Files
                 </h1>
                 <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Combine PDFs in the order you want with the easiest PDF merger available.
+                    Combine Portable Document Format (PDF) files in the order you want with the easiest PDF merger available. Works directly in your browser on Windows, macOS, and Linux without needing Adobe Acrobat.
                 </p>
             </div>
 
@@ -129,7 +138,7 @@ const Merge = () => {
                     ) : (
                         <div>
                             <div className="flex flex-wrap items-center justify-between mb-4 gap-4">
-                                <h3 className="text-slate-900 dark:text-white text-lg font-bold leading-tight">Selected Files ({files.length})</h3>
+                                <h2 className="text-slate-900 dark:text-white text-lg font-bold leading-tight">Selected Files ({files.length})</h2>
                                 <div className="flex gap-2">
                                     <button onClick={() => setFiles([])} className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors">
                                         <Trash2 size={18} />
@@ -153,14 +162,14 @@ const Merge = () => {
                                     {files.map((file) => (
                                         <Reorder.Item key={file.id} value={file} className="contents">
                                             <div className="group relative flex flex-col bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md hover:border-primary/50 transition-all cursor-grab active:cursor-grabbing overflow-hidden aspect-[3/4]">
-                                                <button onClick={() => removeFile(file.id)} className="absolute top-2 right-2 z-10 size-7 flex items-center justify-center rounded-full bg-white dark:bg-slate-700 text-slate-500 hover:text-red-500 hover:bg-red-50 shadow-sm border border-slate-200 dark:border-slate-600 opacity-0 group-hover:opacity-100 transition-all transform hover:scale-110">
+                                                <button onClick={() => removeFile(file.id)} aria-label="Remove file" className="absolute top-2 right-2 z-10 size-7 flex items-center justify-center rounded-full bg-white dark:bg-slate-700 text-slate-500 hover:text-red-500 hover:bg-red-50 shadow-sm border border-slate-200 dark:border-slate-600 opacity-0 group-hover:opacity-100 transition-all transform hover:scale-110">
                                                     <Trash2 size={14} />
                                                 </button>
 
                                                 <div className="flex-1 w-full bg-slate-100 dark:bg-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
                                                     {file.thumbnail ? (
                                                         <div className="w-full h-full shadow-lg rounded-sm relative">
-                                                            <img src={file.thumbnail} alt="Preview" className="w-full h-full object-contain bg-white" />
+                                                            <img src={file.thumbnail} alt={`Preview of ${file.file.name}`} loading="lazy" decoding="async" className="w-full h-full object-contain bg-white" />
                                                         </div>
                                                     ) : (
                                                         <div className="text-slate-400">Loading...</div>
@@ -183,7 +192,7 @@ const Merge = () => {
                 {/* Right Column: Actions */}
                 <div className="w-full lg:w-[340px] flex flex-col gap-6 shrink-0">
                     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sticky top-24">
-                        <h3 className="text-slate-900 dark:text-white text-xl font-bold mb-6">Merge Options</h3>
+                        <h2 className="text-slate-900 dark:text-white text-xl font-bold mb-6">Merge Options</h2>
                         <div className="space-y-4 mb-8">
                             <p className="text-sm text-slate-500 dark:text-slate-400">Drag and drop files to reorder them before merging.</p>
                         </div>
@@ -211,7 +220,7 @@ const Merge = () => {
                 </div>
             </div>
             <MergeContent />
-        </div>
+        </article>
     );
 };
 

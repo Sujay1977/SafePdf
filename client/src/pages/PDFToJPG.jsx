@@ -7,7 +7,7 @@ import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
-import PDFToJPGContent from '../components/content/PDFToJPGContent';
+import PDFToJPGContent, { pdfToJpgFaqs } from '../components/content/PDFToJPGContent';
 
 const PDFToJPG = () => {
     const [file, setFile] = useState(null);
@@ -41,48 +41,67 @@ const PDFToJPG = () => {
     const pdfToJpgFaqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Will I lose image quality during conversion?",
-                "acceptedAnswer": { "@type": "Answer", "text": "No. SafePDF generates the JPG images using a high pixel density multiplier to ensure the resulting images look exactly like the original PDF document." }
-            },
-            {
-                "@type": "Question",
-                "name": "Is it free to convert PDF files to images?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes, absolutely. SafePDF does not have premium tiers, file size limits, or daily usage caps." }
-            }
-        ]
+        "mainEntity": pdfToJpgFaqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+        }))
     };
 
+    const pageSchema = [
+        pdfToJpgFaqSchema,
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "SafePDF PDF to JPG",
+            "applicationCategory": "MultimediaApplication",
+            "operatingSystem": "Windows, macOS, Linux, Chrome OS",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
+                { "@type": "ListItem", "position": 2, "name": "PDF to JPG", "item": "https://safepdf.site/pdf-to-jpg" }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Convert PDF to JPG Online Free | Extract High-Quality Images",
+            "url": "https://safepdf.site/pdf-to-jpg"
+        }
+    ];
+
     return (
-        <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+        <article className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
             <SEO
-                title="Convert PDF to JPG Online Free | Extract High-Quality Images"
-                description="Instantly convert PDF pages to high-quality JPG images securely in your browser. Download all extracted pages as a ZIP file. 100% free and client-side."
+                title="Convert PDF to JPG Online Free | SafePDF"
+                description="Convert PDF pages to high-quality JPG images securely in your browser. Download all extracted pages as a ZIP file."
                 url="/pdf-to-jpg"
             >
-                <script type="application/ld+json">{JSON.stringify(pdfToJpgFaqSchema)}</script>
+                <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     PDF to JPG
                 </h1>
                 <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Convert PDF pages to high-quality images. Downloads as a ZIP file.
+                    Convert Portable Document Format (PDF) pages to high-quality images. Works completely locally in your browser on Windows, macOS, or Linux. Downloads as a ZIP file.
                 </p>
             </div>
 
             <div className="w-full max-w-3xl mx-auto">
                 {!file ? (
                     <div {...getRootProps()} className="group relative flex flex-col items-center justify-center h-80 rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 hover:border-blue-400 transition-all cursor-pointer shadow-sm hover:shadow-md">
-                        <input {...getInputProps()} className="hidden" />
+                        <input {...getInputProps()} id="pdf-to-jpg-upload" name="pdf-to-jpg-upload" aria-label="Upload PDF document" className="hidden" />
                         <div className="flex flex-col items-center gap-4 text-center">
                             <ToolHeroIcon icon="image" theme={getToolTheme('/pdf-to-jpg')} />
                             <div className="space-y-2">
-                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">
+                                <h2 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">
                                     Click to Select PDF
-                                </h3>
+                                </h2>
                                 <p className="text-sm font-medium text-slate-900 dark:text-white">or drag and drop file here</p>
                             </div>
                         </div>
@@ -93,7 +112,7 @@ const PDFToJPG = () => {
                             <Images size={40} />
                         </div>
                         <div className="text-center">
-                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{file.name}</h3>
+                            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{file.name}</h2>
                             <p className="text-slate-500 dark:text-slate-400">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                         </div>
 
@@ -123,7 +142,7 @@ const PDFToJPG = () => {
                 </div>
             </div>
             <PDFToJPGContent />
-        </div>
+        </article>
     );
 };
 

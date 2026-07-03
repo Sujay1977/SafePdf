@@ -7,7 +7,7 @@ import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
-import ProtectContent from '../components/content/ProtectContent';
+import ProtectContent, { protectFaqs } from '../components/content/ProtectContent';
 
 const Protect = () => {
     const [file, setFile] = useState(null);
@@ -48,45 +48,54 @@ const Protect = () => {
     const protectFaqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "How do I add a password to a PDF?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's Protect PDF tool: upload your PDF, enter a password, confirm it, then click 'Protect PDF'. The password-protected file downloads instantly." }
-            },
-            {
-                "@type": "Question",
-                "name": "Is my password sent to SafePDF's servers?",
-                "acceptedAnswer": { "@type": "Answer", "text": "No. SafePDF encrypts your PDF entirely inside your browser. Your password and your file never leave your device." }
-            },
-            {
-                "@type": "Question",
-                "name": "What encryption standard does SafePDF use for PDF protection?",
-                "acceptedAnswer": { "@type": "Answer", "text": "SafePDF uses standard AES-based PDF encryption as defined in the PDF specification, compatible with all major PDF readers including Adobe Acrobat." }
-            },
-            {
-                "@type": "Question",
-                "name": "Can I remove the password from a PDF later?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use SafePDF's Unlock PDF tool to remove the password from a PDF you own." }
-            }
-        ]
+        "mainEntity": protectFaqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+        }))
     };
 
+    const pageSchema = [
+        protectFaqSchema,
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "SafePDF Protect",
+            "applicationCategory": "SecurityApplication",
+            "operatingSystem": "Windows, macOS, Linux, Chrome OS",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
+                { "@type": "ListItem", "position": 2, "name": "Protect PDF", "item": "https://safepdf.site/protect" }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Protect PDF with Password Online | Encrypt PDF Securely",
+            "url": "https://safepdf.site/protect"
+        }
+    ];
+
     return (
-        <div className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
+        <article className="flex-grow flex flex-col items-center w-full px-4 py-8 md:py-12">
             <SEO
-                title="Protect PDF with Password Online | Encrypt PDF Securely"
-                description="Add password protection to your PDF files. Secure encryption directly in your browser."
+                title="Protect PDF with Password Online | SafePDF"
+                description="Add password protection to your PDF files. Secure encryption directly in your browser on Windows, macOS, or Linux."
                 url="/protect"
             >
-                <script type="application/ld+json">{JSON.stringify(protectFaqSchema)}</script>
+                <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
             <div className="text-center max-w-2xl mx-auto mb-10">
                 <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
                     Protect PDF
                 </h1>
                 <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Encrypt your PDF file with a password to ensure security.
+                    Encrypt your Portable Document Format (PDF) file with a password to ensure security. Works entirely in your browser on Windows, macOS, and Linux without needing Adobe Acrobat.
                 </p>
             </div>
 
@@ -95,13 +104,13 @@ const Protect = () => {
                 <div className="flex flex-col gap-4">
                     {!file ? (
                         <div {...getRootProps()} className="group relative flex flex-col items-center justify-center aspect-square rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 hover:border-blue-400 transition-all cursor-pointer shadow-sm hover:shadow-md">
-                            <input {...getInputProps()} className="hidden" />
+                            <input {...getInputProps()} id="protect-upload" name="protect-upload" aria-label="Upload PDF document" className="hidden" />
                             <div className="flex flex-col items-center gap-4 text-center p-6">
                                 <ToolHeroIcon icon="lock" theme={getToolTheme('/protect')} />
                                 <div className="space-y-2">
-                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">
+                                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">
                                         Click to Select
-                                    </h3>
+                                    </h2>
                                     <p className="text-sm font-medium text-slate-900 dark:text-white">or drag and drop PDF</p>
                                 </div>
                             </div>
@@ -115,7 +124,7 @@ const Protect = () => {
                                 <Lock size={40} />
                             </div>
                             <div className="text-center">
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 break-all">{file.name}</h3>
+                                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2 break-all">{file.name}</h2>
                                 <p className="text-slate-500 dark:text-slate-400">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                             </div>
                         </div>
@@ -126,13 +135,16 @@ const Protect = () => {
                 <div className="flex flex-col gap-6">
                     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 flex flex-col gap-6">
                         <div>
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Security Settings</h3>
+                            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Security Settings</h2>
                         </div>
 
                         <div className="flex flex-col gap-4">
                             <div className="flex flex-col gap-2">
                                 <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Set Password</label>
                                 <input
+                                    id="password-input"
+                                    name="password-input"
+                                    aria-label="Enter password for PDF"
                                     type="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
@@ -143,6 +155,9 @@ const Protect = () => {
                             <div className="flex flex-col gap-2">
                                 <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Confirm Password</label>
                                 <input
+                                    id="password-confirm-input"
+                                    name="password-confirm-input"
+                                    aria-label="Confirm password"
                                     type="password"
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -178,7 +193,7 @@ const Protect = () => {
                 </div>
             </div>
             <ProtectContent />
-        </div>
+        </article>
     );
 };
 
