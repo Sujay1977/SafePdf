@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 export default function SEO({ title, description, image, url, type = 'website', robots = 'index, follow', themeColor = '#ffffff', language = 'en', children }) {
     const siteTitle = 'SafePDF';
-    const siteDescription = 'SafePDF is a free online PDF toolkit and a privacy-focused alternative to iLovePDF. Merge, split, compress, and edit PDFs locally.';
+    const siteDescription = 'SafePDF is a free online PDF toolkit and a privacy-focused alternative to iLovePDF. Merge, split, compress, convert, protect and edit PDF files directly in your browser with no uploads, no signup and no data collection.';
     const siteUrl = 'https://safepdf.site';
     const defaultImage = `${siteUrl}/og-image.png`;
 
