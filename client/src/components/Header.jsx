@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Heart, Github } from 'lucide-react';
-import { DodoPayments } from 'dodopayments-checkout';
+
 
 import ClientOnly from './ClientOnly';
 
@@ -12,14 +12,17 @@ const Header = () => {
 
 
 
-    const handleSupportMe = (e) => {
+    const handleSupportMe = async (e) => {
         e.preventDefault();
 
         const publicKey = import.meta.env.VITE_DODO_PUBLIC_KEY;
         const productId = 'pdt_0NWNP0K7PftXJmjaCc5fF'; // LIVE Product ID
 
         try {
-            // 10x FIX: Re-initialize right before opening to prevent "Missing Key" errors
+            // Dynamic import: loads dodopayments-checkout only on click, not on initial page load
+            const { DodoPayments } = await import('dodopayments-checkout');
+
+            // Re-initialize right before opening to prevent "Missing Key" errors
             DodoPayments.Initialize({
                 publicKey: publicKey,
                 mode: 'live',

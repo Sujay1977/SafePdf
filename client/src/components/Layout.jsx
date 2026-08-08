@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
             <div className={`absolute inset-0 -z-10 ${!pageBg ? 'bg-background-light dark:bg-background-dark' : ''}`}></div>
 
             <Header />
-            <main className="flex-grow flex flex-col w-full">
+            <main className="flex-grow flex flex-col w-full min-h-[70vh]">
                 {children}
             </main>
             <Footer />

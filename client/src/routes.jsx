@@ -64,7 +64,7 @@ const SignPDFGuide = safeLazy(() => import('./pages/blog/SignPDFGuide'));
 const ProtectPDFSecureGuide = safeLazy(() => import('./pages/blog/ProtectPDFSecureGuide'));
 const PDFToJPGGuide = safeLazy(() => import('./pages/blog/PDFToJPGGuide'));
 
-const Loading = () => <div className="flex items-center justify-center min-h-[50vh]"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>;
+const Loading = () => <div className="flex items-center justify-center min-h-[70vh]"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>;
 
 // Suspense wrapper with error boundary
 const Page = ({ children }) => (
