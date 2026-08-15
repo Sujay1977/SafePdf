@@ -7,6 +7,7 @@ import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
+import ToolPageHeader from '../components/ToolPageHeader';
 import PDFToJPGContent, { pdfToJpgFaqs } from '../components/content/PDFToJPGContent';
 
 const PDFToJPG = () => {
@@ -83,14 +84,10 @@ const PDFToJPG = () => {
             >
                 <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
-            <div className="text-center max-w-2xl mx-auto mb-10">
-                <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
-                    PDF to JPG
-                </h1>
-                <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Convert Portable Document Format (PDF) pages to high-quality images. Works completely locally in your browser on Windows, macOS, or Linux. Downloads as a ZIP file.
-                </p>
-            </div>
+            <ToolPageHeader
+                title="PDF to JPG"
+                description="Convert Portable Document Format (PDF) pages to high-quality images. Works completely locally in your browser on Windows, macOS, or Linux. Downloads as a ZIP file."
+            />
 
             <div className="w-full max-w-3xl mx-auto">
                 {!file ? (

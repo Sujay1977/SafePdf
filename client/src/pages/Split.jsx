@@ -1,4 +1,5 @@
 import SEO from '../components/SEO';
+import ToolPageHeader from '../components/ToolPageHeader';
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { getPageThumbnail, extractPages, generateThumbnail } from '../utils/pdf';
@@ -146,14 +147,10 @@ const Split = () => {
             >
                 <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
-            <div className="text-center max-w-2xl mx-auto mb-10">
-                <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
-                    Split PDF File
-                </h1>
-                <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Select specific pages to extract into a new Portable Document Format (PDF) document. Works locally in your browser on Windows, macOS, or Linux.
-                </p>
-            </div>
+            <ToolPageHeader
+                title="Split PDF File"
+                description="Select specific pages to extract into a new Portable Document Format (PDF) document. Works locally in your browser on Windows, macOS, or Linux."
+            />
 
             {!file ? (
                 <div className="w-full max-w-3xl mx-auto">

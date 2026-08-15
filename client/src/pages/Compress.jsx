@@ -8,6 +8,7 @@ import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
+import ToolPageHeader from '../components/ToolPageHeader';
 import CompressContent, { compressFaqs } from '../components/content/CompressContent';
 
 const Compress = () => {
@@ -87,14 +88,10 @@ const Compress = () => {
             >
                 <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
-            <div className="text-center max-w-2xl mx-auto mb-10">
-                <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
-                    Compress PDF File
-                </h1>
-                <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Reduce Portable Document Format (PDF) file size locally. Works entirely in your browser on Windows, macOS, Linux, Chrome, and Firefox without needing Adobe Acrobat.
-                </p>
-            </div>
+            <ToolPageHeader
+                title="Compress PDF File"
+                description="Reduce Portable Document Format (PDF) file size locally. Works entirely in your browser on Windows, macOS, Linux, Chrome, and Firefox without needing Adobe Acrobat."
+            />
 
             <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 {/* Left Column: File */}

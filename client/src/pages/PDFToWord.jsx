@@ -8,6 +8,7 @@ import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
 import PDFToWordContent, { pdfToWordFaqs } from '../components/content/PDFToWordContent';
+import ToolPageHeader from '../components/ToolPageHeader';
 
 const PDFToWord = () => {
     const [file, setFile] = useState(null);
@@ -83,16 +84,15 @@ const PDFToWord = () => {
             >
                 <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
-            <div className="text-center max-w-2xl mx-auto mb-10">
-                <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
-                    PDF to Word
-                </h1>
-                <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Convert your Portable Document Format (PDF) files to editable Word documents (DOCX). Works completely locally without uploads.
-
-                    <br /><span className="text-sm italic opacity-75">(Note: Client-side conversion extracts text but may lose complex layout)</span>
-                </p>
-            </div>
+            <ToolPageHeader
+                title="PDF to Word"
+                description={
+                    <>
+                        Convert your Portable Document Format (PDF) files to editable Word documents (DOCX). Works completely locally without uploads.
+                        <br /><span className="text-sm italic opacity-75">(Note: Client-side conversion extracts text but may lose complex layout)</span>
+                    </>
+                }
+            />
 
             <div className="w-full max-w-3xl mx-auto">
                 {!file ? (

@@ -6,6 +6,7 @@ import { saveAs } from 'file-saver';
 import { Trash2, FileUp, ArrowRight, Loader2, PenTool, Check, X } from 'lucide-react';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
+import ToolPageHeader from '../components/ToolPageHeader';
 import SignContent, { signFaqs } from '../components/content/SignContent';
 const SignatureCanvas = React.lazy(() => import('react-signature-canvas'));
 import * as pdfjsLib from 'pdfjs-dist';
@@ -158,9 +159,10 @@ const Sign = () => {
                 </div>
             )}
 
-            <div className="text-center max-w-2xl mx-auto mb-6">
-                <h1 className="text-3xl font-black mb-2 dark:text-white">Sign PDF</h1>
-            </div>
+            <ToolPageHeader
+                title="Sign PDF"
+                description="Add an electronic signature to PDF files securely in your browser."
+            />
 
             {!file ? (
                 <div {...getRootProps()} className="w-full max-w-3xl h-80 border-2 border-dashed rounded-3xl flex flex-col items-center justify-center cursor-pointer border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all shadow-sm hover:shadow-md group">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
+import SponsorCard from '../../components/SponsorCard';
 
 const POSTS = [
     {
@@ -166,17 +167,24 @@ export default function BlogIndex() {
 
             {/* Hero */}
             <div className="w-full bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 border-b border-slate-200/50 dark:border-slate-800/50 py-16 px-4">
-                <div className="max-w-4xl mx-auto text-center">
-                    <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
-                        📖 SafePDF Blog
-                    </span>
-                    <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white leading-tight tracking-tight mb-4">
-                        PDF Guides & Tutorials
-                    </h1>
-                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                        Practical guides to help you compress, merge, split, protect, and convert PDFs — all for free,
-                        all securely in your browser.
-                    </p>
+                <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center lg:items-start pt-2">
+                    <div className="lg:col-span-7 xl:col-span-8 flex flex-col text-center lg:text-left justify-center order-1">
+                        <span className="inline-flex items-center justify-center lg:justify-start gap-2 px-3 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-bold uppercase tracking-widest mb-6 w-fit mx-auto lg:mx-0">
+                            📖 SafePDF Blog
+                        </span>
+                        <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white leading-tight tracking-tight mb-4">
+                            PDF Guides & Tutorials
+                        </h1>
+                        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                            Practical guides to help you compress, merge, split, protect, and convert PDFs — all for free,
+                            all securely in your browser.
+                        </p>
+                    </div>
+                    <div className="lg:col-span-5 xl:col-span-4 w-full flex justify-center lg:justify-end order-2 mt-4 lg:mt-2">
+                        <div className="w-full max-w-[360px] lg:max-w-full">
+                            <SponsorCard />
+                        </div>
+                    </div>
                 </div>
             </div>
 

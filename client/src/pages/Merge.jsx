@@ -1,4 +1,5 @@
 import SEO from '../components/SEO';
+import ToolPageHeader from '../components/ToolPageHeader';
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { generateThumbnail, mergePDFs } from '../utils/pdf';
@@ -106,14 +107,10 @@ const Merge = () => {
             >
                 <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
-            <div className="text-center max-w-2xl mx-auto mb-10">
-                <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
-                    Merge PDF Files
-                </h1>
-                <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Combine Portable Document Format (PDF) files in the order you want with the easiest PDF merger available. Works directly in your browser on Windows, macOS, and Linux without needing Adobe Acrobat.
-                </p>
-            </div>
+            <ToolPageHeader
+                title="Merge PDF Files"
+                description="Combine Portable Document Format (PDF) files in the order you want with the easiest PDF merger available. Works directly in your browser on Windows, macOS, and Linux without needing Adobe Acrobat."
+            />
 
             <div className="w-full max-w-[1200px] flex flex-col lg:flex-row gap-8 items-start">
                 {/* Left Column: File Management */}

@@ -11,6 +11,7 @@ import {
 import { Link } from 'react-router-dom';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
+import ToolPageHeader from '../components/ToolPageHeader';
 import SEO from '../components/SEO';
 import EditContent, { editFaqs } from '../components/content/EditContent';
 
@@ -298,10 +299,10 @@ const Edit = () => {
                 <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
             <div className="flex-grow flex flex-col items-center justify-center p-8 bg-gray-50 dark:bg-slate-900">
-                <div className="text-center mb-8 mt-12">
-                    <h1 className="text-4xl font-black text-slate-900 dark:text-white mb-2">PDF Editor</h1>
-                    <p className="text-slate-500">Upload a PDF to start editing</p>
-                </div>
+                <ToolPageHeader
+                    title="PDF Editor"
+                    description="Upload a PDF to start editing text, shapes, and annotations."
+                />
                 <div {...getRootProps()} className="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl p-12 bg-white dark:bg-slate-800 cursor-pointer hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all shadow-sm hover:shadow-md group w-full max-w-3xl">
                     <label htmlFor="edit-upload" className="cursor-pointer w-full h-full flex flex-col items-center justify-center">
                         <div className="flex flex-col items-center gap-4 text-center">

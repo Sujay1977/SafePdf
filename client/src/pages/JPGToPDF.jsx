@@ -7,6 +7,7 @@ import { Trash2, FileUp, ArrowRight, Loader2, Shield, GripVertical, Image } from
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
+import ToolPageHeader from '../components/ToolPageHeader';
 import JPGToPDFContent, { jpgToPdfFaqs } from '../components/content/JPGToPDFContent';
 
 const JPGToPDF = () => {
@@ -92,14 +93,10 @@ const JPGToPDF = () => {
             >
                 <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
-            <div className="text-center max-w-2xl mx-auto mb-10">
-                <h1 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-3">
-                    JPG to PDF
-                </h1>
-                <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
-                    Convert JPG, PNG images to Portable Document Format (PDF) documents. Works completely locally in your browser on Windows, macOS, or Linux. Drag to reorder.
-                </p>
-            </div>
+            <ToolPageHeader
+                title="JPG to PDF"
+                description="Convert JPG, PNG images to Portable Document Format (PDF) documents. Works completely locally in your browser on Windows, macOS, or Linux. Drag to reorder."
+            />
 
             <div className="w-full max-w-5xl flex flex-col lg:flex-row gap-8 items-start">
                 <div className="flex-1 w-full">
