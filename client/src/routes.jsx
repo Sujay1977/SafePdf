@@ -44,6 +44,7 @@ const AllTools = safeLazy(() => import('./pages/AllTools'));
 const Workflows = safeLazy(() => import('./pages/Workflows'));
 const Pricing = safeLazy(() => import('./pages/Pricing'));
 const Updates = safeLazy(() => import('./pages/Updates'));
+const Sponsor = safeLazy(() => import('./pages/Sponsor'));
 
 // Blog pages
 const BlogIndex = safeLazy(() => import('./pages/blog/BlogIndex'));
@@ -98,6 +99,7 @@ export const routes = [
             { path: '/workflows', element: <Layout><Page><Workflows /></Page></Layout> },
             { path: '/pricing', element: <Layout><Page><Pricing /></Page></Layout> },
             { path: '/updates', element: <Layout><Page><Updates /></Page></Layout> },
+            { path: '/sponsor', element: <Layout><Page><Sponsor /></Page></Layout> },
 
             // Blog routes
             { path: '/blog', element: <Layout><Page><BlogIndex /></Page></Layout> },

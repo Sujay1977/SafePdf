@@ -7,6 +7,7 @@ import ToolHeaderFilters from '../components/ToolHeaderFilters';
 import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import { tools } from '../utils/toolsData';
+import SponsorCard from '../components/SponsorCard';
 
 
 
@@ -112,9 +113,14 @@ const Home = () => {
                             </button>
                         </div>
 
-                        {/* 2. Right Column: Security Portal Animation */}
-                        <div className="relative flex items-center justify-center lg:justify-end">
-                            <div className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px]">
+                        {/* 2. Right Column: Sponsor Card + Security Portal Animation */}
+                        <div className="flex flex-col items-center lg:items-end gap-6">
+                            {/* Sponsor card — upper-right of hero on desktop, above illustration on mobile */}
+                            <SponsorCard />
+
+                            {/* Illustration wrapper */}
+                            <div className="relative flex items-center justify-center lg:justify-end w-full">
+                                <div className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px]">
                                 {/* Pulsing Rings */}
                                 <div className="absolute inset-0 border-[3px] border-blue-500/10 rounded-full animate-[spin_10s_linear_infinite]" />
                                 <div className="absolute inset-8 border border-blue-500/20 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
@@ -149,6 +155,7 @@ const Home = () => {
                                     </span>
                                 </div>
                             </div>
+                            </div>{/* end illustration wrapper */}
                         </div>
 
                     </div>
