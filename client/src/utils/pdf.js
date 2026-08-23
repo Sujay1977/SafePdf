@@ -1146,6 +1146,7 @@ export const cropResizePDF = async (file, options = {}) => {
         targetHeight,
         rasterize = false,
         renderScale,
+        pages, // optional array of 0-based page indices to apply to; undefined = all pages
     } = options;
 
     // ── Input validation ────────────────────────────────────────────
@@ -1173,6 +1174,7 @@ export const cropResizePDF = async (file, options = {}) => {
         const sourcePdf = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
         const sourcePages = sourcePdf.getPages();
         const newPdf = await PDFDocument.create();
+        const pageSetResize = pages ? new Set(pages) : null; // null means all pages
 
         // Build bounding boxes for crop (PDF uses bottom-left origin)
         const boundingBoxes = sourcePages.map(page => {
@@ -1188,14 +1190,28 @@ export const cropResizePDF = async (file, options = {}) => {
         // Embed all source pages as XObjects in the new document
         const embeddedPages = await newPdf.embedPages(sourcePages, boundingBoxes);
 
-        for (const embedded of embeddedPages) {
-            const newPage = newPdf.addPage([targetWidth, targetHeight]);
-            newPage.drawPage(embedded, {
-                x: 0,
-                y: 0,
-                width: targetWidth,
-                height: targetHeight,
-            });
+        for (let i = 0; i < embeddedPages.length; i++) {
+            const shouldResize = !pageSetResize || pageSetResize.has(i);
+            const srcPage = sourcePages[i];
+            const { width: origW, height: origH } = srcPage.getSize();
+
+            if (shouldResize) {
+                // Resize to target dimensions
+                const newPage = newPdf.addPage([targetWidth, targetHeight]);
+                newPage.drawPage(embeddedPages[i], {
+                    x: 0, y: 0,
+                    width: targetWidth,
+                    height: targetHeight,
+                });
+            } else {
+                // Keep original size — draw at original dimensions
+                const newPage = newPdf.addPage([origW, origH]);
+                newPage.drawPage(embeddedPages[i], {
+                    x: 0, y: 0,
+                    width: origW,
+                    height: origH,
+                });
+            }
         }
 
         const pdfBytes = await newPdf.save();
@@ -1204,9 +1220,14 @@ export const cropResizePDF = async (file, options = {}) => {
 
     // ── Pure MediaBox crop (in-place, lossless) ─────────────────────
     const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
-    const pages = pdfDoc.getPages();
+    const allPages = pdfDoc.getPages();
+    const pageSet = pages ? new Set(pages) : null; // null means all pages
 
-    for (const page of pages) {
+    for (let i = 0; i < allPages.length; i++) {
+        // Skip if pages filter is set and this index is not in the set
+        if (pageSet && !pageSet.has(i)) continue;
+
+        const page = allPages[i];
         const { width, height } = page.getSize();
         const newLeft   = cropLeft;
         const newBottom = cropBottom;

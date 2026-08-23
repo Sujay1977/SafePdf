@@ -40,6 +40,14 @@ export const toolThemes = {
         borderColor: 'rgba(196, 113, 245, 0.2)',
         textColor: '#701a75' // fuchsia-900
     },
+    '/crop-pdf': {
+        from: '#a78bfa',
+        to: '#6366f1',
+        shadow: 'rgba(99, 102, 241, 0.4)',
+        fadedBg: '#eef2ff', // indigo-50
+        borderColor: 'rgba(99, 102, 241, 0.2)',
+        textColor: '#312e81' // indigo-900
+    },
 
     // Optimize & Convert / Orange & Red & Pink
     '/compress': {

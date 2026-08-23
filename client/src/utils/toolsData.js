@@ -82,5 +82,12 @@ export const tools = [
         icon: "edit_document",
         link: "/edit",
         category: "Organize PDF"
+    },
+    {
+        title: "Crop & Resize PDF",
+        description: "Trim PDF margins or resize pages to A4, Letter, or custom dimensions. Fast, lossless, and 100% private.",
+        icon: "crop",
+        link: "/crop-pdf",
+        category: "Organize PDF"
     }
 ];
