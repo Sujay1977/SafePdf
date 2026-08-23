@@ -1039,25 +1039,46 @@ const makeError = (message, code) => {
  * @returns {Promise<Blob>} ZIP blob (application/zip)
  * @throws {Error} with code 'NO_FILES' | 'INVALID_FILE'
  */
-export const pdfsToZip = async (files) => {
+export const pdfsToZip = async (files, options = {}) => {
     if (!files || files.length === 0) {
         throw makeError('No files provided.', 'NO_FILES');
     }
 
+    const { onProgress } = options;
     const zip = new JSZip();
     // Map: sanitized base name → how many times seen so far
     const seenNames = new Map();
 
     for (const file of files) {
-        // ── Validate each file is a PDF ─────────────────────────────
-        if (file.type && file.type !== 'application/pdf') {
+        // ── Validate file type & extension ──────────────────────────
+        const isPdfMime = !file.type || file.type === 'application/pdf' || file.type === 'application/x-pdf';
+        const isPdfExt = (file.name || '').toLowerCase().endsWith('.pdf');
+        if (!isPdfMime && !isPdfExt) {
             throw makeError(
                 `"${file.name}" does not appear to be a PDF file.`,
                 'INVALID_FILE'
             );
         }
 
-        const arrayBuffer = await file.arrayBuffer();
+        let arrayBuffer;
+        try {
+            arrayBuffer = await file.arrayBuffer();
+        } catch {
+            throw makeError(`Could not read file "${file.name}".`, 'LOAD_FAILED');
+        }
+
+        // ── Validate PDF magic bytes (%PDF-) ─────────────────────────
+        if (arrayBuffer.byteLength < 5) {
+            throw makeError(`"${file.name}" is too small to be a valid PDF.`, 'INVALID_FILE');
+        }
+        const header = new Uint8Array(arrayBuffer.slice(0, 5));
+        const headerStr = String.fromCharCode(...header);
+        if (headerStr !== '%PDF-') {
+            throw makeError(
+                `"${file.name}" is not a valid PDF document (missing %PDF- header).`,
+                'INVALID_FILE'
+            );
+        }
 
         // ── Sanitize filename ────────────────────────────────────────
         // Remove path separators and illegal filename characters.
@@ -1083,12 +1104,19 @@ export const pdfsToZip = async (files) => {
         }
     }
 
-    return await zip.generateAsync({
-        type: 'blob',
-        compression: 'DEFLATE',
-        compressionOptions: { level: 6 },
-        comment: 'Created by SafePDF — files processed locally in your browser.',
-    });
+    return await zip.generateAsync(
+        {
+            type: 'blob',
+            compression: 'DEFLATE',
+            compressionOptions: { level: 6 },
+            comment: 'Created by SafePDF — files processed locally in your browser.',
+        },
+        (metadata) => {
+            if (typeof onProgress === 'function') {
+                onProgress(Math.round(metadata.percent));
+            }
+        }
+    );
 };
 
 // ═══════════════════════════════════════════════════════════════════

@@ -89,5 +89,12 @@ export const tools = [
         icon: "crop",
         link: "/crop-pdf",
         category: "Organize PDF"
+    },
+    {
+        title: "PDF to ZIP",
+        description: "Package multiple PDF documents into a single compressed ZIP archive. Fast, lossless, and 100% private.",
+        icon: "folder_zip",
+        link: "/pdf-to-zip",
+        category: "Convert PDF"
     }
 ];

@@ -72,7 +72,15 @@ export const toolThemes = {
         shadow: 'rgba(255, 117, 140, 0.4)',
         fadedBg: '#fff1f2', // rose-50
         borderColor: 'rgba(255, 117, 140, 0.2)',
-        textColor: '#9f1239' // rose-800
+        textColor: '#881337' // rose-900
+    },
+    '/pdf-to-zip': {
+        from: '#f59e0b',
+        to: '#ea580c',
+        shadow: 'rgba(234, 88, 12, 0.4)',
+        fadedBg: '#fffbeb', // amber-50
+        borderColor: 'rgba(245, 158, 11, 0.2)',
+        textColor: '#78350f' // amber-900
     },
     '/jpg-to-pdf': {
         from: '#fbc2eb',
