@@ -6,76 +6,115 @@ import {
     MousePointer2, Type, Square, Circle, Minus,
     Pen, Highlighter, Undo, Redo, Eraser, FilePenLine,
     ChevronDown, Trash2, ArrowLeft, Check, Lock, Loader2, Edit3,
-    Bold, Italic
+    Bold, Italic, ChevronLeft, ChevronRight, Download, Shield, AlertTriangle
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import clsx from 'clsx';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import ToolPageHeader from '../components/ToolPageHeader';
 import SEO from '../components/SEO';
 import EditContent, { editFaqs } from '../components/content/EditContent';
 
-const Edit = () => {
-    const [file, setFile] = useState(null);
-    const [pages, setPages] = useState([]);
-    const [activePageIndex, setActivePageIndex] = useState(0);
+const FONTS = [
+    { name: 'Helvetica', value: 'Helvetica', css: 'Helvetica, Arial, sans-serif' },
+    { name: 'Times Roman', value: 'Times', css: '"Times New Roman", Times, serif' },
+    { name: 'Courier', value: 'Courier', css: '"Courier New", Courier, monospace' }
+];
 
-    // Editor State
+const Edit = () => {
+    const theme = getToolTheme('/edit');
+
+    // Document state
+    const [file, setFile] = useState(null);
+    const [numPages, setNumPages] = useState(1);
+    const [pages, setPages] = useState([]); // array of page thumbnails/dimensions
+    const [activePageIndex, setActivePageIndex] = useState(0);
+    const [pageLoading, setPageLoading] = useState(false);
+
+    // Editor state
     const [tool, setTool] = useState('select'); // select, text, eraser, rect, highlight, edit-content
     const [annotations, setAnnotations] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
     const [history, setHistory] = useState([]);
     const [historyIndex, setHistoryIndex] = useState(-1);
     const [isProcessing, setIsProcessing] = useState(false);
+    const [downloadDone, setDownloadDone] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    // Content Editing State
-    const [pageTextItems, setPageTextItems] = useState([]);
-    const [editedTextSchema, setEditedTextSchema] = useState({}); // originalIndex -> { text, fontSize, family, bold, italic, color }
+    // Content text replacement state
+    // Key: `${pageIndex}_${idx}` -> replacement state
+    const [editedTextSchema, setEditedTextSchema] = useState({});
+    const [pageTextItemsMap, setPageTextItemsMap] = useState({}); // pageIndex -> textItems array
 
-    // Tool Properties
+    // Tool properties
     const [fontSize, setFontSize] = useState(16);
     const [fontColor, setFontColor] = useState('#000000');
 
-    // Default Font Config
-    const fonts = [
-        { name: 'Helvetica', value: 'Helvetica', css: 'Helvetica, Arial, sans-serif' },
-        { name: 'Times Roman', value: 'Times', css: '"Times New Roman", Times, serif' },
-        { name: 'Courier', value: 'Courier', css: '"Courier New", Courier, monospace' }
-    ];
-
-    // Load Pages & Content
+    // Load active page preview and extracted text items
     useEffect(() => {
         if (!file) return;
-        const loadPages = async () => {
-            try {
-                const result = await getPageThumbnail(file, activePageIndex + 1);
-                setPages(prev => {
-                    const newPages = [...prev];
-                    newPages[activePageIndex] = result;
-                    return newPages;
-                });
-                const textItems = await getPageTextCheck(file, activePageIndex);
-                setPageTextItems(textItems);
-            } catch (e) { console.error(e); }
-        };
-        loadPages();
-    }, [file, activePageIndex]);
+        let cancelled = false;
+        setPageLoading(true);
 
-    // Dropzone
+        const loadActivePage = async () => {
+            try {
+                // Load thumbnail if not already cached
+                if (!pages[activePageIndex]) {
+                    const result = await getPageThumbnail(file, activePageIndex + 1);
+                    if (!cancelled && result) {
+                        if (result.numPages) setNumPages(result.numPages);
+                        setPages(prev => {
+                            const newPages = [...prev];
+                            newPages[activePageIndex] = result;
+                            return newPages;
+                        });
+                    }
+                }
+
+                // Load text items for content editing if not cached
+                if (!pageTextItemsMap[activePageIndex]) {
+                    const textItems = await getPageTextCheck(file, activePageIndex);
+                    if (!cancelled) {
+                        setPageTextItemsMap(prev => ({
+                            ...prev,
+                            [activePageIndex]: textItems || []
+                        }));
+                    }
+                }
+            } catch (e) {
+                console.error("Error loading page:", e);
+                if (!cancelled) setErrorMessage("Failed to render page preview.");
+            } finally {
+                if (!cancelled) setPageLoading(false);
+            }
+        };
+
+        loadActivePage();
+        return () => { cancelled = true; };
+    }, [file, activePageIndex, pages, pageTextItemsMap]);
+
+    // Dropzone callback
     const onDrop = useCallback((acceptedFiles) => {
         if (acceptedFiles?.length > 0) {
             setFile(acceptedFiles[0]);
             setPages([]);
             setActivePageIndex(0);
+            setNumPages(1);
             setAnnotations([]);
             setHistory([]);
             setHistoryIndex(-1);
-            setPageTextItems([]);
             setEditedTextSchema({});
+            setPageTextItemsMap({});
+            setErrorMessage('');
+            setDownloadDone(false);
         }
     }, []);
-    const { getRootProps, getInputProps } = useDropzone({
-        onDrop, accept: { 'application/pdf': ['.pdf'] }, multiple: false
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop,
+        accept: { 'application/pdf': ['.pdf'] },
+        multiple: false
     });
 
     const addToHistory = (newAnnotations) => {
@@ -110,22 +149,61 @@ const Edit = () => {
         const y = (e.clientY - rect.top) / rect.height;
 
         if (tool === 'text') {
-            const newAnn = { id: crypto.randomUUID(), type: 'text', pageIndex: activePageIndex, x, y, text: 'Add text', fontSize: fontSize, color: fontColor, fontFamily: 'Helvetica' };
+            const newAnn = {
+                id: crypto.randomUUID(),
+                type: 'text',
+                pageIndex: activePageIndex,
+                x,
+                y,
+                text: 'Add text',
+                fontSize: fontSize,
+                color: fontColor,
+                fontFamily: 'Helvetica'
+            };
             addToHistory([...annotations, newAnn]);
             setTool('select');
             setSelectedId(newAnn.id);
         } else if (tool === 'eraser') {
-            const newAnn = { id: crypto.randomUUID(), type: 'rectangle', pageIndex: activePageIndex, x: x - 0.05, y: y - 0.025, width: 0.1, height: 0.05, strokeWidth: 0, fillColor: '#FFFFFF', opacity: 1 };
+            const newAnn = {
+                id: crypto.randomUUID(),
+                type: 'rectangle',
+                pageIndex: activePageIndex,
+                x: Math.max(0, x - 0.05),
+                y: Math.max(0, y - 0.025),
+                width: 0.1,
+                height: 0.05,
+                strokeWidth: 0,
+                fillColor: '#FFFFFF',
+                opacity: 1
+            };
             addToHistory([...annotations, newAnn]);
             setTool('select');
             setSelectedId(newAnn.id);
         } else if (tool === 'rect') {
-            const newAnn = { id: crypto.randomUUID(), type: 'rectangle', pageIndex: activePageIndex, x: x - 0.1, y: y - 0.05, width: 0.2, height: 0.1, strokeColor: fontColor, strokeWidth: 2 };
+            const newAnn = {
+                id: crypto.randomUUID(),
+                type: 'rectangle',
+                pageIndex: activePageIndex,
+                x: Math.max(0, x - 0.1),
+                y: Math.max(0, y - 0.05),
+                width: 0.2,
+                height: 0.1,
+                strokeColor: fontColor,
+                strokeWidth: 2
+            };
             addToHistory([...annotations, newAnn]);
             setTool('select');
             setSelectedId(newAnn.id);
         } else if (tool === 'highlight') {
-            const newAnn = { id: crypto.randomUUID(), type: 'highlight', pageIndex: activePageIndex, x: x - 0.1, y: y - 0.025, width: 0.2, height: 0.05 };
+            const newAnn = {
+                id: crypto.randomUUID(),
+                type: 'highlight',
+                pageIndex: activePageIndex,
+                x: Math.max(0, x - 0.1),
+                y: Math.max(0, y - 0.025),
+                width: 0.2,
+                height: 0.05
+            };
             addToHistory([...annotations, newAnn]);
             setTool('select');
             setSelectedId(newAnn.id);
@@ -151,16 +229,18 @@ const Edit = () => {
         }
     };
 
-    // --- CONTENT EDITING ---
-    const getEditedState = (idx) => {
-        if (editedTextSchema[idx]) return editedTextSchema[idx];
-        const item = pageTextItems[idx];
+    // --- CONTENT EDITING HELPERS ---
+    const pageTextItems = pageTextItemsMap[activePageIndex] || [];
+
+    const getEditedState = (pIdx, itemIdx) => {
+        const key = `${pIdx}_${itemIdx}`;
+        if (editedTextSchema[key]) return editedTextSchema[key];
+        const items = pageTextItemsMap[pIdx] || [];
+        const item = items[itemIdx];
         if (!item) return { text: '', fontSize: 12, fontFamily: 'Helvetica', isBold: false, isItalic: false, color: '#000000' };
 
-        // Heuristic to detect font family from extracted item
         let family = 'Helvetica';
         const fName = (item.fontName || '').toLowerCase();
-
         if (fName.includes('times') || fName.includes('roman') || fName.includes('serif')) {
             family = 'Times';
         } else if (fName.includes('courier') || fName.includes('mono') || fName.includes('typewriter')) {
@@ -168,8 +248,8 @@ const Edit = () => {
         }
 
         return {
-            text: item.text || '', // Fixed: was item.str
-            fontSize: item.fontSize,
+            text: item.text || '',
+            fontSize: item.fontSize || 12,
             fontFamily: family,
             isBold: fName.includes('bold') || fName.includes('black') || fName.includes('heavy'),
             isItalic: fName.includes('italic') || fName.includes('oblique'),
@@ -177,39 +257,45 @@ const Edit = () => {
         };
     };
 
-    const updateContentEdit = (idx, updates) => {
-        const currentState = getEditedState(idx);
+    const updateContentEdit = (pIdx, itemIdx, updates) => {
+        const key = `${pIdx}_${itemIdx}`;
+        const currentState = getEditedState(pIdx, itemIdx);
         setEditedTextSchema({
             ...editedTextSchema,
-            [idx]: { ...currentState, ...updates }
+            [key]: { ...currentState, ...updates }
         });
     };
 
+    // Save and export PDF with annotations from ALL pages
     const handleSave = async () => {
         if (!file) return;
         setIsProcessing(true);
-        try {
-            const replacements = Object.keys(editedTextSchema).map(idx => {
-                const original = pageTextItems[idx];
-                const state = editedTextSchema[idx];
+        setErrorMessage('');
+        setDownloadDone(false);
 
-                // original.x and original.y are the normalized coords returned by getPageTextCheck
-                // (normX/normY are NOT on the returned object — x/y are the normalized values)
+        try {
+            // Collect replacements across all pages
+            const replacements = Object.keys(editedTextSchema).map(key => {
+                const [pIdxStr, itemIdxStr] = key.split('_');
+                const pIdx = parseInt(pIdxStr, 10);
+                const itemIdx = parseInt(itemIdxStr, 10);
+                const items = pageTextItemsMap[pIdx] || [];
+                const original = items[itemIdx];
+                const state = editedTextSchema[key];
+
+                if (!original) return null;
+
                 const normX = Number.isFinite(original.x) ? original.x : 0;
                 const normY = Number.isFinite(original.y) ? original.y : 0;
                 const normW = Number.isFinite(original.normWidth) ? original.normWidth : 0;
                 const normH = Number.isFinite(original.normHeight) ? original.normHeight : 0;
                 const safeFontSize = Number.isFinite(state.fontSize) && state.fontSize > 0 ? state.fontSize : 12;
 
-                if (!Number.isFinite(original.x) || !Number.isFinite(original.y)) {
-                    console.warn('Invalid coordinates for text item', idx, original);
-                }
-
                 return {
-                    id: `rep-${idx}`,
+                    id: `rep-${key}`,
                     type: 'text',
                     isReplacement: true,
-                    pageIndex: activePageIndex,
+                    pageIndex: pIdx,
                     x: normX,
                     y: normY + normH,
                     text: state.text,
@@ -223,34 +309,33 @@ const Edit = () => {
                     originalWidth: normW,
                     originalHeight: normH
                 };
-            });
+            }).filter(Boolean);
 
-            // Filter out any replacement that still has bad coordinates
             const validReplacements = replacements.filter(r =>
                 Number.isFinite(r.x) && Number.isFinite(r.y) &&
                 Number.isFinite(r.originalX) && Number.isFinite(r.originalY)
             );
 
-            // Also guard regular annotations
             const validAnnotations = annotations.filter(a =>
                 Number.isFinite(a.x) && Number.isFinite(a.y)
             );
 
-            console.log('Saving annotations:', validAnnotations.length, 'replacements:', validReplacements.length);
-
             const finalAnnotations = [...validAnnotations, ...validReplacements];
             const blob = await applyAnnotations(file, finalAnnotations);
             saveAs(blob, `edited_${file.name}`);
+            setDownloadDone(true);
+            setTimeout(() => setDownloadDone(false), 4000);
         } catch (e) {
-            console.error(e);
+            console.error("Save edits error:", e);
             const msg = e?.message || '';
             if (msg.includes('NaN') || msg.includes('number')) {
-                alert('Some elements have invalid positions. Please reselect text and try again.');
+                setErrorMessage('Some elements have invalid positions. Please reselect and try again.');
             } else {
-                alert('Failed to save edits. Please try again.');
+                setErrorMessage(e.message || 'Failed to save edits. Please try again.');
             }
+        } finally {
+            setIsProcessing(false);
         }
-        setIsProcessing(false);
     };
 
     const editFaqSchema = {
@@ -278,14 +363,14 @@ const Edit = () => {
             "@type": "BreadcrumbList",
             "itemListElement": [
                 { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "Edit PDF", "item": "https://safepdf.site/edit-pdf" }
+                { "@type": "ListItem", "position": 2, "name": "Edit PDF", "item": "https://safepdf.site/edit" }
             ]
         },
         {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Edit PDF Online Free | Add Text, Highlight, Annotate",
-            "url": "https://safepdf.site/edit-pdf"
+            "url": "https://safepdf.site/edit"
         }
     ];
 
@@ -294,7 +379,7 @@ const Edit = () => {
             <SEO
                 title="Edit PDF Online Free | SafePDF"
                 description="Free browser-based PDF editor. Add text, erase, highlight, and annotate your PDF files securely online without uploads."
-                url="/edit-pdf"
+                url="/edit"
             >
                 <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
             </SEO>
@@ -306,10 +391,10 @@ const Edit = () => {
                 <div {...getRootProps()} className="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl p-12 bg-white dark:bg-slate-800 cursor-pointer hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all shadow-sm hover:shadow-md group w-full max-w-3xl">
                     <label htmlFor="edit-upload" className="cursor-pointer w-full h-full flex flex-col items-center justify-center">
                         <div className="flex flex-col items-center gap-4 text-center">
-                            <ToolHeroIcon icon="edit_document" theme={getToolTheme('/edit-pdf')} />
+                            <ToolHeroIcon icon="edit_document" theme={theme} />
                             <div className="space-y-2">
                                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                                    Click to Upload PDF
+                                    {isDragActive ? "Drop PDF file here" : "Click to Upload PDF"}
                                 </h2>
                                 <p className="text-slate-500 dark:text-slate-400 text-base font-medium">
                                     Start editing your document immediately
@@ -327,108 +412,239 @@ const Edit = () => {
     );
 
     const activePage = pages[activePageIndex];
-    const selectedContentIdx = selectedId?.startsWith('content-') ? selectedId.split('-')[1] : null;
+    const selectedContentIdx = selectedId?.startsWith('content-') ? parseInt(selectedId.split('-')[1], 10) : null;
 
     return (
         <div className="flex flex-col h-[calc(100vh-64px)] overflow-hidden bg-gray-100 dark:bg-slate-900">
-            {/* Toolbar */}
-            <div className="absolute top-20 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
-                <div className="flex items-center gap-1 p-2 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-gray-200 dark:border-slate-700">
-                    <button onClick={() => setTool('select')} aria-label="Select Tool" className={`p-2 rounded-lg ${tool === 'select' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><MousePointer2 size={20} /></button>
-                    <div className="w-px h-6 bg-gray-200 dark:bg-slate-700 mx-1"></div>
-                    <button onClick={() => setTool('edit-content')} aria-label="Edit Content Tool" className={`p-2 rounded-lg ${tool === 'edit-content' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Edit3 size={20} /></button>
-                    <div className="w-px h-6 bg-gray-200 dark:bg-slate-700 mx-1"></div>
-                    <button onClick={() => setTool('text')} aria-label="Add Text Tool" className={`p-2 rounded-lg ${tool === 'text' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Type size={20} /></button>
-                    <button onClick={() => setTool('rect')} aria-label="Draw Rectangle Tool" className={`p-2 rounded-lg ${tool === 'rect' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Square size={20} /></button>
-                    <button onClick={() => setTool('eraser')} aria-label="Eraser Tool" className={`p-2 rounded-lg ${tool === 'eraser' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Eraser size={20} /></button>
-                    <button onClick={() => setTool('highlight')} aria-label="Highlight Tool" className={`p-2 rounded-lg ${tool === 'highlight' ? 'bg-blue-50 text-primary' : 'text-slate-500 hover:bg-gray-50'}`}><Highlighter size={20} /></button>
-                    <div className="w-px h-6 bg-gray-200 dark:bg-slate-700 mx-1"></div>
-                    <button onClick={handleUndo} disabled={historyIndex < 0} aria-label="Undo" className="p-2 rounded-lg text-slate-500 hover:bg-gray-50 disabled:opacity-30"><Undo size={20} /></button>
-                    <button onClick={handleRedo} disabled={historyIndex >= history.length - 1} aria-label="Redo" className="p-2 rounded-lg text-slate-500 hover:bg-gray-50 disabled:opacity-30"><Redo size={20} /></button>
+            {/* Top Toolbar */}
+            <div className="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 px-4 py-2.5 z-20 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+                <div className="flex items-center gap-2">
+                    <Link to="/" className="text-slate-500 hover:text-primary flex items-center gap-1 text-sm font-medium pr-2 border-r border-slate-200 dark:border-slate-700">
+                        <ArrowLeft size={16} /> <span className="hidden sm:inline">Back</span>
+                    </Link>
+                    <div className="flex items-center gap-1 p-1 bg-slate-100 dark:bg-slate-700/60 rounded-xl">
+                        <button
+                            onClick={() => setTool('select')}
+                            aria-label="Select Tool"
+                            className={clsx("p-2 rounded-lg transition-colors", tool === 'select' ? 'bg-white dark:bg-slate-800 text-primary shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white')}
+                            title="Select & Move"
+                        >
+                            <MousePointer2 size={18} />
+                        </button>
+                        <button
+                            onClick={() => setTool('edit-content')}
+                            aria-label="Edit Content Tool"
+                            className={clsx("p-2 rounded-lg transition-colors", tool === 'edit-content' ? 'bg-white dark:bg-slate-800 text-primary shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white')}
+                            title="Edit Existing Text"
+                        >
+                            <Edit3 size={18} />
+                        </button>
+                        <div className="w-px h-5 bg-slate-300 dark:bg-slate-600 mx-0.5"></div>
+                        <button
+                            onClick={() => setTool('text')}
+                            aria-label="Add Text Tool"
+                            className={clsx("p-2 rounded-lg transition-colors", tool === 'text' ? 'bg-white dark:bg-slate-800 text-primary shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white')}
+                            title="Add Text"
+                        >
+                            <Type size={18} />
+                        </button>
+                        <button
+                            onClick={() => setTool('rect')}
+                            aria-label="Draw Rectangle Tool"
+                            className={clsx("p-2 rounded-lg transition-colors", tool === 'rect' ? 'bg-white dark:bg-slate-800 text-primary shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white')}
+                            title="Rectangle"
+                        >
+                            <Square size={18} />
+                        </button>
+                        <button
+                            onClick={() => setTool('eraser')}
+                            aria-label="Eraser Tool"
+                            className={clsx("p-2 rounded-lg transition-colors", tool === 'eraser' ? 'bg-white dark:bg-slate-800 text-primary shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white')}
+                            title="Whiteout / Eraser"
+                        >
+                            <Eraser size={18} />
+                        </button>
+                        <button
+                            onClick={() => setTool('highlight')}
+                            aria-label="Highlight Tool"
+                            className={clsx("p-2 rounded-lg transition-colors", tool === 'highlight' ? 'bg-white dark:bg-slate-800 text-primary shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white')}
+                            title="Highlight"
+                        >
+                            <Highlighter size={18} />
+                        </button>
+                        <div className="w-px h-5 bg-slate-300 dark:bg-slate-600 mx-0.5"></div>
+                        <button onClick={handleUndo} disabled={historyIndex < 0} aria-label="Undo" className="p-2 rounded-lg text-slate-500 hover:text-slate-900 disabled:opacity-30">
+                            <Undo size={18} />
+                        </button>
+                        <button onClick={handleRedo} disabled={historyIndex >= history.length - 1} aria-label="Redo" className="p-2 rounded-lg text-slate-500 hover:text-slate-900 disabled:opacity-30">
+                            <Redo size={18} />
+                        </button>
+                        {selectedId && (
+                            <button onClick={deleteSelected} aria-label="Delete selected" className="p-2 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" title="Delete element">
+                                <Trash2 size={18} />
+                            </button>
+                        )}
+                    </div>
                 </div>
 
-                {/* Text Properties Bar (Contextual) */}
-                {selectedContentIdx && (
-                    <div className="flex items-center gap-2 px-3 py-2 bg-white/95 backdrop-blur rounded-lg shadow-sm border border-gray-200 animate-in fade-in slide-in-from-top-2">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase">Text</span>
-                        <div className="w-px h-4 bg-gray-200"></div>
-
-                        {/* Font Family */}
-                        <label htmlFor={`font-family-${selectedContentIdx}`} className="sr-only">Font Family</label>
-                        <select id={`font-family-${selectedContentIdx}`} name={`font-family-${selectedContentIdx}`} className="bg-transparent text-sm border-none focus:ring-0 p-0 w-24 text-slate-700 font-medium cursor-pointer"
-                            value={getEditedState(selectedContentIdx).fontFamily}
-                            onChange={(e) => updateContentEdit(selectedContentIdx, { fontFamily: e.target.value })}
-                        >
-                            {fonts.map(f => <option key={f.value} value={f.value}>{f.name}</option>)}
-                        </select>
-
-                        <div className="w-px h-4 bg-gray-200"></div>
-
-                        {/* Font Size */}
-                        <label htmlFor={`font-size-${selectedContentIdx}`} className="sr-only">Font Size</label>
-                        <input id={`font-size-${selectedContentIdx}`} name={`font-size-${selectedContentIdx}`} type="number"
-                            className="w-12 bg-transparent text-sm border-none focus:ring-0 p-0 text-center"
-                            value={Math.round(getEditedState(selectedContentIdx).fontSize)}
-                            onChange={(e) => updateContentEdit(selectedContentIdx, { fontSize: Number(e.target.value) })}
-                        />
-                        <span className="text-xs text-slate-400">px</span>
-
-                        <div className="w-px h-4 bg-gray-200"></div>
-
-                        {/* Bold/Italic */}
-                        <button
-                            onClick={() => updateContentEdit(selectedContentIdx, { isBold: !getEditedState(selectedContentIdx).isBold })}
-                            aria-label="Toggle Bold"
-                            className={`p-1 rounded ${getEditedState(selectedContentIdx).isBold ? 'bg-blue-100 text-blue-600' : 'text-slate-500 hover:bg-gray-50'}`}
-                        >
-                            <Bold size={16} />
-                        </button>
-                        <button
-                            onClick={() => updateContentEdit(selectedContentIdx, { isItalic: !getEditedState(selectedContentIdx).isItalic })}
-                            aria-label="Toggle Italic"
-                            className={`p-1 rounded ${getEditedState(selectedContentIdx).isItalic ? 'bg-blue-100 text-blue-600' : 'text-slate-500 hover:bg-gray-50'}`}
-                        >
-                            <Italic size={16} />
-                        </button>
-                    </div>
-                )}
+                {/* Right Action */}
+                <div className="flex items-center gap-3">
+                    {errorMessage && (
+                        <span className="text-xs text-red-500 font-medium truncate max-w-xs">{errorMessage}</span>
+                    )}
+                    <button
+                        onClick={handleSave}
+                        disabled={isProcessing}
+                        className={clsx(
+                            "flex items-center gap-2 px-5 py-2 text-white text-sm font-bold rounded-xl shadow-md transition-all",
+                            downloadDone ? "bg-green-600 hover:bg-green-700" : "bg-primary hover:bg-blue-600 shadow-primary/20",
+                            isProcessing && "!bg-slate-400 cursor-not-allowed"
+                        )}
+                    >
+                        {isProcessing ? (
+                            <>
+                                <Loader2 className="animate-spin" size={16} />
+                                <span>Saving Edits…</span>
+                            </>
+                        ) : downloadDone ? (
+                            <>
+                                <Check size={16} />
+                                <span>Downloaded!</span>
+                            </>
+                        ) : (
+                            <>
+                                <Download size={16} />
+                                <span>Save &amp; Download PDF</span>
+                            </>
+                        )}
+                    </button>
+                </div>
             </div>
 
-            {/* Canvas */}
+            {/* Contextual Text Properties Bar */}
+            {selectedContentIdx !== null && (
+                <div className="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-2 flex items-center gap-3 text-xs z-10 animate-in fade-in">
+                    <span className="font-bold text-slate-500 uppercase">Text Style:</span>
+                    <select
+                        className="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded px-2 py-1 text-slate-700 dark:text-slate-200 text-xs"
+                        value={getEditedState(activePageIndex, selectedContentIdx).fontFamily}
+                        onChange={(e) => updateContentEdit(activePageIndex, selectedContentIdx, { fontFamily: e.target.value })}
+                    >
+                        {FONTS.map(f => <option key={f.value} value={f.value}>{f.name}</option>)}
+                    </select>
+
+                    <div className="flex items-center gap-1">
+                        <span>Size:</span>
+                        <input
+                            type="number"
+                            min="6"
+                            max="72"
+                            className="w-14 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded px-1.5 py-1 text-center text-xs"
+                            value={Math.round(getEditedState(activePageIndex, selectedContentIdx).fontSize)}
+                            onChange={(e) => updateContentEdit(activePageIndex, selectedContentIdx, { fontSize: Number(e.target.value) || 12 })}
+                        />
+                        <span>pt</span>
+                    </div>
+
+                    <div className="flex items-center gap-1">
+                        <button
+                            onClick={() => updateContentEdit(activePageIndex, selectedContentIdx, { isBold: !getEditedState(activePageIndex, selectedContentIdx).isBold })}
+                            className={clsx("p-1 rounded border", getEditedState(activePageIndex, selectedContentIdx).isBold ? "bg-blue-100 border-blue-400 text-primary" : "border-slate-300 dark:border-slate-600 text-slate-600")}
+                            title="Bold"
+                        >
+                            <Bold size={14} />
+                        </button>
+                        <button
+                            onClick={() => updateContentEdit(activePageIndex, selectedContentIdx, { isItalic: !getEditedState(activePageIndex, selectedContentIdx).isItalic })}
+                            className={clsx("p-1 rounded border", getEditedState(activePageIndex, selectedContentIdx).isItalic ? "bg-blue-100 border-blue-400 text-primary" : "border-slate-300 dark:border-slate-600 text-slate-600")}
+                            title="Italic"
+                        >
+                            <Italic size={14} />
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Workspace Area: Left Thumbnails + Center Canvas */}
             <div className="flex-1 flex overflow-hidden relative">
-                <div className="w-64 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 overflow-y-auto hidden md:block">
-                    <div className="p-4">
-                        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Pages</h2>
-                        <div className="aspect-[1/1.4] bg-gray-100 rounded-lg border-2 border-primary ring-2 ring-primary/20 relative overflow-hidden">
-                            {activePage && <img src={activePage.thumbnail} alt="PDF Page Preview" loading="lazy" decoding="async" className="w-full h-full object-contain" />}
-                            <div className="absolute bottom-1 right-1 bg-black/50 text-white text-[10px] px-1.5 py-0.5 rounded">1</div>
-                        </div>
+                {/* Left: Page Thumbnails Sidebar */}
+                <div className="w-52 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 overflow-y-auto hidden md:flex flex-col p-3 gap-3">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                        Pages ({numPages})
+                    </span>
+                    <div className="flex flex-col gap-3">
+                        {Array.from({ length: numPages }).map((_, idx) => {
+                            const cachedPage = pages[idx];
+                            const isActive = idx === activePageIndex;
+                            const pageAnnCount = annotations.filter(a => a.pageIndex === idx).length;
+
+                            return (
+                                <button
+                                    key={idx}
+                                    onClick={() => setActivePageIndex(idx)}
+                                    className={clsx(
+                                        "relative aspect-[1/1.4] rounded-xl overflow-hidden border-2 transition-all p-1 text-left bg-slate-50 dark:bg-slate-900 group",
+                                        isActive
+                                            ? "border-primary ring-2 ring-primary/20 shadow-md"
+                                            : "border-slate-200 dark:border-slate-700 hover:border-slate-300"
+                                    )}
+                                >
+                                    {cachedPage ? (
+                                        <img src={cachedPage.thumbnail} alt={`Page ${idx + 1}`} className="w-full h-full object-contain" />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-xs text-slate-400">
+                                            Page {idx + 1}
+                                        </div>
+                                    )}
+                                    <div className="absolute bottom-1.5 right-1.5 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">
+                                        {idx + 1}
+                                    </div>
+                                    {pageAnnCount > 0 && (
+                                        <div className="absolute top-1.5 left-1.5 bg-blue-600 text-white text-[9px] px-1 py-0.2 rounded-full font-bold">
+                                            {pageAnnCount} edit{pageAnnCount > 1 ? 's' : ''}
+                                        </div>
+                                    )}
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
 
-                <div className="flex-1 bg-gray-100 dark:bg-slate-950 overflow-auto flex justify-center p-10 relative">
-                    {activePage ? (
-                        <div className="relative bg-white shadow-2xl"
-                            style={{ width: activePage.originalWidth, height: activePage.originalHeight, transform: 'scale(1)', transformOrigin: 'top center' }}
+                {/* Center: Canvas Viewport */}
+                <div className="flex-1 bg-gray-100 dark:bg-slate-950 overflow-auto flex flex-col items-center justify-start p-6 relative">
+                    {pageLoading && !activePage ? (
+                        <div className="flex flex-col items-center gap-3 my-auto text-slate-400">
+                            <Loader2 className="animate-spin text-primary" size={32} />
+                            <span className="text-sm font-medium">Loading page {activePageIndex + 1}...</span>
+                        </div>
+                    ) : activePage ? (
+                        <div
+                            className="relative bg-white shadow-2xl rounded-sm my-auto"
+                            style={{
+                                width: activePage.originalWidth || 595,
+                                height: activePage.originalHeight || 842,
+                                maxWidth: '100%',
+                            }}
                             onClick={handleCanvasClick}
                         >
-                            <img src={activePage.thumbnail} alt="PDF Page Preview" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full pointer-events-none select-none" />
+                            <img
+                                src={activePage.thumbnail}
+                                alt={`Page ${activePageIndex + 1}`}
+                                className="absolute inset-0 w-full h-full pointer-events-none select-none"
+                            />
 
                             {/* Content Edit Layer */}
                             {tool === 'edit-content' && (
                                 <div className="absolute inset-0 z-30">
                                     {pageTextItems.map((item, idx) => {
-                                        const state = getEditedState(idx);
+                                        const state = getEditedState(activePageIndex, idx);
                                         const isSelected = selectedId === `content-${idx}`;
-                                        const cssFont = fonts.find(f => f.value === state.fontFamily)?.css || fonts[0].css;
-
-                                        // Debug log for first render
-                                        if (idx === 0) console.log("Rendering Text Items:", pageTextItems.length);
+                                        const cssFont = FONTS.find(f => f.value === state.fontFamily)?.css || FONTS[0].css;
 
                                         return (
                                             <div
                                                 key={idx}
-                                                className={`absolute rounded transition-all group ${isSelected ? 'z-50' : 'z-auto hover:z-40'}`}
+                                                className={clsx("absolute rounded transition-all group", isSelected ? "z-50" : "z-auto hover:z-40")}
                                                 style={{
                                                     top: `${item.normY * 100}%`,
                                                     left: `${item.normX * 100}%`,
@@ -438,22 +654,17 @@ const Edit = () => {
                                                 }}
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    console.log("Clicked text item", idx);
                                                     setSelectedId(`content-${idx}`);
                                                 }}
                                             >
-                                                {/* Hover Outline (PDFelement style) */}
-                                                <div className={`absolute -inset-1 border-2 border-transparent transition-colors pointer-events-none ${isSelected ? 'border-blue-500 bg-white shadow-lg' : 'group-hover:border-blue-400 group-hover:bg-blue-50/10'
-                                                    }`} />
+                                                <div className={clsx("absolute -inset-1 border-2 border-transparent transition-colors pointer-events-none", isSelected ? "border-blue-500 bg-white shadow-lg" : "group-hover:border-blue-400 group-hover:bg-blue-50/10")} />
 
-                                                {/* Editor or Preview */}
                                                 {isSelected ? (
-                                                    <React.Fragment>
-                                                        <label htmlFor={`text-editor-${idx}`} className="sr-only">Edit text content</label>
-                                                        <textarea id={`text-editor-${idx}`} name={`text-editor-${idx}`}
+                                                    <textarea
+                                                        id={`text-editor-${idx}`}
                                                         value={state.text}
                                                         autoFocus
-                                                        onChange={(e) => updateContentEdit(idx, { text: e.target.value })}
+                                                        onChange={(e) => updateContentEdit(activePageIndex, idx, { text: e.target.value })}
                                                         className="relative w-full h-full p-0 m-0 border-none bg-transparent resize-none overflow-hidden outline-none text-slate-900"
                                                         style={{
                                                             fontSize: `${state.fontSize}px`,
@@ -464,9 +675,7 @@ const Edit = () => {
                                                             whiteSpace: 'pre-wrap'
                                                         }}
                                                     />
-                                                    </React.Fragment>
                                                 ) : (
-                                                    // Invisible overlay to capture clicks, but lets you see original text
                                                     <div className="w-full h-full cursor-text" title={`Font: ${state.fontFamily}, Size: ${Math.round(state.fontSize)}px`} />
                                                 )}
                                             </div>
@@ -475,7 +684,7 @@ const Edit = () => {
                                 </div>
                             )}
 
-                            {/* Annotations */}
+                            {/* Annotations Layer */}
                             <div className="absolute inset-0 z-20 pointer-events-none">
                                 {tool !== 'edit-content' && annotations.filter(a => a.pageIndex === activePageIndex).map(ann => (
                                     <RndObject
@@ -488,25 +697,42 @@ const Edit = () => {
                                 ))}
                             </div>
                         </div>
-                    ) : <div className="flex items-center justify-center text-slate-400">Loading page...</div>}
+                    ) : null}
                 </div>
             </div>
 
-            {/* Footer */}
-            <div className="h-16 bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-700 flex items-center justify-between px-6 z-30">
-                <Link to="/" className="text-slate-500 hover:text-primary flex items-center gap-2 text-sm font-medium">
-                    <ArrowLeft size={18} /> Back to Dashboard
-                </Link>
-                <button onClick={handleSave} disabled={isProcessing} className="flex items-center gap-2 px-6 py-2.5 bg-primary hover:bg-blue-600 text-white rounded-lg font-bold shadow-lg shadow-primary/20 transition-all active:scale-95 disabled:bg-slate-400">
-                    {isProcessing ? <Loader2 className="animate-spin" size={20} /> : <Check size={20} />}
-                    Apply Edits
-                </button>
+            {/* Bottom Navigation & Status Bar */}
+            <div className="h-12 bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-700 flex items-center justify-between px-6 z-20 text-xs">
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={() => setActivePageIndex(p => Math.max(0, p - 1))}
+                        disabled={activePageIndex === 0}
+                        className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 disabled:opacity-40"
+                    >
+                        <ChevronLeft size={16} />
+                    </button>
+                    <span className="font-semibold text-slate-700 dark:text-slate-300">
+                        Page {activePageIndex + 1} of {numPages}
+                    </span>
+                    <button
+                        onClick={() => setActivePageIndex(p => Math.min(numPages - 1, p + 1))}
+                        disabled={activePageIndex >= numPages - 1}
+                        className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 disabled:opacity-40"
+                    >
+                        <ChevronRight size={16} />
+                    </button>
+                </div>
+
+                <div className="flex items-center gap-2 text-slate-500">
+                    <Shield size={14} className="text-primary" />
+                    <span className="hidden sm:inline">Processed locally in your browser</span>
+                </div>
             </div>
         </div>
     );
 };
 
-// RndObject (Same as before but ensures types are correct)
+// RndObject
 const RndObject = ({ ann, isSelected, onSelect, onChange }) => {
     const style = {
         position: 'absolute',
@@ -572,6 +798,6 @@ const RndObject = ({ ann, isSelected, onSelect, onChange }) => {
     }
 
     return null;
-}
+};
 
 export default Edit;

@@ -697,26 +697,52 @@ export const imagesToPDF = async (files) => {
     return new Blob([pdfBytes], { type: 'application/pdf' });
 };
 
-export const addSignatureToPDF = async (file, signatureImageBase64, position) => {
+export const addSignatureToPDF = async (file, signatureOrSignatures, legacyPosition) => {
     const arrayBuffer = await file.arrayBuffer();
     const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
     const pages = pdfDoc.getPages();
-    const page = pages[position.pageIndex];
 
-    if (page) {
-        const pngImage = await pdfDoc.embedPng(signatureImageBase64);
+    // Normalize input to an array of signature items: [{ image, pageIndex, x, y, width, height }]
+    let signatureList = [];
+    if (Array.isArray(signatureOrSignatures)) {
+        signatureList = signatureOrSignatures;
+    } else if (typeof signatureOrSignatures === 'string' && legacyPosition) {
+        signatureList = [{
+            image: signatureOrSignatures,
+            pageIndex: legacyPosition.pageIndex || 0,
+            x: legacyPosition.x,
+            y: legacyPosition.y,
+            width: legacyPosition.width,
+            height: legacyPosition.height,
+        }];
+    }
+
+    for (const sig of signatureList) {
+        const pageIdx = sig.pageIndex ?? 0;
+        const page = pages[pageIdx];
+        if (!page || !sig.image) continue;
+
+        let embeddedImage;
+        const imgStr = String(sig.image);
+        if (imgStr.startsWith('data:image/jpeg') || imgStr.startsWith('data:image/jpg')) {
+            embeddedImage = await pdfDoc.embedJpg(sig.image);
+        } else {
+            // Default to PNG embedding (handles data:image/png and raw png bytes)
+            embeddedImage = await pdfDoc.embedPng(sig.image);
+        }
+
         const { width: pageWidth, height: pageHeight } = page.getSize();
-
-        // Calculate position
-        const x = position.x * pageWidth;
+        const sigWidth = (sig.width ?? 0.2) * pageWidth;
+        const sigHeight = (sig.height ?? 0.08) * pageHeight;
+        const x = (sig.x ?? 0.5) * pageWidth;
         // PDF coordinates start from bottom-left
-        const y = pageHeight - (position.y * pageHeight) - (position.height * pageHeight);
+        const y = pageHeight - ((sig.y ?? 0.5) * pageHeight) - sigHeight;
 
-        page.drawImage(pngImage, {
+        page.drawImage(embeddedImage, {
             x,
             y,
-            width: position.width * pageWidth,
-            height: position.height * pageHeight,
+            width: sigWidth,
+            height: sigHeight,
         });
     }
 
