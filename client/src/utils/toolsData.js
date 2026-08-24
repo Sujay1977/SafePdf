@@ -96,5 +96,12 @@ export const tools = [
         icon: "folder_zip",
         link: "/pdf-to-zip",
         category: "Convert PDF"
+    },
+    {
+        title: "Fill PDF Form",
+        description: "Fill interactive AcroForm PDF fields online. Edit text, checkboxes, radio buttons, and dropdowns with 100% privacy.",
+        icon: "dynamic_form",
+        link: "/fill-pdf-form",
+        category: "Edit & Sign"
     }
 ];

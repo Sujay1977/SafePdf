@@ -82,6 +82,14 @@ export const toolThemes = {
         borderColor: 'rgba(245, 158, 11, 0.2)',
         textColor: '#78350f' // amber-900
     },
+    '/fill-pdf-form': {
+        from: '#10b981',
+        to: '#059669',
+        shadow: 'rgba(16, 185, 129, 0.4)',
+        fadedBg: '#ecfdf5', // emerald-50
+        borderColor: 'rgba(16, 185, 129, 0.2)',
+        textColor: '#065f46' // emerald-900
+    },
     '/jpg-to-pdf': {
         from: '#fbc2eb',
         to: '#a6c1ee',
