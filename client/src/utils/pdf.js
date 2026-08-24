@@ -1649,16 +1649,10 @@ export const redactPDF = async (file, redactions = [], options = {}) => {
         throw makeError('No redaction regions were specified.', 'NO_REDACTIONS');
     }
 
+    const { onProgress } = options;
     const isMobile = typeof navigator !== 'undefined' && navigator.maxTouchPoints > 1;
     const SCALE = options.renderScale || (isMobile ? 1.5 : 2.0);
-    const redactionColor = options.redactionColor || '#000000';
-
-    // Parse hex color once
-    const colorMatch = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(redactionColor);
-    const [rR, rG, rB] = colorMatch
-        ? [parseInt(colorMatch[1], 16), parseInt(colorMatch[2], 16), parseInt(colorMatch[3], 16)]
-        : [0, 0, 0];
-    const cssColor = `rgb(${rR},${rG},${rB})`;
+    const defaultColor = options.redactionColor || '#000000';
 
     // Group redactions by page index for O(1) lookup per page
     const byPage = {};
@@ -1689,23 +1683,27 @@ export const redactPDF = async (file, redactions = [], options = {}) => {
         await page.render({ canvasContext: ctx, viewport }).promise;
 
         // 2. Paint redaction boxes over the rendered content.
-        //    Normalized coords (0–1) are converted to canvas pixels.
-        //    pdfjs renders with Y-axis going top-down (same as canvas),
-        //    so no Y-flip is needed here.
         if (byPage[i]) {
-            ctx.fillStyle = cssColor;
             for (const r of byPage[i]) {
+                const boxColor = r.color || defaultColor;
+                ctx.fillStyle = boxColor;
+
+                // Clamped coordinates to stay safely within viewport
+                const normX = Math.max(0, Math.min(1, r.x));
+                const normY = Math.max(0, Math.min(1, r.y));
+                const normW = Math.max(0, Math.min(1 - normX, r.width));
+                const normH = Math.max(0, Math.min(1 - normY, r.height));
+
                 ctx.fillRect(
-                    r.x      * viewport.width,
-                    r.y      * viewport.height,
-                    r.width  * viewport.width,
-                    r.height * viewport.height
+                    normX * viewport.width,
+                    normY * viewport.height,
+                    normW * viewport.width,
+                    normH * viewport.height
                 );
             }
         }
 
-        // 3. Capture the canvas (with boxes already baked in) as JPEG.
-        //    Using toBlob avoids the ~33% base64 overhead of toDataURL.
+        // 3. Capture the canvas (with boxes permanently baked into pixels) as JPEG
         const imgBytes = await new Promise((resolve, reject) => {
             canvas.toBlob(
                 blob => blob
@@ -1716,18 +1714,20 @@ export const redactPDF = async (file, redactions = [], options = {}) => {
             );
         });
 
-        // 4. Release canvas memory immediately (important for large PDFs)
+        // 4. Release canvas memory immediately
         canvas.width  = 0;
         canvas.height = 0;
 
-        // 5. Embed the JPEG (with redactions) into the new PDF.
-        //    The original PDF content stream is NEVER copied — only
-        //    the rendered (and now partially painted) bitmap is used.
+        // 5. Embed the JPEG into the brand-new PDF
         const origW = viewport.width  / SCALE;
         const origH = viewport.height / SCALE;
         const img   = await newPdf.embedJpg(imgBytes);
         const newPage = newPdf.addPage([origW, origH]);
         newPage.drawImage(img, { x: 0, y: 0, width: origW, height: origH });
+
+        if (typeof onProgress === 'function') {
+            onProgress(Math.round(((i + 1) / numPages) * 100));
+        }
     }
 
     const pdfBytes = await newPdf.save();

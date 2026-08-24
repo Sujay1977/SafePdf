@@ -43,6 +43,7 @@ const Edit = safeLazy(() => import('./pages/Edit'));
 const CropPDF = safeLazy(() => import('./pages/CropPDF'));
 const PDFToZip = safeLazy(() => import('./pages/PDFToZip'));
 const FillPDFForm = safeLazy(() => import('./pages/FillPDFForm'));
+const RedactPDF = safeLazy(() => import('./pages/RedactPDF'));
 const AllTools = safeLazy(() => import('./pages/AllTools'));
 const Workflows = safeLazy(() => import('./pages/Workflows'));
 const Pricing = safeLazy(() => import('./pages/Pricing'));
@@ -100,6 +101,7 @@ export const routes = [
             { path: '/crop-pdf', element: <Layout><Page><CropPDF /></Page></Layout> },
             { path: '/pdf-to-zip', element: <Layout><Page><PDFToZip /></Page></Layout> },
             { path: '/fill-pdf-form', element: <Layout><Page><FillPDFForm /></Page></Layout> },
+            { path: '/redact-pdf', element: <Layout><Page><RedactPDF /></Page></Layout> },
 
             { path: '/tools', element: <Layout><Page><AllTools /></Page></Layout> },
             { path: '/workflows', element: <Layout><Page><Workflows /></Page></Layout> },

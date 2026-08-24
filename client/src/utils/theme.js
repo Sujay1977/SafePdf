@@ -90,6 +90,14 @@ export const toolThemes = {
         borderColor: 'rgba(16, 185, 129, 0.2)',
         textColor: '#065f46' // emerald-900
     },
+    '/redact-pdf': {
+        from: '#dc2626',
+        to: '#991b1b',
+        shadow: 'rgba(220, 38, 38, 0.4)',
+        fadedBg: '#fef2f2', // red-50
+        borderColor: 'rgba(220, 38, 38, 0.2)',
+        textColor: '#7f1d1d' // red-900
+    },
     '/jpg-to-pdf': {
         from: '#fbc2eb',
         to: '#a6c1ee',

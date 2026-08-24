@@ -103,5 +103,12 @@ export const tools = [
         icon: "dynamic_form",
         link: "/fill-pdf-form",
         category: "Edit & Sign"
+    },
+    {
+        title: "Redact PDF",
+        description: "Permanently black out or white out confidential text, numbers, and images. Irreversible pixel-level sanitization.",
+        icon: "shield_locked",
+        link: "/redact-pdf",
+        category: "Edit & Sign"
     }
 ];
