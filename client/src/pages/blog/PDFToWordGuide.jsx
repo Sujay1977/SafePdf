@@ -43,9 +43,9 @@ export default function PDFToWordGuide() {
             publishDate="2026-03-16"
             readingTime={8}
             relatedTools={[
-                { to: '/pdf-to-word', emoji: '📝', label: 'PDF to Word — Free Converter', desc: 'Convert PDF to editable DOCX' },
-                { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
-                { to: '/split', emoji: '✂️', label: 'Split PDF', desc: 'Extract pages from a PDF' },
+                { to: '/pdf-to-word', label: 'PDF to Word — Free Converter', desc: 'Convert PDF to editable DOCX' },
+                { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                { to: '/split', label: 'Split PDF', desc: 'Extract pages from a PDF' },
             ]}
         >
             <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

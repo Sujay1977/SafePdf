@@ -43,9 +43,9 @@ export default function SplitPDFGuide() {
             publishDate="2026-03-18"
             readingTime={8}
             relatedTools={[
-                { to: '/split', emoji: '✂️', label: 'Split PDF — Free Online Tool', desc: 'Extract pages from any PDF' },
-                { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine PDFs into one' },
-                { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                { to: '/split', label: 'Split PDF — Free Online Tool', desc: 'Extract pages from any PDF' },
+                { to: '/merge', label: 'Merge PDF', desc: 'Combine PDFs into one' },
+                { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
             ]}
         >
             <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
@@ -172,18 +172,20 @@ export default function SplitPDFGuide() {
                     </thead>
                     <tbody>
                         {[
-                            ['100% Free', '✅', '⚠️ 2/day', '⚠️ Limited'],
-                            ['No file upload', '✅', '❌', '❌'],
-                            ['Page thumbnails', '✅', '✅', '✅'],
-                            ['No watermarks', '✅', '❌ (free)', '✅'],
-                            ['Works offline', '✅', '❌', '❌'],
-                            ['No account needed', '✅', '✅', '✅'],
+                            ['100% Free', 'Free', '2 / day', 'Limited'],
+                            ['No file upload', 'Yes (Local)', 'No (Upload)', 'No (Upload)'],
+                            ['Page thumbnails', 'Yes', 'Yes', 'Yes'],
+                            ['No watermarks', 'No watermarks', 'Watermarked', 'No watermarks'],
+                            ['Works offline', 'Yes (PWA)', 'No', 'No'],
+                            ['No account needed', 'Yes', 'Yes', 'Yes'],
                         ].map(([feat, s, sm, il]) => (
                             <tr key={feat} style={{ borderTop: '1px solid #e2e8f0' }}>
                                 <td style={{ padding: '0.75rem' }}>{feat}</td>
-                                <td style={{ padding: '0.75rem', textAlign: 'center' }}>{s}</td>
-                                <td style={{ padding: '0.75rem', textAlign: 'center' }}>{sm}</td>
-                                <td style={{ padding: '0.75rem', textAlign: 'center' }}>{il}</td>
+                                <td style={{ padding: '0.75rem', textAlign: 'center' }}>
+                                    <span style={{ color: '#059669', fontWeight: 600 }}>{s}</span>
+                                </td>
+                                <td style={{ padding: '0.75rem', textAlign: 'center', color: '#64748b' }}>{sm}</td>
+                                <td style={{ padding: '0.75rem', textAlign: 'center', color: '#64748b' }}>{il}</td>
                             </tr>
                         ))}
                     </tbody>

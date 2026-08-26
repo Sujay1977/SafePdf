@@ -33,9 +33,9 @@ export default function CompressPDFGuide() {
             publishDate="2026-03-15"
             readingTime={8}
             relatedTools={[
-                { to: '/compress', emoji: '📦', label: 'Compress PDF — Free Online Tool', desc: 'Reduce file size in your browser' },
-                { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs into one' },
-                { to: '/split', emoji: '✂️', label: 'Split PDF', desc: 'Extract specific pages' },
+                { to: '/compress', label: 'Compress PDF — Free Online Tool', desc: 'Reduce file size in your browser' },
+                { to: '/merge', label: 'Merge PDF', desc: 'Combine multiple PDFs into one' },
+                { to: '/split', label: 'Split PDF', desc: 'Extract specific pages' },
             ]}
         >
             <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

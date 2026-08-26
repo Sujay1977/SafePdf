@@ -11,8 +11,8 @@ export default function PDFCompressionSafe() {
             publishDate="2026-03-05"
             readingTime={6}
             relatedTools={[
-                { to: '/compress', emoji: '📦', label: 'Compress PDF — Safely, In Your Browser', desc: 'No uploads, 100% private' },
-                { to: '/protect', emoji: '🔒', label: 'Protect PDF', desc: 'Add password encryption' },
+                { to: '/compress', label: 'Compress PDF — Safely, In Your Browser', desc: 'No uploads, 100% private' },
+                { to: '/protect', label: 'Protect PDF', desc: 'Add password encryption' },
             ]}
         >
             <p>
@@ -91,17 +91,25 @@ export default function PDFCompressionSafe() {
                     </thead>
                     <tbody>
                         {[
-                            ['Public brochures, menus, product sheets', '✅ OK', '✅ OK'],
-                            ['Business contracts & legal documents', '⚠️ Risky', '✅ Safe'],
-                            ['Financial statements, payroll', '⚠️ Risky', '✅ Safe'],
-                            ['Medical records, health information', '❌ Avoid', '✅ Safe'],
-                            ['Personal ID documents', '❌ Avoid', '✅ Safe'],
-                            ['Client files (professional privilege)', '❌ Avoid', '✅ Safe'],
+                            ['Public brochures, menus, product sheets', 'OK', 'OK'],
+                            ['Business contracts & legal documents', 'Risky', 'Safe'],
+                            ['Financial statements, payroll', 'Risky', 'Safe'],
+                            ['Medical records, health information', 'Avoid', 'Safe'],
+                            ['Personal ID documents', 'Avoid', 'Safe'],
+                            ['Client files (professional privilege)', 'Avoid', 'Safe'],
                         ].map(([type, server, client]) => (
                             <tr key={type} style={{ borderTop: '1px solid #e2e8f0' }}>
                                 <td style={{ padding: '0.75rem' }}>{type}</td>
-                                <td style={{ padding: '0.75rem', textAlign: 'center' }}>{server}</td>
-                                <td style={{ padding: '0.75rem', textAlign: 'center' }}>{client}</td>
+                                <td style={{ padding: '0.75rem', textAlign: 'center' }}>
+                                    <span style={{ color: server === 'Safe' || server === 'OK' ? '#059669' : server === 'Risky' ? '#d97706' : '#dc2626', fontWeight: 600 }}>
+                                        {server}
+                                    </span>
+                                </td>
+                                <td style={{ padding: '0.75rem', textAlign: 'center' }}>
+                                    <span style={{ color: '#059669', fontWeight: 600 }}>
+                                        {client}
+                                    </span>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

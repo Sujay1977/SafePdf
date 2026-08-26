@@ -11,9 +11,9 @@ export default function BestPDFTools() {
             publishDate="2026-02-28"
             readingTime={10}
             relatedTools={[
-                { to: '/', emoji: '🛠️', label: 'All SafePDF Tools', desc: 'Explore every free PDF tool' },
-                { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce file size' },
-                { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine PDFs' },
+                { to: '/', label: 'All SafePDF Tools', desc: 'Explore every free PDF tool' },
+                { to: '/compress', label: 'Compress PDF', desc: 'Reduce file size' },
+                { to: '/merge', label: 'Merge PDF', desc: 'Combine PDFs' },
             ]}
         >
             <p>

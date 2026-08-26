@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import RelatedTools from "../RelatedTools";
 
@@ -142,12 +142,12 @@ export default function CropPDFContent() {
                 <div className="not-prose">
                     <RelatedTools
                         tools={[
-                            { to: "/compress", emoji: "🗜️", label: "Compress PDF", desc: "Reduce PDF file size" },
-                            { to: "/rotate", emoji: "🔄", label: "Rotate PDF", desc: "Rotate pages to the right angle" },
-                            { to: "/organize", emoji: "🗂️", label: "Organize PDF", desc: "Reorder, add, or delete pages" },
-                            { to: "/edit", emoji: "✏️", label: "Edit PDF", desc: "Add text, shapes, and highlights" },
-                            { to: "/merge", emoji: "🔗", label: "Merge PDF", desc: "Combine PDFs into one file" },
-                            { to: "/split", emoji: "✂️", label: "Split PDF", desc: "Extract pages from a PDF" },
+                            { to: "/compress", label: "Compress PDF", desc: "Reduce PDF file size" },
+                            { to: "/rotate", label: "Rotate PDF", desc: "Rotate pages to the right angle" },
+                            { to: "/organize", label: "Organize PDF", desc: "Reorder, add, or delete pages" },
+                            { to: "/edit", label: "Edit PDF", desc: "Add text, shapes, and highlights" },
+                            { to: "/merge", label: "Merge PDF", desc: "Combine PDFs into one file" },
+                            { to: "/split", label: "Split PDF", desc: "Extract pages from a PDF" },
                         ]}
                         blogs={[
                             { to: "/blog/best-free-pdf-tools-2026", label: "Best Free PDF Tools 2026" },

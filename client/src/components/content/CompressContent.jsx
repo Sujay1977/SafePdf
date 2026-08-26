@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Check, X } from 'lucide-react';
 import RelatedTools from '../RelatedTools';
 
 export const compressFaqs = [
@@ -120,18 +121,53 @@ export default function CompressContent() {
                         </thead>
                         <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
                             {[
-                                ['100% Free', '✅', '⚠️ Limited free', '⚠️ 2 free/day'],
-                                ['Client-side (no upload)', '✅', '❌', '❌'],
-                                ['No watermarks', '✅', '✅', '❌'],
-                                ['No login required', '✅', '✅', '✅'],
-                                ['Works offline', '✅', '❌', '❌'],
-                                ['GDPR compliant', '✅', '⚠️', '⚠️'],
+                                ['100% Free', 'Yes', 'Limited free', '2 free / day'],
+                                ['Client-side (no upload)', 'Yes', 'No', 'No'],
+                                ['No watermarks', 'Yes', 'Yes', 'No'],
+                                ['No login required', 'Yes', 'Yes', 'Yes'],
+                                ['Works offline', 'Yes', 'No', 'No'],
+                                ['GDPR compliant', 'Yes', 'Partial', 'Partial'],
                             ].map(([feature, safe, ilove, small]) => (
                                 <tr key={feature} className="odd:bg-white dark:odd:bg-slate-900 even:bg-slate-50 dark:even:bg-slate-800/50">
                                     <td className="p-3 font-medium text-slate-700 dark:text-slate-300">{feature}</td>
-                                    <td className="p-3 text-center">{safe}</td>
-                                    <td className="p-3 text-center text-slate-500">{ilove}</td>
-                                    <td className="p-3 text-center text-slate-500">{small}</td>
+                                    <td className="p-3 text-center">
+                                        {safe === 'Yes' ? (
+                                            <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold text-xs">
+                                                <Check size={14} aria-hidden="true" />
+                                                <span>Yes</span>
+                                            </span>
+                                        ) : safe}
+                                    </td>
+                                    <td className="p-3 text-center text-slate-500">
+                                        {ilove === 'Yes' ? (
+                                            <span className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-400 text-xs">
+                                                <Check size={14} aria-hidden="true" />
+                                                <span>Yes</span>
+                                            </span>
+                                        ) : ilove === 'No' ? (
+                                            <span className="inline-flex items-center gap-1 text-slate-400 dark:text-slate-500 text-xs">
+                                                <X size={14} aria-hidden="true" />
+                                                <span>No</span>
+                                            </span>
+                                        ) : (
+                                            <span className="text-xs">{ilove}</span>
+                                        )}
+                                    </td>
+                                    <td className="p-3 text-center text-slate-500">
+                                        {small === 'Yes' ? (
+                                            <span className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-400 text-xs">
+                                                <Check size={14} aria-hidden="true" />
+                                                <span>Yes</span>
+                                            </span>
+                                        ) : small === 'No' ? (
+                                            <span className="inline-flex items-center gap-1 text-slate-400 dark:text-slate-500 text-xs">
+                                                <X size={14} aria-hidden="true" />
+                                                <span>No</span>
+                                            </span>
+                                        ) : (
+                                            <span className="text-xs">{small}</span>
+                                        )}
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -152,10 +188,10 @@ export default function CompressContent() {
 
                 <RelatedTools 
                     tools={[
-                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs into one' },
-                        { to: '/split', emoji: '✂️', label: 'Split PDF', desc: 'Extract pages from a PDF' },
-                        { to: '/protect', emoji: '🔒', label: 'Protect PDF', desc: 'Add password encryption' },
-                        { to: '/pdf-to-word', emoji: '📝', label: 'PDF to Word', desc: 'Convert PDF to DOCX' },
+                        { to: '/merge', label: 'Merge PDF', desc: 'Combine multiple PDFs into one' },
+                        { to: '/split', label: 'Split PDF', desc: 'Extract pages from a PDF' },
+                        { to: '/protect', label: 'Protect PDF', desc: 'Add password encryption' },
+                        { to: '/pdf-to-word', label: 'PDF to Word', desc: 'Convert PDF to DOCX' },
                     ]}
                     blogs={[
                         { to: '/blog/compress-pdf-without-losing-quality', label: 'How to Compress PDF Without Losing Quality (Full Guide)' },

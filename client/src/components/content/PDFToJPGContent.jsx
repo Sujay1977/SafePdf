@@ -108,10 +108,10 @@ export default function PDFToJPGContent() {
 
                 <RelatedTools 
                     tools={[
-                        { to: '/jpg-to-pdf', emoji: '🖼️', label: 'JPG to PDF', desc: 'Convert images to PDF' },
-                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
-                        { to: '/edit-pdf', emoji: '✏️', label: 'Edit PDF', desc: 'Add text and edit PDF' },
-                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/jpg-to-pdf', label: 'JPG to PDF', desc: 'Convert images to PDF' },
+                        { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                        { to: '/edit', label: 'Edit PDF', desc: 'Add text and edit PDF' },
+                        { to: '/merge', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
                     ]}
                     blogs={[
                         { to: '/blog/how-to-compress-pdf-for-email', label: 'Need the file smaller instead? Try Compress PDF' },

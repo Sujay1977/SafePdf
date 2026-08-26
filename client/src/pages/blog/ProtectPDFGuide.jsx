@@ -11,9 +11,9 @@ export default function ProtectPDFGuide() {
             publishDate="2026-02-20"
             readingTime={7}
             relatedTools={[
-                { to: '/protect', emoji: '🔒', label: 'Protect PDF — Free & Private', desc: 'Encrypt PDFs in your browser' },
-                { to: '/unlock', emoji: '🔓', label: 'Unlock PDF', desc: 'Remove PDF password' },
-                { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                { to: '/protect', label: 'Protect PDF — Free & Private', desc: 'Encrypt PDFs in your browser' },
+                { to: '/unlock', label: 'Unlock PDF', desc: 'Remove PDF password' },
+                { to: '/merge', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
             ]}
         >
             <p>

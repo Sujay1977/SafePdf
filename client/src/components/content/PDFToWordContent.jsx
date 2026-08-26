@@ -108,13 +108,13 @@ export default function PDFToWordContent() {
 
                 <RelatedTools 
                     tools={[
-                        { to: '/edit-pdf', emoji: '✏️', label: 'Edit PDF', desc: 'Add text and edit PDF' },
-                        { to: '/sign', emoji: '✍️', label: 'Sign PDF', desc: 'Add signature to PDF' },
-                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
-                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                        { to: '/edit', label: 'Edit PDF', desc: 'Add text and edit PDF' },
+                        { to: '/sign', label: 'Sign PDF', desc: 'Add signature to PDF' },
+                        { to: '/merge', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
                     ]}
                     blogs={[
-                        { to: '/edit-pdf', label: 'Looking to edit without converting? Try Edit PDF' },
+                        { to: '/edit', label: 'Looking to edit without converting? Try Edit PDF' },
                         { to: '/pdf-to-jpg', label: 'Need the pages as pictures instead? Try PDF to JPG' }
                     ]}
                 />

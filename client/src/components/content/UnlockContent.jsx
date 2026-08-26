@@ -110,13 +110,13 @@ export default function UnlockContent() {
 
                 <RelatedTools 
                     tools={[
-                        { to: '/protect', emoji: '🔒', label: 'Protect PDF', desc: 'Add password to PDF' },
-                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
-                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
-                        { to: '/edit-pdf', emoji: '✏️', label: 'Edit PDF', desc: 'Add text and edit PDF' },
+                        { to: '/protect', label: 'Protect PDF', desc: 'Add password to PDF' },
+                        { to: '/merge', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                        { to: '/edit', label: 'Edit PDF', desc: 'Add text and edit PDF' },
                     ]}
                     blogs={[
-                        { to: '/blog/how-to-unlock-pdf-securely', label: 'How to Unlock a PDF Securely' },
+                        { to: '/blog/how-to-unlock-pdf-without-password', label: 'How to Unlock a Password-Protected PDF' },
                         { to: '/protect', label: 'Want to add a password instead? Try Protect PDF' }
                     ]}
                 />

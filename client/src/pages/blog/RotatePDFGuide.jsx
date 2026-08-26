@@ -43,9 +43,9 @@ export default function RotatePDFGuide() {
             publishDate="2026-03-09"
             readingTime={6}
             relatedTools={[
-                { to: '/rotate', emoji: '🔄', label: 'Rotate PDF — Free Online Tool', desc: 'Fix page orientation instantly' },
-                { to: '/organize', emoji: '🗂️', label: 'Organize PDF', desc: 'Reorder and delete pages' },
-                { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                { to: '/rotate', label: 'Rotate PDF — Free Online Tool', desc: 'Fix page orientation instantly' },
+                { to: '/organize', label: 'Organize PDF', desc: 'Reorder and delete pages' },
+                { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
             ]}
         >
             <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

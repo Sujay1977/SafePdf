@@ -43,9 +43,9 @@ export default function UnlockPDFGuide() {
             publishDate="2026-03-07"
             readingTime={7}
             relatedTools={[
-                { to: '/unlock', emoji: '🔓', label: 'Unlock PDF — Free Tool', desc: 'Remove PDF password protection' },
-                { to: '/protect', emoji: '🔒', label: 'Protect PDF', desc: 'Add password to a PDF' },
-                { to: '/blog/how-to-protect-pdf-with-password', emoji: '🛡️', label: 'How to Protect PDF', desc: 'Guide to PDF password protection' },
+                { to: '/unlock', label: 'Unlock PDF — Free Tool', desc: 'Remove PDF password protection' },
+                { to: '/protect', label: 'Protect PDF', desc: 'Add password to a PDF' },
+                { to: '/blog/how-to-protect-pdf-with-password', label: 'How to Protect PDF', desc: 'Guide to PDF password protection' },
             ]}
         >
             <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

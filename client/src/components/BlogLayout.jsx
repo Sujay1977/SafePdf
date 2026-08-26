@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SEO from './SEO';
+import { tools as allTools } from '../utils/toolsData';
 
 export default function BlogLayout({ 
     title, 
@@ -100,22 +101,29 @@ export default function BlogLayout({
 
                     {/* Related Tools CTA */}
                     {relatedTools.length > 0 && (
-                        <div className="mt-16 p-6 bg-blue-50 dark:bg-blue-900/15 rounded-2xl border border-blue-100 dark:border-blue-900/30">
-                            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Try These Free Tools</h2>
+                        <div className="mt-16 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/80 dark:border-slate-700">
+                            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Related Free Tools</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                {relatedTools.map((tool) => (
-                                    <Link
-                                        key={tool.to}
-                                        to={tool.to}
-                                        className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-400 hover:shadow-md transition-all group"
-                                    >
-                                        <span className="text-2xl">{tool.emoji}</span>
-                                        <div>
-                                            <p className="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors text-sm">{tool.label}</p>
-                                            <p className="text-xs text-slate-500 dark:text-slate-400">{tool.desc}</p>
-                                        </div>
-                                    </Link>
-                                ))}
+                                {relatedTools.map((tool) => {
+                                    const matched = allTools.find(t => t.link === tool.to);
+                                    const iconName = tool.icon || matched?.icon || 'description';
+
+                                    return (
+                                        <Link
+                                            key={tool.to}
+                                            to={tool.to}
+                                            className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200/80 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-sm transition-all group"
+                                        >
+                                            <span className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700/60 flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:bg-blue-50 dark:group-hover:bg-blue-950/40 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors shrink-0">
+                                                <span className="material-symbols-outlined text-base">{iconName}</span>
+                                            </span>
+                                            <div className="min-w-0 flex-1">
+                                                <p className="font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors text-sm truncate">{tool.label}</p>
+                                                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{tool.desc}</p>
+                                            </div>
+                                        </Link>
+                                    );
+                                })}
                             </div>
                         </div>
                     )}

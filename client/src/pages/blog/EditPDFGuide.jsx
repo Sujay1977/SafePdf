@@ -43,9 +43,9 @@ export default function EditPDFGuide() {
             publishDate="2026-03-12"
             readingTime={8}
             relatedTools={[
-                { to: '/edit', emoji: '✏️', label: 'Edit PDF — Free Online Editor', desc: 'Add text and annotations to PDFs' },
-                { to: '/sign', emoji: '✍️', label: 'Sign PDF', desc: 'Add digital signature' },
-                { to: '/pdf-to-word', emoji: '📝', label: 'PDF to Word', desc: 'Convert PDF to editable DOCX' },
+                { to: '/edit', label: 'Edit PDF — Free Online Editor', desc: 'Add text and annotations to PDFs' },
+                { to: '/sign', label: 'Sign PDF', desc: 'Add digital signature' },
+                { to: '/pdf-to-word', label: 'PDF to Word', desc: 'Convert PDF to editable DOCX' },
             ]}
         >
             <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

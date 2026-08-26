@@ -43,9 +43,9 @@ export default function PDFToJPGGuide() {
             publishDate="2026-03-19"
             readingTime={7}
             relatedTools={[
-                { to: '/pdf-to-jpg', emoji: '📸', label: 'PDF to JPG — Free Converter', desc: 'Extract PDF pages as JPG images' },
-                { to: '/jpg-to-pdf', emoji: '🖼️', label: 'JPG to PDF', desc: 'Combine images into PDF' },
-                { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                { to: '/pdf-to-jpg', label: 'PDF to JPG — Free Converter', desc: 'Extract PDF pages as JPG images' },
+                { to: '/jpg-to-pdf', label: 'JPG to PDF', desc: 'Combine images into PDF' },
+                { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
             ]}
         >
             <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
@@ -113,7 +113,7 @@ export default function PDFToJPGGuide() {
                         {[
                             ['Compression', 'Lossy (smaller files)', 'Lossless (larger files)'],
                             ['Best for', 'Photos, color art, page content', 'Text, diagrams, screenshots'],
-                            ['Transparency', '❌ Not supported', '✅ Supported'],
+                            ['Transparency', 'Not supported', 'Supported'],
                             ['File size', '~60–80% smaller', 'Larger'],
                             ['Web use', 'Excellent', 'Good'],
                         ].map(([prop, jpg, png]) => (

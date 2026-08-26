@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import RelatedTools from "../RelatedTools";
 
@@ -75,25 +75,25 @@ export default function PDFToZipContent() {
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 not-prose">
                     <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
-                        <h3 className="font-bold text-slate-900 dark:text-white mb-2">🔒 100% Private &amp; Local</h3>
+                        <h3 className="font-bold text-slate-900 dark:text-white mb-2">100% Private &amp; Local</h3>
                         <p className="text-sm text-slate-600 dark:text-slate-400">
                             Your files are archived directly in your browser memory using Web APIs. No documents are ever uploaded to cloud servers or stored in any database.
                         </p>
                     </div>
                     <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
-                        <h3 className="font-bold text-slate-900 dark:text-white mb-2">⚡ Lossless &amp; Unmodified</h3>
+                        <h3 className="font-bold text-slate-900 dark:text-white mb-2">Lossless &amp; Unmodified</h3>
                         <p className="text-sm text-slate-600 dark:text-slate-400">
                             Original PDF bytes are copied into the ZIP file without re-rendering or re-encoding. Signatures, forms, and embedded vectors remain intact.
                         </p>
                     </div>
                     <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
-                        <h3 className="font-bold text-slate-900 dark:text-white mb-2">🏷️ Collision-Safe Renaming</h3>
+                        <h3 className="font-bold text-slate-900 dark:text-white mb-2">Collision-Safe Renaming</h3>
                         <p className="text-sm text-slate-600 dark:text-slate-400">
                             Duplicate filenames automatically receive clean numeric suffixes like (2), (3) so no files are lost or overwritten inside the archive.
                         </p>
                     </div>
                     <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
-                        <h3 className="font-bold text-slate-900 dark:text-white mb-2">📦 Unlimited Batch Archiving</h3>
+                        <h3 className="font-bold text-slate-900 dark:text-white mb-2">Unlimited Batch Archiving</h3>
                         <p className="text-sm text-slate-600 dark:text-slate-400">
                             Archive as many files as your device can handle without artificial file-count limits, queues, or paywalls.
                         </p>
@@ -113,15 +113,14 @@ export default function PDFToZipContent() {
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-4">
                     100% Private — Your PDFs Never Leave Your Device
                 </h2>
-                <p className="text-slate-600 dark:text-slate-400 mb-8">
-                    SafePDF processes your files entirely within your browser using JSZip.
-                    No file ever reaches our servers. Your documents stay private by design.
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+                    Online file packaging tools typically require you to transmit all your confidential documents over the network to their servers. SafePDF replaces that model entirely. By performing ZIP generation completely in-browser with standard web APIs, your files never touch external storage or third-party infrastructure.
                 </p>
 
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">
-                    Frequently Asked Questions
+                    Frequently Asked Questions — PDF to ZIP
                 </h2>
-                <div className="space-y-6 mb-12">
+                <div className="space-y-5 mb-12">
                     {pdfToZipFaqs.map((faq, i) => (
                         <div key={i} className="not-prose border-b border-slate-100 dark:border-slate-800 pb-6">
                             <h3 className="font-bold text-slate-900 dark:text-white mb-2">{faq.q}</h3>
@@ -133,12 +132,12 @@ export default function PDFToZipContent() {
                 <div className="not-prose">
                     <RelatedTools
                         tools={[
-                            { to: "/merge", emoji: "🔗", label: "Merge PDF", desc: "Combine multiple PDFs into one" },
-                            { to: "/split", emoji: "✂️", label: "Split PDF", desc: "Extract pages from a PDF" },
-                            { to: "/compress", emoji: "🗜️", label: "Compress PDF", desc: "Reduce PDF file size" },
-                            { to: "/crop-pdf", emoji: "✂️", label: "Crop & Resize PDF", desc: "Trim margins or resize pages" },
-                            { to: "/organize", emoji: "🗂️", label: "Organize PDF", desc: "Reorder, add, or delete pages" },
-                            { to: "/pdf-to-jpg", emoji: "🖼️", label: "PDF to JPG", desc: "Extract PDF pages as images" },
+                            { to: "/merge", label: "Merge PDF", desc: "Combine multiple PDFs into one" },
+                            { to: "/split", label: "Split PDF", desc: "Extract pages from a PDF" },
+                            { to: "/compress", label: "Compress PDF", desc: "Reduce PDF file size" },
+                            { to: "/crop-pdf", label: "Crop & Resize PDF", desc: "Trim margins or resize pages" },
+                            { to: "/organize", label: "Organize PDF", desc: "Reorder, add, or delete pages" },
+                            { to: "/pdf-to-jpg", label: "PDF to JPG", desc: "Extract PDF pages as images" },
                         ]}
                         blogs={[
                             { to: "/blog/best-free-pdf-tools-2026", label: "Best Free PDF Tools 2026" },

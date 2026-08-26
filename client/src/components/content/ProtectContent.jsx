@@ -137,10 +137,10 @@ export default function ProtectContent() {
 
                 <RelatedTools 
                     tools={[
-                        { to: '/unlock', emoji: '🔓', label: 'Unlock PDF', desc: 'Remove password from PDF' },
-                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
-                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
-                        { to: '/sign', emoji: '✍️', label: 'Sign PDF', desc: 'Add signature to PDF' },
+                        { to: '/unlock', label: 'Unlock PDF', desc: 'Remove password from PDF' },
+                        { to: '/merge', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                        { to: '/sign', label: 'Sign PDF', desc: 'Add signature to PDF' },
                     ]}
                     blogs={[
                         { to: '/blog/how-to-protect-pdf-with-password', label: 'How to Protect a PDF with a Password (Free & Secure)' },

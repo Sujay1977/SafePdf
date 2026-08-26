@@ -43,9 +43,9 @@ export default function OrganizePDFGuide() {
             publishDate="2026-03-11"
             readingTime={7}
             relatedTools={[
-                { to: '/organize', emoji: '🗂️', label: 'Organize PDF — Free Tool', desc: 'Reorder, delete, duplicate pages' },
-                { to: '/split', emoji: '✂️', label: 'Split PDF', desc: 'Extract specific pages' },
-                { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine PDFs into one' },
+                { to: '/organize', label: 'Organize PDF — Free Tool', desc: 'Reorder, delete, duplicate pages' },
+                { to: '/split', label: 'Split PDF', desc: 'Extract specific pages' },
+                { to: '/merge', label: 'Merge PDF', desc: 'Combine PDFs into one' },
             ]}
         >
             <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

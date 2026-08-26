@@ -128,10 +128,10 @@ export default function MergeContent() {
 
                 <RelatedTools 
                     tools={[
-                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
-                        { to: '/split', emoji: '✂️', label: 'Split PDF', desc: 'Extract specific pages' },
-                        { to: '/protect', emoji: '🔒', label: 'Protect PDF', desc: 'Password-encrypt a PDF' },
-                        { to: '/rotate', emoji: '🔄', label: 'Rotate PDF', desc: 'Rotate pages in a PDF' },
+                        { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                        { to: '/split', label: 'Split PDF', desc: 'Extract specific pages' },
+                        { to: '/protect', label: 'Protect PDF', desc: 'Password-encrypt a PDF' },
+                        { to: '/rotate', label: 'Rotate PDF', desc: 'Rotate pages in a PDF' },
                     ]}
                     blogs={[
                         { to: '/blog/how-to-merge-pdf-online-free', label: 'How to Merge PDF Files Online for Free (Full Guide)' },

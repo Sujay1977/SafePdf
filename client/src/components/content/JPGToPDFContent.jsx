@@ -108,10 +108,10 @@ export default function JPGToPDFContent() {
 
                 <RelatedTools 
                     tools={[
-                        { to: '/pdf-to-jpg', emoji: '📸', label: 'PDF to JPG', desc: 'Extract images from PDF' },
-                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
-                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
-                        { to: '/organize', emoji: '🗂️', label: 'Organize PDF', desc: 'Reorder and delete pages' },
+                        { to: '/pdf-to-jpg', label: 'PDF to JPG', desc: 'Extract images from PDF' },
+                        { to: '/merge', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                        { to: '/organize', label: 'Organize PDF', desc: 'Reorder and delete pages' },
                     ]}
                     blogs={[
                         { to: '/blog/how-to-convert-jpg-to-pdf', label: 'How to Convert Images to PDF Formats Like a Pro' },

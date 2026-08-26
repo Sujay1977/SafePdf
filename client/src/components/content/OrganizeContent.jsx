@@ -108,10 +108,10 @@ export default function OrganizeContent() {
 
                 <RelatedTools 
                     tools={[
-                        { to: '/split', emoji: '✂️', label: 'Split PDF', desc: 'Extract pages from PDF' },
-                        { to: '/rotate', emoji: '🔄', label: 'Rotate PDF', desc: 'Rotate pages in PDF' },
-                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
-                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                        { to: '/split', label: 'Split PDF', desc: 'Extract pages from PDF' },
+                        { to: '/rotate', label: 'Rotate PDF', desc: 'Rotate pages in PDF' },
+                        { to: '/merge', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
                     ]}
                     blogs={[
                         { to: '/blog/how-to-organize-pdf-pages', label: 'How to Organize PDF Pages: A Complete Guide' },

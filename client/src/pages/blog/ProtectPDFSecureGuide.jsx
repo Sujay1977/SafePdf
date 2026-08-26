@@ -43,9 +43,9 @@ export default function ProtectPDFSecureGuide() {
             publishDate="2026-03-04"
             readingTime={8}
             relatedTools={[
-                { to: '/protect', emoji: '🔒', label: 'Protect PDF — Free & Private', desc: 'Encrypt PDFs in your browser' },
-                { to: '/unlock', emoji: '🔓', label: 'Unlock PDF', desc: 'Remove PDF password' },
-                { to: '/sign', emoji: '✍️', label: 'Sign PDF', desc: 'Add digital signature' },
+                { to: '/protect', label: 'Protect PDF — Free & Private', desc: 'Encrypt PDFs in your browser' },
+                { to: '/unlock', label: 'Unlock PDF', desc: 'Remove PDF password' },
+                { to: '/sign', label: 'Sign PDF', desc: 'Add digital signature' },
             ]}
         >
             <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

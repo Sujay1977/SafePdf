@@ -11,9 +11,9 @@ export default function MergePDFGuide() {
             publishDate="2026-03-10"
             readingTime={7}
             relatedTools={[
-                { to: '/merge', emoji: '📄', label: 'Merge PDF — Free Online Tool', desc: 'Combine multiple PDFs in your browser' },
-                { to: '/split', emoji: '✂️', label: 'Split PDF', desc: 'Extract pages from a PDF' },
-                { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                { to: '/merge', label: 'Merge PDF — Free Online Tool', desc: 'Combine multiple PDFs in your browser' },
+                { to: '/split', label: 'Split PDF', desc: 'Extract pages from a PDF' },
+                { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
             ]}
         >
             <p>

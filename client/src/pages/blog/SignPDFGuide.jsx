@@ -43,9 +43,9 @@ export default function SignPDFGuide() {
             publishDate="2026-03-06"
             readingTime={8}
             relatedTools={[
-                { to: '/sign', emoji: '✍️', label: 'Sign PDF — Free Online Tool', desc: 'Add your signature to any PDF' },
-                { to: '/protect', emoji: '🔒', label: 'Protect PDF', desc: 'Encrypt your signed document' },
-                { to: '/edit', emoji: '✏️', label: 'Edit PDF', desc: 'Add text and annotations' },
+                { to: '/sign', label: 'Sign PDF — Free Online Tool', desc: 'Add your signature to any PDF' },
+                { to: '/protect', label: 'Protect PDF', desc: 'Encrypt your signed document' },
+                { to: '/edit', label: 'Edit PDF', desc: 'Add text and annotations' },
             ]}
         >
             <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

@@ -43,9 +43,9 @@ export default function JPGToPDFGuide() {
             publishDate="2026-03-14"
             readingTime={7}
             relatedTools={[
-                { to: '/jpg-to-pdf', emoji: '🖼️', label: 'JPG to PDF — Free Converter', desc: 'Turn images into a PDF' },
-                { to: '/pdf-to-jpg', emoji: '📸', label: 'PDF to JPG', desc: 'Extract images from PDF' },
-                { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                { to: '/jpg-to-pdf', label: 'JPG to PDF — Free Converter', desc: 'Turn images into a PDF' },
+                { to: '/pdf-to-jpg', label: 'PDF to JPG', desc: 'Extract images from PDF' },
+                { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
             ]}
         >
             <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

@@ -108,10 +108,10 @@ export default function RotateContent() {
 
                 <RelatedTools 
                     tools={[
-                        { to: '/organize', emoji: '🗂️', label: 'Organize PDF', desc: 'Reorder and delete pages' },
-                        { to: '/split', emoji: '✂️', label: 'Split PDF', desc: 'Extract pages from PDF' },
-                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
-                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                        { to: '/organize', label: 'Organize PDF', desc: 'Reorder and delete pages' },
+                        { to: '/split', label: 'Split PDF', desc: 'Extract pages from PDF' },
+                        { to: '/merge', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
                     ]}
                     blogs={[
                         { to: '/blog/how-to-rotate-pdf-pages', label: 'How to Permanently Rotate PDF Pages' },

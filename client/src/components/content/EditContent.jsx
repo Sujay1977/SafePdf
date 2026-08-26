@@ -112,10 +112,10 @@ export default function EditContent() {
 
                 <RelatedTools 
                     tools={[
-                        { to: '/sign', emoji: '✍️', label: 'Sign PDF', desc: 'Add signature to PDF' },
-                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
-                        { to: '/pdf-to-word', emoji: '📝', label: 'PDF to Word', desc: 'Convert PDF to Word' },
-                        { to: '/protect', emoji: '🔒', label: 'Protect PDF', desc: 'Add password to PDF' },
+                        { to: '/sign', label: 'Sign PDF', desc: 'Add signature to PDF' },
+                        { to: '/merge', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/pdf-to-word', label: 'PDF to Word', desc: 'Convert PDF to Word' },
+                        { to: '/protect', label: 'Protect PDF', desc: 'Add password to PDF' },
                     ]}
                     blogs={[
                         { to: '/blog/how-to-edit-pdf-online-free', label: 'How to Edit a PDF Document Online for Free' },

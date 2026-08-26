@@ -108,14 +108,14 @@ export default function SignContent() {
 
                 <RelatedTools 
                     tools={[
-                        { to: '/protect', emoji: '🔒', label: 'Protect PDF', desc: 'Add password to PDF' },
-                        { to: '/edit-pdf', emoji: '✏️', label: 'Edit PDF', desc: 'Add text and edit PDF' },
-                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
-                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                        { to: '/protect', label: 'Protect PDF', desc: 'Add password to PDF' },
+                        { to: '/edit', label: 'Edit PDF', desc: 'Add text and edit PDF' },
+                        { to: '/merge', label: 'Merge PDF', desc: 'Combine multiple PDFs' },
+                        { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
                     ]}
                     blogs={[
                         { to: '/blog/how-to-sign-pdf-online-free', label: 'How to Electronically Sign a PDF for Free' },
-                        { to: '/edit-pdf', label: 'Need to fill out text fields first? Try Edit PDF' }
+                        { to: '/edit', label: 'Need to fill out text fields first? Try Edit PDF' }
                     ]}
                 />
 

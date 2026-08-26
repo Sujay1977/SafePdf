@@ -11,7 +11,6 @@ const POSTS = [
         date: '2026-03-15',
         readingTime: 8,
         category: 'Compression',
-        emoji: '📦',
     },
     {
         slug: 'how-to-merge-pdf-online-free',
@@ -20,7 +19,6 @@ const POSTS = [
         date: '2026-03-10',
         readingTime: 7,
         category: 'Merging',
-        emoji: '📄',
     },
     {
         slug: 'how-to-split-pdf-online-free',
@@ -29,7 +27,6 @@ const POSTS = [
         date: '2026-03-18',
         readingTime: 8,
         category: 'Splitting',
-        emoji: '✂️',
     },
     {
         slug: 'pdf-to-word-converter-online-free',
@@ -38,7 +35,6 @@ const POSTS = [
         date: '2026-03-16',
         readingTime: 8,
         category: 'Conversion',
-        emoji: '📝',
     },
     {
         slug: 'jpg-to-pdf-converter-free',
@@ -47,7 +43,6 @@ const POSTS = [
         date: '2026-03-14',
         readingTime: 7,
         category: 'Conversion',
-        emoji: '🖼️',
     },
     {
         slug: 'pdf-to-jpg-converter-online',
@@ -56,7 +51,6 @@ const POSTS = [
         date: '2026-03-19',
         readingTime: 7,
         category: 'Conversion',
-        emoji: '📸',
     },
     {
         slug: 'how-to-edit-pdf-online-free',
@@ -65,7 +59,6 @@ const POSTS = [
         date: '2026-03-12',
         readingTime: 8,
         category: 'Editing',
-        emoji: '✏️',
     },
     {
         slug: 'how-to-organize-pdf-pages',
@@ -74,7 +67,6 @@ const POSTS = [
         date: '2026-03-11',
         readingTime: 7,
         category: 'Organization',
-        emoji: '🗂️',
     },
     {
         slug: 'how-to-rotate-pdf-pages-online',
@@ -83,7 +75,6 @@ const POSTS = [
         date: '2026-03-09',
         readingTime: 6,
         category: 'Editing',
-        emoji: '🔄',
     },
     {
         slug: 'how-to-unlock-pdf-without-password',
@@ -92,7 +83,6 @@ const POSTS = [
         date: '2026-03-07',
         readingTime: 7,
         category: 'Security',
-        emoji: '🔓',
     },
     {
         slug: 'how-to-sign-pdf-online-free',
@@ -101,7 +91,6 @@ const POSTS = [
         date: '2026-03-06',
         readingTime: 8,
         category: 'Signing',
-        emoji: '✍️',
     },
     {
         slug: 'how-to-protect-pdf-with-password-securely',
@@ -110,7 +99,6 @@ const POSTS = [
         date: '2026-03-04',
         readingTime: 8,
         category: 'Security',
-        emoji: '🛡️',
     },
     {
         slug: 'is-pdf-compression-safe',
@@ -119,7 +107,6 @@ const POSTS = [
         date: '2026-03-05',
         readingTime: 6,
         category: 'Security',
-        emoji: '🔒',
     },
     {
         slug: 'best-free-pdf-tools-2026',
@@ -128,7 +115,6 @@ const POSTS = [
         date: '2026-02-28',
         readingTime: 10,
         category: 'Reviews',
-        emoji: '⭐',
     },
     {
         slug: 'how-to-protect-pdf-with-password',
@@ -137,7 +123,6 @@ const POSTS = [
         date: '2026-02-20',
         readingTime: 7,
         category: 'Security',
-        emoji: '🛡️',
     },
 ];
 
@@ -169,8 +154,8 @@ export default function BlogIndex() {
             <div className="w-full bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 border-b border-slate-200/50 dark:border-slate-800/50 py-16 px-4">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center lg:items-start pt-2">
                     <div className="lg:col-span-7 xl:col-span-8 flex flex-col text-center lg:text-left justify-center order-1">
-                        <span className="inline-flex items-center justify-center lg:justify-start gap-2 px-3 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-bold uppercase tracking-widest mb-6 w-fit mx-auto lg:mx-0">
-                            📖 SafePDF Blog
+                        <span className="inline-flex items-center justify-center lg:justify-start px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-100 dark:border-blue-800/40 text-xs font-bold uppercase tracking-widest mb-6 w-fit mx-auto lg:mx-0">
+                            SafePDF Blog
                         </span>
                         <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white leading-tight tracking-tight mb-4">
                             PDF Guides & Tutorials
@@ -195,31 +180,31 @@ export default function BlogIndex() {
                         <Link
                             key={post.slug}
                             to={`/blog/${post.slug}`}
-                            className="group flex flex-col bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                            className="group flex flex-col bg-white dark:bg-slate-800 rounded-xl border border-slate-200/80 dark:border-slate-700 p-6 shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
                         >
-                            <div className="p-6 flex flex-col gap-4 flex-1">
-                                <div className="flex items-center gap-3">
-                                    <span className="text-3xl">{post.emoji}</span>
-                                    <span className="px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-full">
+                            <div className="flex flex-col gap-3 flex-1">
+                                <div className="flex items-center justify-between">
+                                    <span className="px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/30 rounded-full border border-blue-100 dark:border-blue-800/40">
                                         {post.category}
+                                    </span>
+                                    <span className="text-xs text-slate-400 dark:text-slate-500">
+                                        {post.readingTime} min read
                                     </span>
                                 </div>
 
                                 <h2 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
                                     {post.title}
                                 </h2>
-                                <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed flex-1">
+                                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed flex-1 line-clamp-3">
                                     {post.excerpt}
                                 </p>
 
-                                <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
-                                    <div className="flex items-center gap-3 text-xs text-slate-400 dark:text-slate-500">
-                                        <span>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                                        <span>•</span>
-                                        <span>{post.readingTime} min read</span>
-                                    </div>
-                                    <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm group-hover:translate-x-1 transition-transform inline-block">
-                                        Read →
+                                <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700/60 mt-2">
+                                    <span className="text-xs text-slate-400 dark:text-slate-500">
+                                        {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                    </span>
+                                    <span className="text-blue-600 dark:text-blue-400 font-semibold text-xs group-hover:translate-x-0.5 transition-transform inline-flex items-center gap-1">
+                                        Read Article →
                                     </span>
                                 </div>
                             </div>
@@ -228,11 +213,17 @@ export default function BlogIndex() {
                 </div>
 
                 {/* CTA Banner */}
-                <div className="mt-16 p-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl text-white text-center">
-                    <h2 className="text-2xl font-black mb-3">Ready to try the tools?</h2>
-                    <p className="text-blue-100 mb-6 text-sm">All SafePDF tools are free, private, and work in your browser.</p>
-                    <Link to="/" className="inline-flex items-center gap-2 bg-white text-blue-600 font-bold px-6 py-3 rounded-xl hover:shadow-lg transition-all">
-                        Explore All Tools →
+                <div className="mt-16 p-8 sm:p-10 bg-slate-900 dark:bg-slate-800/90 rounded-2xl border border-slate-800 dark:border-slate-700 text-center shadow-sm">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2">Ready to try the tools?</h2>
+                    <p className="text-slate-300 dark:text-slate-400 text-sm sm:text-base max-w-lg mx-auto mb-6 leading-relaxed">
+                        All SafePDF tools are free, private, and work directly in your browser.
+                    </p>
+                    <Link
+                        to="/"
+                        className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-6 py-3 rounded-xl transition-all shadow-sm hover:shadow-md"
+                    >
+                        <span>Explore All Tools</span>
+                        <span aria-hidden="true">→</span>
                     </Link>
                 </div>
             </div>

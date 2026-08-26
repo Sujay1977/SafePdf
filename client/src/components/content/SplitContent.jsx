@@ -119,10 +119,10 @@ export default function SplitContent() {
 
                 <RelatedTools 
                     tools={[
-                        { to: '/merge', emoji: '📄', label: 'Merge PDF', desc: 'Combine PDFs into one' },
-                        { to: '/compress', emoji: '📦', label: 'Compress PDF', desc: 'Reduce PDF file size' },
-                        { to: '/protect', emoji: '🔒', label: 'Protect PDF', desc: 'Add password encryption' },
-                        { to: '/organize', emoji: '🗂️', label: 'Organize PDF', desc: 'Reorder & delete pages' },
+                        { to: '/merge', label: 'Merge PDF', desc: 'Combine PDFs into one' },
+                        { to: '/compress', label: 'Compress PDF', desc: 'Reduce PDF file size' },
+                        { to: '/protect', label: 'Protect PDF', desc: 'Add password encryption' },
+                        { to: '/organize', label: 'Organize PDF', desc: 'Reorder & delete pages' },
                     ]}
                     blogs={[
                         { to: '/blog/how-to-split-pdf-online-free', label: 'How to Split a PDF Online Free — Full Guide' },
