@@ -4,7 +4,6 @@ import SEO from '../components/SEO';
 import ClientOnly from '../components/ClientOnly';
 import { tools } from '../utils/toolsData';
 import { getToolTheme } from '../utils/theme';
-import SponsorCard from '../components/SponsorCard';
 
 const AllTools = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -42,39 +41,31 @@ const AllTools = () => {
             />
 
             <div className="max-w-6xl mx-auto px-4 md:px-10 py-12 w-full">
-                {/* Integrated Header, Search & Sponsor */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8 items-start">
-                    <div className="lg:col-span-8 flex flex-col gap-6">
-                        <div>
-                            <h1 className="text-3xl font-black text-slate-900 dark:text-white mb-1">
-                                All Tools
-                            </h1>
-                            <p className="text-slate-600 dark:text-slate-400 text-base">
-                                Everything you need to manage your PDF files.
-                            </p>
-                        </div>
-
-                        <div className="w-full max-w-sm relative">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                                <ClientOnly>
-                                    <span className="material-symbols-outlined text-xl">search</span>
-                                </ClientOnly>
-                            </div>
-                            <input
-                                type="text"
-                                className="block w-full pl-10 pr-4 py-2.5 bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all font-medium"
-                                placeholder="Search tools..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                onKeyDown={handleSearch}
-                            />
-                        </div>
+                {/* Header & Search */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+                    <div>
+                        <h1 className="text-3xl font-black text-slate-900 dark:text-white mb-1">
+                            All Tools
+                        </h1>
+                        <p className="text-slate-600 dark:text-slate-400 text-base">
+                            Everything you need to manage your PDF files.
+                        </p>
                     </div>
 
-                    <div className="lg:col-span-4 w-full flex justify-start lg:justify-end">
-                        <div className="w-full max-w-[360px] lg:max-w-full">
-                            <SponsorCard />
+                    <div className="w-full md:w-72 relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                            <ClientOnly>
+                                <span className="material-symbols-outlined text-xl">search</span>
+                            </ClientOnly>
                         </div>
+                        <input
+                            type="text"
+                            className="block w-full pl-10 pr-4 py-2.5 bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all font-medium"
+                            placeholder="Search tools..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={handleSearch}
+                        />
                     </div>
                 </div>
 

@@ -2,375 +2,585 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import SponsorCard from '../components/SponsorCard';
+import {
+    ArrowLeft,
+    ArrowRight,
+    Check,
+    ExternalLink,
+    ShieldCheck,
+    EyeOff,
+    Monitor,
+    Tag,
+    FileText,
+    Heart,
+    Lock,
+    HelpCircle,
+    MessageSquare,
+    Sparkles
+} from 'lucide-react';
 
 const Sponsor = () => {
     return (
-        <div className="flex flex-col w-full bg-background-light dark:bg-background-dark min-h-screen font-sans">
+        <div className="flex flex-col w-full bg-slate-50/50 dark:bg-slate-950 min-h-screen font-sans">
             <SEO
                 title="Sponsor SafePDF | Reach Privacy-Focused PDF Users"
-                description="Sponsor SafePDF and put your brand in front of people actively using privacy-focused PDF tools with a simple, transparent sponsorship placement."
+                description="Sponsor SafePDF and put your brand in front of privacy-conscious users with a clear, restrained commercial sponsorship placement."
                 robots="index, follow"
             />
 
-            <div className="w-full max-w-[1100px] mx-auto px-4 md:px-8 py-12 md:py-20 lg:py-24">
+            <div className="w-full max-w-5xl mx-auto px-4 md:px-8 py-10 md:py-16">
                 
                 {/* 1. Back to SafePDF */}
-                <div className="mb-12">
+                <div className="mb-10">
                     <Link
                         to="/"
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded px-1 -ml-1"
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded px-1.5 py-1 -ml-1.5"
                     >
-                        <span aria-hidden="true" className="text-lg leading-none">&larr;</span>
-                        Back to SafePDF
+                        <ArrowLeft size={16} aria-hidden="true" />
+                        <span>Back to SafePDF</span>
                     </Link>
                 </div>
 
                 {/* 2. Hero Section */}
-                <section className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 mb-24 md:mb-32">
-                    <div className="flex flex-col gap-6 flex-1 max-w-3xl">
-                        <span className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
-                            SafePDF Sponsorship
+                <section className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 md:mb-20">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/50 border border-blue-200/80 dark:border-blue-800/60 text-xs font-bold text-blue-700 dark:text-blue-400 uppercase tracking-widest mb-5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400"></span>
+                        SafePDF Sponsorship
+                    </div>
+
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-6">
+                        Sponsor SafePDF
+                    </h1>
+
+                    <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed font-normal max-w-2xl mb-8">
+                        Reach a privacy-conscious audience through a small, clearly labeled placement inside SafePDF.
+                    </p>
+
+                    <div className="flex flex-wrap items-center justify-center gap-3 w-full sm:w-auto">
+                        <a
+                            href="#pricing"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm shadow-md hover:bg-slate-800 dark:hover:bg-slate-100 hover:shadow-lg transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                        >
+                            <span>View Pricing & Packages</span>
+                            <ArrowRight size={15} aria-hidden="true" />
+                        </a>
+                        <a
+                            href="#mockup"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 font-bold text-sm border border-slate-200 dark:border-slate-800 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                        >
+                            <span>See Placement Mockup</span>
+                        </a>
+                        <a
+                            href="#how-to-book"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-amber-50 dark:bg-amber-950/30 text-amber-900 dark:text-amber-300 font-bold text-sm border border-amber-200/80 dark:border-amber-800/50 hover:bg-amber-100/70 dark:hover:bg-amber-900/40 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                        >
+                            <Heart size={14} className="fill-amber-500/30 stroke-amber-600 dark:stroke-amber-400" aria-hidden="true" />
+                            <span>How to Book</span>
+                        </a>
+                    </div>
+                </section>
+
+                {/* 3. HTML/CSS Placement Mockup */}
+                <section id="mockup" className="mb-20 md:mb-28 scroll-mt-24">
+                    <div className="flex flex-col gap-3 text-center max-w-2xl mx-auto mb-8">
+                        <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                            Spatial Representation
                         </span>
-                        <h1 className="text-4xl md:text-5xl lg:text-[56px] font-black tracking-tight text-slate-900 dark:text-white leading-[1.05]">
-                            Put Your Brand in Front of People Already Using PDF Tools
-                        </h1>
-                        <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-medium max-w-2xl">
-                            Reach a privacy-conscious audience with a clearly labeled, premium sponsorship placement integrated seamlessly into the SafePDF experience.
+                        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+                            Where Your Sponsor Card Appears
+                        </h2>
+                        <p className="text-slate-600 dark:text-slate-300 text-sm md:text-base leading-relaxed">
+                            The sponsor card is positioned directly in the upper right of the homepage hero on desktop, and stacks neatly above the security illustration on mobile.
                         </p>
-                        
-                        <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
-                            <a 
-                                href="#pricing" 
-                                className="w-full sm:w-auto flex items-center justify-center px-8 py-4 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all focus:ring-2 focus:ring-offset-2 focus:ring-slate-900 dark:focus:ring-white focus:outline-none"
-                            >
-                                Book a Sponsor Spot
-                            </a>
-                            <a 
-                                href="#preview" 
-                                className="w-full sm:w-auto flex items-center justify-center px-8 py-4 rounded-full bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700 shadow-sm hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-md hover:-translate-y-0.5 transition-all focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                            >
-                                See Placement
-                            </a>
-                        </div>
                     </div>
-                    
-                    {/* Hero Visual Mockup */}
-                    <div className="flex-1 w-full max-w-lg lg:max-w-none relative rounded-3xl bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 p-8 overflow-hidden shadow-inner hidden md:block">
-                        <div className="absolute top-0 right-0 p-8 w-full max-w-sm ml-auto opacity-40 blur-3xl -z-10 bg-blue-400 dark:bg-blue-600 rounded-full h-full"></div>
-                        <div className="w-full flex flex-col gap-4">
-                            <div className="h-8 w-48 bg-slate-200 dark:bg-slate-700 rounded-lg"></div>
-                            <div className="h-4 w-full max-w-[80%] bg-slate-200/60 dark:bg-slate-700/60 rounded"></div>
-                            <div className="h-4 w-full max-w-[60%] bg-slate-200/60 dark:bg-slate-700/60 rounded"></div>
-                            <div className="mt-6 pointer-events-none transform shadow-2xl hover:-translate-y-1 transition-transform">
-                                <SponsorCard />
-                            </div>
-                            <div className="h-32 w-full mt-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm"></div>
-                        </div>
-                    </div>
-                </section>
 
-                {/* 3. Where Your Brand Appears & Preview */}
-                <section id="preview" className="mb-24 md:mb-32 scroll-mt-24">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-                        <div className="lg:col-span-5 flex flex-col gap-6">
-                            <h2 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
-                                Where Your Brand Appears
-                            </h2>
-                            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                                Your placement is integrated into SafePDF's website rather than appearing as a disruptive ad.
-                                The sponsor card is placed prominently in the upper right on desktop, and neatly stacked on mobile.
-                            </p>
-                            <ul className="flex flex-col gap-4 mt-2">
-                                <li className="flex items-center gap-3 text-slate-700 dark:text-slate-300 font-medium">
-                                    <span className="material-symbols-outlined text-green-500 shrink-0">check_circle</span>
-                                    Homepage Hero
-                                </li>
-                                <li className="flex items-center gap-3 text-slate-700 dark:text-slate-300 font-medium">
-                                    <span className="material-symbols-outlined text-green-500 shrink-0">check_circle</span>
-                                    All 12+ PDF Tool Pages (Merge, Split, Compress, etc.)
-                                </li>
-                                <li className="flex items-center gap-3 text-slate-700 dark:text-slate-300 font-medium">
-                                    <span className="material-symbols-outlined text-green-500 shrink-0">check_circle</span>
-                                    All Tools Directory
-                                </li>
-                                <li className="flex items-center gap-3 text-slate-700 dark:text-slate-300 font-medium">
-                                    <span className="material-symbols-outlined text-green-500 shrink-0">check_circle</span>
-                                    Blog Articles
-                                </li>
-                            </ul>
+                    {/* Browser Shell Mockup */}
+                    <div className="w-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl overflow-hidden">
+                        {/* Chrome bar */}
+                        <div className="flex items-center justify-between px-4 py-3 bg-slate-100 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800">
+                            <div className="flex items-center gap-1.5">
+                                <span className="w-3 h-3 rounded-full bg-red-400/80"></span>
+                                <span className="w-3 h-3 rounded-full bg-amber-400/80"></span>
+                                <span className="w-3 h-3 rounded-full bg-emerald-400/80"></span>
+                            </div>
+                            <div className="flex items-center gap-1.5 px-4 py-1 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 text-[11px] font-mono text-slate-500 dark:text-slate-400 select-none">
+                                <Lock size={11} className="text-emerald-600 dark:text-emerald-400" />
+                                <span>safepdf.site</span>
+                            </div>
+                            <div className="w-12"></div>
                         </div>
-                        
-                        <div className="lg:col-span-7 flex flex-col gap-6">
-                            <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest pl-2">See Your Brand in Action</h3>
-                            <div className="p-8 md:p-12 rounded-3xl bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700/50 shadow-inner flex flex-col items-center justify-center min-h-[250px]">
-                                <div className="w-full max-w-sm pointer-events-none transform -rotate-1 hover:rotate-0 transition-transform duration-300">
-                                    <SponsorCard />
+
+                        {/* Viewport content */}
+                        <div className="p-4 sm:p-6 md:p-8 bg-slate-50 dark:bg-slate-900/60">
+                            {/* Mini SafePDF Navbar */}
+                            <div className="w-full pb-6 mb-6 border-b border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-7 h-7 rounded-lg bg-blue-600/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs">
+                                        PDF
+                                    </div>
+                                    <span className="font-bold text-slate-900 dark:text-white text-sm">SafePDF</span>
                                 </div>
-                                <p className="text-xs text-slate-400 dark:text-slate-500 mt-6 text-center max-w-xs">
-                                    This is exactly how the placement renders across the site. Clicking it currently reloads this page.
-                                </p>
+                                <div className="hidden sm:flex items-center gap-4 text-xs font-medium text-slate-600 dark:text-slate-400">
+                                    <span>Merge PDF</span>
+                                    <span>Split PDF</span>
+                                    <span>Compress PDF</span>
+                                    <span>All Tools</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFBF00] text-slate-950 font-bold text-[11px] shadow-sm select-none">
+                                        <Heart size={11} className="fill-slate-950/20 stroke-[2.5px]" />
+                                        <span>Support Me</span>
+                                    </div>
+                                    <div className="hidden sm:block px-3 py-1 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[11px] font-bold">
+                                        Explore Tools
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Mini Hero Grid */}
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                                {/* Left: Hero Copy */}
+                                <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left gap-4">
+                                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                        100% Client-Side Privacy
+                                    </div>
+                                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white leading-tight">
+                                        Your PDFs,<br />
+                                        <span className="text-blue-600 dark:text-blue-400">Your Privacy.</span>
+                                    </h3>
+                                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-md">
+                                        Free, secure, and client-side PDF tools. Files are processed locally in your browser and never uploaded to any server.
+                                    </p>
+                                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs shadow-md mt-2">
+                                        <span>Start Editing Your PDF</span>
+                                        <ArrowRight size={13} />
+                                    </div>
+                                </div>
+
+                                {/* Right: Live SponsorCard placement */}
+                                <div className="lg:col-span-5 flex flex-col items-center lg:items-end gap-5 w-full">
+                                    <div className="w-full max-w-[360px] pointer-events-none transform transition-transform">
+                                        <div className="ring-2 ring-blue-500/30 dark:ring-blue-400/20 rounded-2xl">
+                                            <SponsorCard />
+                                        </div>
+                                    </div>
+
+                                    {/* Mini Security Portal illustration placeholder */}
+                                    <div className="w-36 h-36 rounded-full border-2 border-dashed border-blue-200 dark:border-blue-900/60 flex items-center justify-center relative">
+                                        <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-md flex items-center justify-center">
+                                            <Lock size={20} className="text-blue-600 dark:text-blue-400" />
+                                        </div>
+                                        <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-[9px] font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
+                                            <Check size={9} />
+                                            <span>Encrypted</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </section>
 
-                {/* 4. Why Sponsor SafePDF */}
-                <section className="mb-24 md:mb-32">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-4">Why Sponsor SafePDF?</h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                            We offer a clean, honest business model. You get focused visibility, and our users get to keep a fast, privacy-first PDF tool without ad networks.
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {/* Where else it appears */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mt-6">
                         {[
-                            {
-                                icon: "target",
-                                title: "Reach an Intent-Driven Audience",
-                                desc: "Your message is displayed alongside users actively engaging with PDF utilities and document workflows."
-                            },
-                            {
-                                icon: "star",
-                                title: "Premium, Focused Visibility",
-                                desc: "We feature only one sponsor at a time. Your brand never competes with multiple banners for attention."
-                            },
-                            {
-                                icon: "block",
-                                title: "Non-Intrusive Placement",
-                                desc: "No popups, no autoplay videos, and no disruptive full-page interstitial ads. Just a clean static card."
-                            },
-                            {
-                                icon: "shield_locked",
-                                title: "Privacy-First Environment",
-                                desc: "Align your brand with a product that respects user privacy. We don't use tracking pixels or invasive ad networks."
-                            },
-                            {
-                                icon: "branding_watermark",
-                                title: "Clear Brand Placement",
-                                desc: "Your company name, a short descriptive message, and a clear call-to-action are presented directly."
-                            },
-                            {
-                                icon: "speed",
-                                title: "Simple Sponsorship",
-                                desc: "A straightforward model with transparent pricing. No bidding, no complicated dashboard, just direct placement."
-                            }
-                        ].map((card, idx) => (
-                            <div key={idx} className="flex flex-col p-6 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
-                                <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-5 border border-blue-100 dark:border-blue-800/50">
-                                    <span className="material-symbols-outlined">{card.icon}</span>
+                            { name: 'Homepage Hero', desc: 'Top-right above fold on desktop' },
+                            { name: 'All 19 Tool Pages', desc: 'Integrated into tool headers' },
+                            { name: 'Tools Directory', desc: 'Visible alongside tool filters' },
+                            { name: 'Blog Index', desc: 'Prominent header placement' },
+                        ].map((loc, i) => (
+                            <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-left">
+                                <span className="p-1 rounded-md bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 mt-0.5 shrink-0">
+                                    <Check size={12} strokeWidth={3} />
+                                </span>
+                                <div>
+                                    <h4 className="text-xs font-bold text-slate-900 dark:text-white leading-tight">{loc.name}</h4>
+                                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{loc.desc}</p>
                                 </div>
-                                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{card.title}</h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                    {card.desc}
-                                </p>
                             </div>
                         ))}
                     </div>
                 </section>
 
-                {/* 5. Simple 3-Step Process */}
-                <section className="mb-24 md:mb-32">
-                    <div className="p-8 md:p-12 lg:p-16 rounded-[2.5rem] bg-slate-900 dark:bg-slate-800 text-white relative overflow-hidden shadow-2xl">
-                        <div className="absolute top-0 right-0 p-8 w-full max-w-xl opacity-20 blur-3xl -z-10 bg-blue-500 rounded-full h-full transform translate-x-1/3 -translate-y-1/4"></div>
-                        
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold tracking-tight mb-4">How It Works</h2>
-                            <p className="text-slate-300 text-lg">Secure your placement in three simple steps.</p>
-                        </div>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-                            {/* Connecting Line for Desktop */}
-                            <div className="hidden md:block absolute top-6 left-[16%] right-[16%] h-0.5 bg-slate-700 -z-10"></div>
-                            
-                            <div className="flex flex-col items-center text-center">
-                                <div className="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center text-lg font-black mb-6 shadow-md border-4 border-slate-900 dark:border-slate-800">1</div>
-                                <h3 className="text-lg font-bold text-white mb-2">Choose Your Placement</h3>
-                                <p className="text-sm text-slate-300 px-4">Select between the 14-day or 30-day sponsorship option below.</p>
-                            </div>
-                            
-                            <div className="flex flex-col items-center text-center">
-                                <div className="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center text-lg font-black mb-6 shadow-md border-4 border-slate-900 dark:border-slate-800">2</div>
-                                <h3 className="text-lg font-bold text-white mb-2">Submit Details</h3>
-                                <p className="text-sm text-slate-300 px-4">Provide your company name, short description, link, and CTA text via X or GitHub.</p>
-                            </div>
-                            
-                            <div className="flex flex-col items-center text-center">
-                                <div className="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center text-lg font-black mb-6 shadow-md border-4 border-slate-900 dark:border-slate-800">3</div>
-                                <h3 className="text-lg font-bold text-white mb-2">Get Featured</h3>
-                                <p className="text-sm text-slate-300 px-4">Your approved sponsor card is placed into the SafePDF experience for your selected duration.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* 6. Pricing Section */}
-                <section id="pricing" className="mb-24 md:mb-32 scroll-mt-24">
+                {/* 4. Pricing Section */}
+                <section id="pricing" className="mb-20 md:mb-28 scroll-mt-24">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-4">Sponsorship Packages</h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-400">Transparent pricing for premium visibility.</p>
+                        <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                            Transparent Pricing
+                        </span>
+                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mt-2 mb-3">
+                            Sponsorship Packages
+                        </h2>
+                        <p className="text-slate-600 dark:text-slate-300 text-base max-w-xl mx-auto">
+                            Flat-rate pricing for homepage visibility. Simple booking handled through Support Me.
+                        </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
                         {/* 14 Days Card */}
-                        <div className="flex flex-col p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-lg transition-shadow relative mt-4 md:mt-0">
+                        <div className="flex flex-col p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
                             <div className="mb-6">
-                                <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2">14 Days</h3>
-                                <div className="flex items-baseline gap-2">
+                                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest block mb-2">
+                                    14 Days Placement
+                                </span>
+                                <div className="flex items-baseline gap-1.5">
                                     <span className="text-5xl font-black text-slate-900 dark:text-white tracking-tight">$6</span>
-                                    <span className="text-slate-500 dark:text-slate-400 font-medium">/ flat rate</span>
+                                    <span className="text-slate-500 dark:text-slate-400 font-medium text-sm">/ 14 days</span>
                                 </div>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                                    Ideal for product launches, short-term campaigns, or utility promotions.
+                                </p>
                             </div>
                             
-                            <div className="flex-1">
-                                <p className="text-sm font-semibold text-slate-900 dark:text-white mb-4">Includes placement on:</p>
-                                <ul className="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-400 mb-8">
-                                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-blue-500 text-[18px]">check</span>Homepage Hero</li>
-                                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-blue-500 text-[18px]">check</span>All 12+ PDF Tool Pages</li>
-                                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-blue-500 text-[18px]">check</span>All Tools Directory & Blog</li>
-                                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-blue-500 text-[18px]">check</span>Clearly labeled Sponsored badge</li>
-                                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-blue-500 text-[18px]">check</span>One exclusive sponsor at a time</li>
-                                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-blue-500 text-[18px]">check</span>14-day duration</li>
+                            <div className="flex-1 border-t border-slate-100 dark:border-slate-800 pt-6">
+                                <p className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-4">
+                                    Package Details:
+                                </p>
+                                <ul className="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-300 mb-8">
+                                    <li className="flex items-center gap-3">
+                                        <span className="p-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 shrink-0">
+                                            <Check size={14} strokeWidth={3} />
+                                        </span>
+                                        <span>Homepage hero placement</span>
+                                    </li>
+                                    <li className="flex items-center gap-3">
+                                        <span className="p-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 shrink-0">
+                                            <Check size={14} strokeWidth={3} />
+                                        </span>
+                                        <span>Clear &quot;Sponsored&quot; label</span>
+                                    </li>
+                                    <li className="flex items-center gap-3">
+                                        <span className="p-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 shrink-0">
+                                            <Check size={14} strokeWidth={3} />
+                                        </span>
+                                        <span>Direct link to sponsor destination</span>
+                                    </li>
+                                    <li className="flex items-center gap-3">
+                                        <span className="p-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 shrink-0">
+                                            <Check size={14} strokeWidth={3} />
+                                        </span>
+                                        <span>Non-intrusive card layout</span>
+                                    </li>
+                                    <li className="flex items-center gap-3">
+                                        <span className="p-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 shrink-0">
+                                            <Check size={14} strokeWidth={3} />
+                                        </span>
+                                        <span>No tracking pixels &amp; no data access</span>
+                                    </li>
+                                    <li className="flex items-center gap-3">
+                                        <span className="p-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 shrink-0">
+                                            <Check size={14} strokeWidth={3} />
+                                        </span>
+                                        <span>14-day continuous placement</span>
+                                    </li>
                                 </ul>
                             </div>
-                            
-                            <a 
-                                href="#booking-cta" 
-                                className="w-full flex items-center justify-center px-6 py-3.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none"
+
+                            <a
+                                href="#how-to-book"
+                                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none"
                             >
-                                Book 14 Days
+                                <span>Choose 14 Days</span>
+                                <ArrowRight size={14} />
                             </a>
                         </div>
 
                         {/* Monthly Card (Recommended) */}
-                        <div className="flex flex-col p-8 rounded-3xl bg-white dark:bg-slate-800 border-2 border-blue-500 shadow-xl relative transform md:-translate-y-4">
-                            <div className="absolute -top-4 left-0 right-0 flex justify-center">
-                                <span className="bg-blue-500 text-white text-xs font-bold uppercase tracking-widest py-1.5 px-4 rounded-full shadow-md">
-                                    Recommended
+                        <div className="flex flex-col p-8 rounded-3xl bg-white dark:bg-slate-900 border-2 border-blue-500 shadow-xl relative mt-4 md:mt-0">
+                            <div className="absolute -top-3.5 left-0 right-0 flex justify-center">
+                                <span className="bg-blue-600 text-white text-[11px] font-bold uppercase tracking-wider py-1 px-3.5 rounded-full shadow-sm">
+                                    Recommended · Best Value
                                 </span>
                             </div>
                             
-                            <div className="mb-6 mt-2">
-                                <h3 className="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-2">Monthly</h3>
-                                <div className="flex items-baseline gap-2">
+                            <div className="mb-6 mt-1">
+                                <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest block mb-2">
+                                    1 Month Placement
+                                </span>
+                                <div className="flex items-baseline gap-1.5">
                                     <span className="text-5xl font-black text-slate-900 dark:text-white tracking-tight">$10</span>
-                                    <span className="text-slate-500 dark:text-slate-400 font-medium">/ 30 days</span>
+                                    <span className="text-slate-500 dark:text-slate-400 font-medium text-sm">/ month</span>
                                 </div>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                                    Longer continuous exposure and maximum visibility across SafePDF.
+                                </p>
                             </div>
                             
-                            <div className="flex-1">
-                                <p className="text-sm font-semibold text-slate-900 dark:text-white mb-4">Includes placement on:</p>
-                                <ul className="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-400 mb-8">
-                                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-blue-500 text-[18px]">check</span>Homepage Hero</li>
-                                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-blue-500 text-[18px]">check</span>All 12+ PDF Tool Pages</li>
-                                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-blue-500 text-[18px]">check</span>All Tools Directory & Blog</li>
-                                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-blue-500 text-[18px]">check</span>Clearly labeled Sponsored badge</li>
-                                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-blue-500 text-[18px]">check</span>One exclusive sponsor at a time</li>
-                                    <li className="flex items-center gap-3 font-semibold text-slate-900 dark:text-white"><span className="material-symbols-outlined text-blue-500 text-[18px]">check</span>Extended 30-day duration</li>
+                            <div className="flex-1 border-t border-slate-100 dark:border-slate-800 pt-6">
+                                <p className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-4">
+                                    Package Details:
+                                </p>
+                                <ul className="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-300 mb-8">
+                                    <li className="flex items-center gap-3 font-semibold text-slate-900 dark:text-white">
+                                        <span className="p-0.5 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shrink-0">
+                                            <Check size={14} strokeWidth={3} />
+                                        </span>
+                                        <span>Homepage hero placement</span>
+                                    </li>
+                                    <li className="flex items-center gap-3">
+                                        <span className="p-0.5 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shrink-0">
+                                            <Check size={14} strokeWidth={3} />
+                                        </span>
+                                        <span>Clear &quot;Sponsored&quot; label</span>
+                                    </li>
+                                    <li className="flex items-center gap-3">
+                                        <span className="p-0.5 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shrink-0">
+                                            <Check size={14} strokeWidth={3} />
+                                        </span>
+                                        <span>Direct link to sponsor destination</span>
+                                    </li>
+                                    <li className="flex items-center gap-3">
+                                        <span className="p-0.5 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shrink-0">
+                                            <Check size={14} strokeWidth={3} />
+                                        </span>
+                                        <span>Non-intrusive card layout</span>
+                                    </li>
+                                    <li className="flex items-center gap-3">
+                                        <span className="p-0.5 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shrink-0">
+                                            <Check size={14} strokeWidth={3} />
+                                        </span>
+                                        <span>No tracking pixels &amp; no data access</span>
+                                    </li>
+                                    <li className="flex items-center gap-3 font-semibold text-blue-600 dark:text-blue-400">
+                                        <span className="p-0.5 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shrink-0">
+                                            <Check size={14} strokeWidth={3} />
+                                        </span>
+                                        <span>Extended 30-day continuous visibility</span>
+                                    </li>
                                 </ul>
                             </div>
-                            
-                            <a 
-                                href="#booking-cta" 
-                                className="w-full flex items-center justify-center px-6 py-3.5 rounded-xl bg-blue-500 text-white font-bold hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/20 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+
+                            <a
+                                href="#how-to-book"
+                                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                             >
-                                Book Monthly
+                                <span>Choose Monthly</span>
+                                <ArrowRight size={14} />
                             </a>
                         </div>
                     </div>
                 </section>
 
-                {/* 7. Privacy & Trust + FAQ */}
-                <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24 md:mb-32 items-start">
-                    {/* Privacy */}
-                    <div className="flex flex-col gap-6 p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-                        <div className="w-12 h-12 rounded-xl bg-green-50 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 mb-2 border border-green-100 dark:border-green-800/50">
-                            <span className="material-symbols-outlined">security</span>
-                        </div>
-                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-                            Your Sponsorship Does Not Give You Access to User Data
+                {/* 5. What You Get */}
+                <section className="mb-20 md:mb-28">
+                    <div className="text-center mb-12">
+                        <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                            Commercial Standards
+                        </span>
+                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mt-2 mb-3">
+                            What You Get
                         </h2>
-                        <div className="flex flex-col gap-4 text-slate-600 dark:text-slate-400 leading-relaxed text-sm md:text-base">
-                            <p>
-                                SafePDF is a privacy-first platform. All PDF processing happens strictly locally in the user's browser.
+                        <p className="text-slate-600 dark:text-slate-300 text-base max-w-xl mx-auto">
+                            A clean, respectful sponsorship designed for privacy-minded audiences.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {[
+                            {
+                                icon: Monitor,
+                                title: "Homepage Hero Placement",
+                                desc: "Prominently featured in the SafePDF homepage hero section for immediate visibility."
+                            },
+                            {
+                                icon: Tag,
+                                title: "Clear Sponsored Label",
+                                desc: "Ethically labeled with a clear 'Sponsored' tag and an open availability indicator."
+                            },
+                            {
+                                icon: ExternalLink,
+                                title: "Direct Destination Link",
+                                desc: "A direct, unencumbered link to your product, company, or campaign landing page."
+                            },
+                            {
+                                icon: EyeOff,
+                                title: "Non-Intrusive Placement",
+                                desc: "No popups, no takeover overlays, and no intrusive animations that degrade user trust."
+                            },
+                            {
+                                icon: ShieldCheck,
+                                title: "No Tracking Pixels",
+                                desc: "SafePDF does not load ad tracking networks, telemetry scripts, or invasive pixels."
+                            },
+                            {
+                                icon: FileText,
+                                title: "No Access to User Files",
+                                desc: "All PDF workflows process 100% locally in the browser. Sponsors never receive user file data."
+                            },
+                            {
+                                icon: Sparkles,
+                                title: "Privacy-First Environment",
+                                desc: "Align your product with a privacy-conscious user base that values secure, local-first tools."
+                            }
+                        ].map((item, idx) => {
+                            const IconComponent = item.icon;
+                            return (
+                                <div key={idx} className="flex flex-col p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                                    <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 border border-blue-100 dark:border-blue-900/40">
+                                        <IconComponent size={20} />
+                                    </div>
+                                    <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1.5">{item.title}</h3>
+                                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        {item.desc}
+                                    </p>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </section>
+
+                {/* 6. How to Book (3-4 step relationship with Support Me) */}
+                <section id="how-to-book" className="mb-20 md:mb-28 scroll-mt-24">
+                    <div className="p-8 md:p-12 rounded-3xl bg-slate-900 dark:bg-slate-800 text-white shadow-xl relative overflow-hidden">
+                        <div className="text-center max-w-2xl mx-auto mb-10">
+                            <span className="text-xs font-bold uppercase tracking-widest text-blue-400">
+                                Simple Booking Process
+                            </span>
+                            <h2 className="text-3xl font-bold tracking-tight mt-2 mb-3">
+                                How to Book
+                            </h2>
+                            <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+                                Sponsorship payments are completed directly using the existing <span className="text-[#FFBF00] font-semibold">Support Me</span> button in the top navigation bar.
                             </p>
-                            <p className="font-medium text-slate-700 dark:text-slate-300 border-l-2 border-slate-300 dark:border-slate-600 pl-4 py-1">
-                                Sponsors do not receive user PDF files or private user information through this placement.
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
+                            {[
+                                {
+                                    step: "1",
+                                    title: "Choose Duration",
+                                    desc: "Select either the 14-day ($6) or 1-month ($10) sponsorship duration."
+                                },
+                                {
+                                    step: "2",
+                                    title: "Click Support Me",
+                                    desc: "Click the yellow Support Me button in the navbar to launch the payment checkout."
+                                },
+                                {
+                                    step: "3",
+                                    title: "Complete Payment",
+                                    desc: "Enter the amount for your selected duration ($6 or $10) and complete payment."
+                                },
+                                {
+                                    step: "4",
+                                    title: "Send Details",
+                                    desc: "Contact Sujay via X or GitHub with your transaction confirmation and copy."
+                                }
+                            ].map((s, idx) => (
+                                <div key={idx} className="flex flex-col items-center text-center p-4 rounded-2xl bg-slate-800/80 dark:bg-slate-900/60 border border-slate-700/60">
+                                    <div className="w-9 h-9 rounded-full bg-blue-500 text-white flex items-center justify-center text-sm font-black mb-4 shadow-sm">
+                                        {s.step}
+                                    </div>
+                                    <h3 className="text-sm font-bold text-white mb-1.5">{s.title}</h3>
+                                    <p className="text-xs text-slate-300 leading-relaxed">{s.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* 7. Privacy Guarantee & FAQ */}
+                <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20 md:mb-28 items-start">
+                    {/* Privacy Guarantee */}
+                    <div className="lg:col-span-5 flex flex-col gap-5 p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-100 dark:border-emerald-900/40">
+                            <ShieldCheck size={20} />
+                        </div>
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                            Your Sponsorship Does Not Give You Access to User Data
+                        </h3>
+                        <div className="flex flex-col gap-3 text-slate-600 dark:text-slate-300 leading-relaxed text-xs sm:text-sm">
+                            <p>
+                                SafePDF is a strictly client-side platform. All document conversions, splits, merges, and edits occur solely inside the visitor&apos;s browser memory.
+                            </p>
+                            <p className="font-semibold text-slate-800 dark:text-slate-200 border-l-2 border-emerald-500 pl-3 py-1">
+                                Sponsors do not receive user files, metadata, or contact information through this placement.
                             </p>
                             <p>
-                                The sponsorship does not change SafePDF's behavior or introduce hidden tracking. The placement is purely a visible, static link on the supported pages, honoring our promise to users.
+                                Sponsorship is purely a visible, static link displayed in the agreed placement, maintaining complete respect for our users&apos; privacy.
                             </p>
                         </div>
                     </div>
 
                     {/* FAQ */}
-                    <div className="flex flex-col gap-6">
-                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
-                            Frequently Asked Questions
-                        </h2>
+                    <div className="lg:col-span-7 flex flex-col gap-5">
+                        <div className="flex items-center gap-2">
+                            <HelpCircle size={18} className="text-slate-400" />
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                                Frequently Asked Questions
+                            </h3>
+                        </div>
                         
-                        <div className="flex flex-col gap-6">
-                            <div>
-                                <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1">Where exactly will my sponsor card appear?</h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-400">It appears in the hero section of the homepage, the header grid of all PDF tool pages, the All Tools page, and the Blog index.</p>
-                            </div>
-                            <div>
-                                <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1">Can multiple sponsors appear at once?</h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-400">No. We feature one exclusive sponsor at a time to ensure your message is not crowded out by competitors or ad networks.</p>
-                            </div>
-                            <div>
-                                <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1">Can I include a website link?</h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-400">Yes. The entire card acts as a link to your specified URL, along with a custom CTA text (e.g. "Learn More").</p>
-                            </div>
-                            <div>
-                                <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1">What information do I need to provide?</h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-400">We need your brand/company name, a short one-line description, the website URL, and short CTA text.</p>
-                            </div>
-                            <div>
-                                <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1">Can I cancel or modify my sponsorship?</h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-400">Purchases are flat-rate for the duration booked. You can contact Sujay to request minor copy updates during your run.</p>
-                            </div>
+                        <div className="flex flex-col gap-4">
+                            {[
+                                {
+                                    q: "Where does my sponsor card appear?",
+                                    a: "It appears on the SafePDF homepage hero, the SafePDF blog, and five select core tool pages (Merge, Compress, Split, PDF to Word, and Edit)."
+                                },
+                                {
+                                    q: "Can multiple sponsors appear simultaneously?",
+                                    a: "No. Placements are limited to one sponsor at a time so your brand receives focused attention without ad clutter."
+                                },
+                                {
+                                    q: "What details do I need to send after paying?",
+                                    a: "Send your company or brand name, a concise 1-line description, your destination URL, and preferred CTA button text."
+                                },
+                                {
+                                    q: "How do I contact Sujay to activate my spot?",
+                                    a: "Reach out via X (@Sujay__Raj) or open an issue on the SafePDF GitHub repository with your transaction reference."
+                                }
+                            ].map((faq, idx) => (
+                                <div key={idx} className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800">
+                                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mb-1">{faq.q}</h4>
+                                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{faq.a}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </section>
 
-                {/* 8. Final CTA */}
-                <section id="booking-cta" className="flex flex-col items-center text-center max-w-2xl mx-auto scroll-mt-24 pb-12">
-                    <div className="w-16 h-16 rounded-2xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-6 shadow-sm border border-blue-200 dark:border-blue-800/50">
-                        <span className="material-symbols-outlined text-3xl">campaign</span>
+                {/* 8. Final CTA & Booking Step */}
+                <section id="booking-cta" className="flex flex-col items-center text-center max-w-2xl mx-auto scroll-mt-24 pb-8">
+                    <div className="w-14 h-14 rounded-2xl bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-5 border border-amber-200/70 dark:border-amber-800/50 shadow-sm">
+                        <Heart size={26} className="fill-amber-500/20" />
                     </div>
                     
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-4">
-                        Ready to Put Your Brand in Front of SafePDF Users?
+                    <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+                        Ready to Sponsor SafePDF?
                     </h2>
                     
-                    <p className="text-lg text-slate-600 dark:text-slate-400 mb-10">
-                        To book your spot, use the <span className="font-semibold text-slate-900 dark:text-white">Support Me</span> button in the top navigation bar to complete payment, then contact Sujay to provide your details.
+                    <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 mb-8 max-w-lg">
+                        Use the <span className="font-bold text-slate-900 dark:text-white">Support Me</span> button in the top navigation bar to complete payment, then contact Sujay on X or GitHub with your sponsor copy.
                     </p>
                     
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
-                        {/* Navigating to top simulates telling them to use the nav button */}
-                        <a 
-                            href="#" 
-                            className="w-full sm:w-auto flex items-center justify-center px-8 py-4 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all focus:ring-2 focus:ring-offset-2 focus:ring-slate-900 dark:focus:ring-white focus:outline-none"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                window.scrollTo({ top: 0, behavior: 'smooth' });
-                            }}
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full">
+                        <button
+                            type="button"
+                            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#FFBF00] hover:bg-[#F2B600] text-black font-bold text-sm shadow-[0_2px_10px_rgba(255,191,0,0.2)] hover:shadow-[0_4px_15px_rgba(255,191,0,0.3)] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
                         >
-                            Book Your Sponsor Spot
-                        </a>
+                            <Heart size={15} className="fill-black/10 stroke-[2.5px]" />
+                            <span>Click Support Me in Navbar</span>
+                        </button>
                         
                         <a 
                             href="https://x.com/Sujay__Raj" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="w-full sm:w-auto group flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700 shadow-sm hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-md hover:-translate-y-0.5 transition-all focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-bold text-sm border border-slate-200 dark:border-slate-800 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                         >
-                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 shrink-0" aria-hidden="true">
-                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.264 5.633 5.9-5.633Zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                            </svg>
-                            <span>Contact Us</span>
+                            <MessageSquare size={15} />
+                            <span>Contact on X</span>
+                        </a>
+
+                        <a
+                            href="https://github.com/Sujay1977/SafePdf/issues"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-bold text-sm border border-slate-200 dark:border-slate-800 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                        >
+                            <ExternalLink size={15} />
+                            <span>GitHub Issues</span>
                         </a>
                     </div>
                 </section>

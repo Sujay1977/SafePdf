@@ -73,11 +73,11 @@ const Home = () => {
                 {/* Background Details */}
                 <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-100/50 dark:bg-blue-900/10 rounded-full blur-[100px] translate-x-1/3 -translate-y-1/4 pointer-events-none" />
 
-                <div className="max-w-[1350px] mx-auto px-4 md:px-8 py-16 md:py-24 relative z-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div className="max-w-[1350px] mx-auto px-4 md:px-8 pt-6 pb-12 sm:pt-8 sm:pb-16 lg:pt-8 lg:pb-16 relative z-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
                         {/* 1. Left Column: Content */}
-                        <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-8">
+                        <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-6 lg:gap-7">
 
                             {/* Trust Badge */}
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
@@ -89,7 +89,7 @@ const Home = () => {
                             </div>
 
                             {/* Headlines - EXACT COPY MANDATED */}
-                            <div className="space-y-6">
+                            <div className="space-y-4 lg:space-y-5">
                                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.05]">
                                     Your PDFs,<br />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
@@ -114,13 +114,13 @@ const Home = () => {
                         </div>
 
                         {/* 2. Right Column: Sponsor Card + Security Portal Animation */}
-                        <div className="flex flex-col items-center lg:items-end gap-6">
+                        <div className="flex flex-col items-center lg:items-end gap-5">
                             {/* Sponsor card — upper-right of hero on desktop, above illustration on mobile */}
                             <SponsorCard />
 
                             {/* Illustration wrapper */}
                             <div className="relative flex items-center justify-center lg:justify-end w-full">
-                                <div className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px]">
+                                <div className="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] lg:w-[360px] lg:h-[360px]">
                                 {/* Pulsing Rings */}
                                 <div className="absolute inset-0 border-[3px] border-blue-500/10 rounded-full animate-[spin_10s_linear_infinite]" />
                                 <div className="absolute inset-8 border border-blue-500/20 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
