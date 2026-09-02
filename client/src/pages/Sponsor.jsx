@@ -105,7 +105,7 @@ const Sponsor = () => {
                             </div>
                             <div className="flex items-center gap-1.5 px-4 py-1 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 text-[11px] font-mono text-slate-500 dark:text-slate-400 select-none">
                                 <Lock size={11} className="text-emerald-600 dark:text-emerald-400" />
-                                <span>safepdf.site</span>
+                                <span>safepdfs.com</span>
                             </div>
                             <div className="w-12"></div>
                         </div>

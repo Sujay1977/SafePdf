@@ -9,7 +9,7 @@ const faqSchema = {
         {
             "@type": "Question",
             "name": "How do I organize PDF pages online for free?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's Organize PDF tool at safepdf.site/organize. Upload your PDF, drag pages to reorder them, delete unwanted pages, or duplicate pages, then download the reorganized PDF." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's Organize PDF tool at safepdfs.com/organize. Upload your PDF, drag pages to reorder them, delete unwanted pages, or duplicate pages, then download the reorganized PDF." }
         },
         {
             "@type": "Question",
@@ -90,7 +90,7 @@ export default function OrganizePDFGuide() {
                 </li>
             </ol>
             <p>
-                <strong>Try SafePDF's Organize PDF tool now — free, secure, no uploads.</strong> Visit <Link to="/organize">safepdf.site/organize</Link>.
+                <strong>Try SafePDF's Organize PDF tool now — free, secure, no uploads.</strong> Visit <Link to="/organize">safepdfs.com/organize</Link>.
             </p>
 
             <h2>Common Reasons to Reorganize PDF Pages</h2>
@@ -174,7 +174,7 @@ export default function OrganizePDFGuide() {
 
             <h3>How do I rearrange pages in a PDF online?</h3>
             <p>
-                Open <Link to="/organize">safepdf.site/organize</Link>, upload your PDF, then drag page thumbnails to the position you want.
+                Open <Link to="/organize">safepdfs.com/organize</Link>, upload your PDF, then drag page thumbnails to the position you want.
                 Click Download when done.
             </p>
 

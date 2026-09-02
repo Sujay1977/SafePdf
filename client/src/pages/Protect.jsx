@@ -70,15 +70,15 @@ const Protect = () => {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "Protect PDF", "item": "https://safepdf.site/protect" }
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdfs.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Protect PDF", "item": "https://safepdfs.com/protect" }
             ]
         },
         {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Protect PDF with Password Online | Encrypt PDF Securely",
-            "url": "https://safepdf.site/protect"
+            "url": "https://safepdfs.com/protect"
         }
     ];
 

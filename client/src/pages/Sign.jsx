@@ -246,8 +246,8 @@ const Sign = () => {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "Sign PDF", "item": "https://safepdf.site/sign" },
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdfs.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Sign PDF", "item": "https://safepdfs.com/sign" },
             ],
         },
     ];

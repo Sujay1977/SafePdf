@@ -55,15 +55,15 @@ const Home = () => {
                             "@context": "https://schema.org",
                             "@type": "WebSite",
                             "name": "SafePDF",
-                            "url": "https://safepdf.site",
+                            "url": "https://safepdfs.com",
                             "description": "SafePDF is a free online PDF toolkit and a privacy-focused alternative to iLovePDF. Merge, split, compress, convert, protect and edit PDF files directly in your browser with no uploads, no signup and no data collection."
                         },
                         {
                             "@context": "https://schema.org",
                             "@type": "Organization",
                             "name": "SafePDF",
-                            "url": "https://safepdf.site",
-                            "logo": "https://safepdf.site/logo.png"
+                            "url": "https://safepdfs.com",
+                            "logo": "https://safepdfs.com/logo.png"
                         }
                     ])}
                 </script>

@@ -9,7 +9,7 @@ const faqSchema = {
         {
             "@type": "Question",
             "name": "How do I edit a PDF online for free?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's Edit PDF tool at safepdf.site/edit. Upload your PDF, use the editor to add text, annotations, or drawings, then download the modified file. It's free and requires no account." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's Edit PDF tool at safepdfs.com/edit. Upload your PDF, use the editor to add text, annotations, or drawings, then download the modified file. It's free and requires no account." }
         },
         {
             "@type": "Question",
@@ -24,7 +24,7 @@ const faqSchema = {
         {
             "@type": "Question",
             "name": "Can I add a signature to a PDF while editing it?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Yes. SafePDF has a dedicated Sign PDF tool at safepdf.site/sign that lets you draw, type, or upload a signature and place it anywhere on your PDF." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. SafePDF has a dedicated Sign PDF tool at safepdfs.com/sign that lets you draw, type, or upload a signature and place it anywhere on your PDF." }
         },
         {
             "@type": "Question",
@@ -110,7 +110,7 @@ export default function EditPDFGuide() {
                 </li>
             </ol>
             <p>
-                <strong>Try SafePDF's Edit PDF tool now — free, secure, no uploads.</strong> Visit <Link to="/edit">safepdf.site/edit</Link>.
+                <strong>Try SafePDF's Edit PDF tool now — free, secure, no uploads.</strong> Visit <Link to="/edit">safepdfs.com/edit</Link>.
             </p>
 
             <h2>When to Edit a PDF vs. Convert It First</h2>
@@ -181,7 +181,7 @@ export default function EditPDFGuide() {
 
             <h3>How do I edit a PDF online for free without Adobe?</h3>
             <p>
-                Go to <Link to="/edit">safepdf.site/edit</Link>, upload your PDF, use the editing tools to add text or annotations,
+                Go to <Link to="/edit">safepdfs.com/edit</Link>, upload your PDF, use the editing tools to add text or annotations,
                 and download the result. No Adobe subscription needed.
             </p>
 

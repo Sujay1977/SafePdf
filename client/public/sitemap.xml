@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
   <url>
-    <loc>https://safepdf.site/</loc>
+    <loc>https://safepdfs.com/</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -10,25 +10,25 @@
 
   <!-- Core Tools -->
   <url>
-    <loc>https://safepdf.site/merge</loc>
+    <loc>https://safepdfs.com/merge</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/split</loc>
+    <loc>https://safepdfs.com/split</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/compress</loc>
+    <loc>https://safepdfs.com/compress</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/protect</loc>
+    <loc>https://safepdfs.com/protect</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -36,81 +36,99 @@
 
   <!-- Additional Tools -->
   <url>
-    <loc>https://safepdf.site/pdf-to-word</loc>
+    <loc>https://safepdfs.com/pdf-to-word</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/unlock</loc>
+    <loc>https://safepdfs.com/unlock</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/rotate</loc>
+    <loc>https://safepdfs.com/rotate</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/organize</loc>
+    <loc>https://safepdfs.com/organize</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/pdf-to-jpg</loc>
+    <loc>https://safepdfs.com/pdf-to-jpg</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/jpg-to-pdf</loc>
+    <loc>https://safepdfs.com/jpg-to-pdf</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/sign</loc>
+    <loc>https://safepdfs.com/sign</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/edit</loc>
+    <loc>https://safepdfs.com/edit</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/crop-pdf</loc>
+    <loc>https://safepdfs.com/crop-pdf</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/pdf-to-zip</loc>
+    <loc>https://safepdfs.com/pdf-to-zip</loc>
     <lastmod>2026-08-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/fill-pdf-form</loc>
+    <loc>https://safepdfs.com/fill-pdf-form</loc>
     <lastmod>2026-08-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/redact-pdf</loc>
+    <loc>https://safepdfs.com/redact-pdf</loc>
     <lastmod>2026-08-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://safepdfs.com/watermark-pdf</loc>
+    <lastmod>2026-08-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://safepdfs.com/page-numbers</loc>
+    <lastmod>2026-08-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://safepdfs.com/header-footer</loc>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Blog Index -->
   <url>
-    <loc>https://safepdf.site/blog</loc>
+    <loc>https://safepdfs.com/blog</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -118,25 +136,25 @@
 
   <!-- Supplemental Pages -->
   <url>
-    <loc>https://safepdf.site/tools</loc>
+    <loc>https://safepdfs.com/tools</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/workflows</loc>
+    <loc>https://safepdfs.com/workflows</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/pricing</loc>
+    <loc>https://safepdfs.com/pricing</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/updates</loc>
+    <loc>https://safepdfs.com/updates</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -144,31 +162,31 @@
 
   <!-- Blog Posts (original 5) -->
   <url>
-    <loc>https://safepdf.site/blog/compress-pdf-without-losing-quality</loc>
+    <loc>https://safepdfs.com/blog/compress-pdf-without-losing-quality</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/blog/how-to-merge-pdf-online-free</loc>
+    <loc>https://safepdfs.com/blog/how-to-merge-pdf-online-free</loc>
     <lastmod>2026-03-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/blog/is-pdf-compression-safe</loc>
+    <loc>https://safepdfs.com/blog/is-pdf-compression-safe</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/blog/best-free-pdf-tools-2026</loc>
+    <loc>https://safepdfs.com/blog/best-free-pdf-tools-2026</loc>
     <lastmod>2026-02-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/blog/how-to-protect-pdf-with-password</loc>
+    <loc>https://safepdfs.com/blog/how-to-protect-pdf-with-password</loc>
     <lastmod>2026-02-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -176,61 +194,61 @@
 
   <!-- Blog Posts (new 9) -->
   <url>
-    <loc>https://safepdf.site/blog/how-to-split-pdf-online-free</loc>
+    <loc>https://safepdfs.com/blog/how-to-split-pdf-online-free</loc>
     <lastmod>2026-03-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/blog/pdf-to-word-converter-online-free</loc>
+    <loc>https://safepdfs.com/blog/pdf-to-word-converter-online-free</loc>
     <lastmod>2026-03-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/blog/jpg-to-pdf-converter-free</loc>
+    <loc>https://safepdfs.com/blog/jpg-to-pdf-converter-free</loc>
     <lastmod>2026-03-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/blog/how-to-edit-pdf-online-free</loc>
+    <loc>https://safepdfs.com/blog/how-to-edit-pdf-online-free</loc>
     <lastmod>2026-03-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/blog/how-to-organize-pdf-pages</loc>
+    <loc>https://safepdfs.com/blog/how-to-organize-pdf-pages</loc>
     <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/blog/how-to-rotate-pdf-pages-online</loc>
+    <loc>https://safepdfs.com/blog/how-to-rotate-pdf-pages-online</loc>
     <lastmod>2026-03-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/blog/how-to-unlock-pdf-without-password</loc>
+    <loc>https://safepdfs.com/blog/how-to-unlock-pdf-without-password</loc>
     <lastmod>2026-03-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/blog/how-to-sign-pdf-online-free</loc>
+    <loc>https://safepdfs.com/blog/how-to-sign-pdf-online-free</loc>
     <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/blog/how-to-protect-pdf-with-password-securely</loc>
+    <loc>https://safepdfs.com/blog/how-to-protect-pdf-with-password-securely</loc>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://safepdf.site/blog/pdf-to-jpg-converter-online</loc>
+    <loc>https://safepdfs.com/blog/pdf-to-jpg-converter-online</loc>
     <lastmod>2026-03-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

@@ -86,15 +86,15 @@ const Merge = () => {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "Merge PDF", "item": "https://safepdf.site/merge" }
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdfs.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Merge PDF", "item": "https://safepdfs.com/merge" }
             ]
         },
         {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Merge PDF Files Online Free | Combine PDFs Instantly",
-            "url": "https://safepdf.site/merge"
+            "url": "https://safepdfs.com/merge"
         }
     ];
 

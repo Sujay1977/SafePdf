@@ -9,7 +9,7 @@ const faqSchema = {
         {
             "@type": "Question",
             "name": "How do I convert a JPG image to PDF for free?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's JPG to PDF tool at safepdf.site/jpg-to-pdf. Upload one or more JPG images, arrange their order if needed, then click Convert. Download your PDF instantly — free, no account required." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's JPG to PDF tool at safepdfs.com/jpg-to-pdf. Upload one or more JPG images, arrange their order if needed, then click Convert. Download your PDF instantly — free, no account required." }
         },
         {
             "@type": "Question",
@@ -90,7 +90,7 @@ export default function JPGToPDFGuide() {
                 </li>
             </ol>
             <p>
-                <strong>Try SafePDF's JPG to PDF converter now — free, secure, no uploads.</strong> Visit <Link to="/jpg-to-pdf">safepdf.site/jpg-to-pdf</Link>.
+                <strong>Try SafePDF's JPG to PDF converter now — free, secure, no uploads.</strong> Visit <Link to="/jpg-to-pdf">safepdfs.com/jpg-to-pdf</Link>.
             </p>
 
             <h2>Best Use Cases for JPG to PDF Conversion</h2>
@@ -173,7 +173,7 @@ export default function JPGToPDFGuide() {
 
             <h3>How do I convert a JPG to PDF for free?</h3>
             <p>
-                Go to <Link to="/jpg-to-pdf">safepdf.site/jpg-to-pdf</Link>, upload your JPG images, click Convert,
+                Go to <Link to="/jpg-to-pdf">safepdfs.com/jpg-to-pdf</Link>, upload your JPG images, click Convert,
                 and download your PDF. Free forever, no account needed.
             </p>
 

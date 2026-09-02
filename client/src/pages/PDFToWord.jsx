@@ -63,15 +63,15 @@ const PDFToWord = () => {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "PDF to Word", "item": "https://safepdf.site/pdf-to-word" }
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdfs.com/" },
+                { "@type": "ListItem", "position": 2, "name": "PDF to Word", "item": "https://safepdfs.com/pdf-to-word" }
             ]
         },
         {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Convert PDF to Word Online Free | SafePDF",
-            "url": "https://safepdf.site/pdf-to-word"
+            "url": "https://safepdfs.com/pdf-to-word"
         }
     ];
 

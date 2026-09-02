@@ -9,7 +9,7 @@ const faqSchema = {
         {
             "@type": "Question",
             "name": "How do I protect a PDF with a password online for free?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Go to safepdf.site/protect, upload your PDF, enter a password, confirm it, and click 'Protect PDF'. The encrypted PDF downloads instantly — free, no account, no uploads." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Go to safepdfs.com/protect, upload your PDF, enter a password, confirm it, and click 'Protect PDF'. The encrypted PDF downloads instantly — free, no account, no uploads." }
         },
         {
             "@type": "Question",
@@ -96,7 +96,7 @@ export default function ProtectPDFSecureGuide() {
                 </li>
             </ol>
             <p>
-                <strong>Try SafePDF's Protect PDF tool now — free, secure, no uploads.</strong> Visit <Link to="/protect">safepdf.site/protect</Link>.
+                <strong>Try SafePDF's Protect PDF tool now — free, secure, no uploads.</strong> Visit <Link to="/protect">safepdfs.com/protect</Link>.
             </p>
 
             <h2>Creating a Truly Strong PDF Password</h2>
@@ -185,7 +185,7 @@ export default function ProtectPDFSecureGuide() {
 
             <h3>How do I protect a PDF with a password online for free?</h3>
             <p>
-                Go to <Link to="/protect">safepdf.site/protect</Link>, upload your PDF, enter and confirm a strong password, then download the encrypted file. Free, no account.
+                Go to <Link to="/protect">safepdfs.com/protect</Link>, upload your PDF, enter and confirm a strong password, then download the encrypted file. Free, no account.
             </p>
 
             <h3>Does SafePDF store my PDF password?</h3>

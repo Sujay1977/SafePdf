@@ -117,15 +117,15 @@ const Rotate = () => {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "Rotate PDF", "item": "https://safepdf.site/rotate" }
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdfs.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Rotate PDF", "item": "https://safepdfs.com/rotate" }
             ]
         },
         {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Rotate PDF Pages Online Free | Delete & Straighten Files",
-            "url": "https://safepdf.site/rotate"
+            "url": "https://safepdfs.com/rotate"
         }
     ];
 

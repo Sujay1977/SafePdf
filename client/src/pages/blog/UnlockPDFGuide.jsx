@@ -9,7 +9,7 @@ const faqSchema = {
         {
             "@type": "Question",
             "name": "How do I unlock a PDF online for free?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's Unlock PDF tool at safepdf.site/unlock. Upload your password-protected PDF, enter the password if required, and click Unlock. Your unlocked PDF downloads instantly — free, no account needed." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's Unlock PDF tool at safepdfs.com/unlock. Upload your password-protected PDF, enter the password if required, and click Unlock. Your unlocked PDF downloads instantly — free, no account needed." }
         },
         {
             "@type": "Question",
@@ -98,7 +98,7 @@ export default function UnlockPDFGuide() {
                 </li>
             </ol>
             <p>
-                <strong>Try SafePDF's Unlock PDF tool now — free, secure, no uploads.</strong> Visit <Link to="/unlock">safepdf.site/unlock</Link>.
+                <strong>Try SafePDF's Unlock PDF tool now — free, secure, no uploads.</strong> Visit <Link to="/unlock">safepdfs.com/unlock</Link>.
             </p>
 
             <h2>Legal and Ethical Considerations</h2>
@@ -160,7 +160,7 @@ export default function UnlockPDFGuide() {
 
             <h3>How do I unlock a PDF online for free?</h3>
             <p>
-                Go to <Link to="/unlock">safepdf.site/unlock</Link>, upload your locked PDF, enter the password if known, and click Unlock.
+                Go to <Link to="/unlock">safepdfs.com/unlock</Link>, upload your locked PDF, enter the password if known, and click Unlock.
                 Your unlocked PDF downloads instantly.
             </p>
 

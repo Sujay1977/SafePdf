@@ -130,12 +130,12 @@ const blogIndexSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
     "name": "SafePDF Blog",
-    "url": "https://safepdf.site/blog",
+    "url": "https://safepdfs.com/blog",
     "description": "PDF guides, tutorials, and tips from SafePDF — the free, private, browser-based PDF tool.",
     "publisher": {
         "@type": "Organization",
         "name": "SafePDF",
-        "url": "https://safepdf.site"
+        "url": "https://safepdfs.com"
     }
 };
 

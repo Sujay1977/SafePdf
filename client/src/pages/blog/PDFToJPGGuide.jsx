@@ -9,7 +9,7 @@ const faqSchema = {
         {
             "@type": "Question",
             "name": "How do I convert a PDF to JPG online for free?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Go to safepdf.site/pdf-to-jpg, upload your PDF, select the pages you want to convert, and click Convert. Each page is extracted as a high-quality JPG image and you can download them individually or as a ZIP archive." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Go to safepdfs.com/pdf-to-jpg, upload your PDF, select the pages you want to convert, and click Convert. Each page is extracted as a high-quality JPG image and you can download them individually or as a ZIP archive." }
         },
         {
             "@type": "Question",
@@ -93,7 +93,7 @@ export default function PDFToJPGGuide() {
                 </li>
             </ol>
             <p>
-                <strong>Try SafePDF's PDF to JPG converter now — free, secure, no uploads.</strong> Visit <Link to="/pdf-to-jpg">safepdf.site/pdf-to-jpg</Link>.
+                <strong>Try SafePDF's PDF to JPG converter now — free, secure, no uploads.</strong> Visit <Link to="/pdf-to-jpg">safepdfs.com/pdf-to-jpg</Link>.
             </p>
 
             <h2>PDF to JPG vs PDF to PNG: Which Should You Choose?</h2>
@@ -211,7 +211,7 @@ export default function PDFToJPGGuide() {
 
             <h3>How do I convert PDF to JPG for free online?</h3>
             <p>
-                Go to <Link to="/pdf-to-jpg">safepdf.site/pdf-to-jpg</Link>, upload your PDF, select pages, click Convert,
+                Go to <Link to="/pdf-to-jpg">safepdfs.com/pdf-to-jpg</Link>, upload your PDF, select pages, click Convert,
                 and download the JPG images. Free, no account.
             </p>
 

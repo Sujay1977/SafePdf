@@ -67,15 +67,15 @@ const Compress = () => {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "Compress PDF", "item": "https://safepdf.site/compress" }
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdfs.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Compress PDF", "item": "https://safepdfs.com/compress" }
             ]
         },
         {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Compress PDF Online Free | Reduce PDF Size Without Losing Quality",
-            "url": "https://safepdf.site/compress"
+            "url": "https://safepdfs.com/compress"
         }
     ];
 

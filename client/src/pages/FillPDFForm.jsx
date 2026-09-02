@@ -167,8 +167,8 @@ const FillPDFForm = () => {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "Fill PDF Form", "item": "https://safepdf.site/fill-pdf-form" }
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdfs.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Fill PDF Form", "item": "https://safepdfs.com/fill-pdf-form" }
             ]
         }
     ];

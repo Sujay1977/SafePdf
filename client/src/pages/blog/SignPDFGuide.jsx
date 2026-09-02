@@ -9,7 +9,7 @@ const faqSchema = {
         {
             "@type": "Question",
             "name": "How do I sign a PDF online for free?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's Sign PDF tool at safepdf.site/sign. Upload your PDF, add your signature by drawing, typing, or uploading an image, position it on the page, then download the signed PDF — free, no account needed." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's Sign PDF tool at safepdfs.com/sign. Upload your PDF, add your signature by drawing, typing, or uploading an image, position it on the page, then download the signed PDF — free, no account needed." }
         },
         {
             "@type": "Question",
@@ -115,7 +115,7 @@ export default function SignPDFGuide() {
                 </li>
             </ol>
             <p>
-                <strong>Try SafePDF's Sign PDF tool now — free, secure, no uploads.</strong> Visit <Link to="/sign">safepdf.site/sign</Link>.
+                <strong>Try SafePDF's Sign PDF tool now — free, secure, no uploads.</strong> Visit <Link to="/sign">safepdfs.com/sign</Link>.
             </p>
 
             <h2>When to Use Digital PDF Signing</h2>
@@ -195,7 +195,7 @@ export default function SignPDFGuide() {
 
             <h3>How do I sign a PDF online for free?</h3>
             <p>
-                Go to <Link to="/sign">safepdf.site/sign</Link>, upload your PDF, draw or type your signature, position it, and download the signed document — free, no account.
+                Go to <Link to="/sign">safepdfs.com/sign</Link>, upload your PDF, draw or type your signature, position it, and download the signed document — free, no account.
             </p>
 
             <h3>Is a PDF signature from SafePDF legally valid?</h3>

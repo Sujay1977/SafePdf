@@ -126,15 +126,15 @@ const Split = () => {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "Split PDF", "item": "https://safepdf.site/split" }
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdfs.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Split PDF", "item": "https://safepdfs.com/split" }
             ]
         },
         {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Split PDF Online Free | Extract Pages Easily",
-            "url": "https://safepdf.site/split"
+            "url": "https://safepdfs.com/split"
         }
     ];
 

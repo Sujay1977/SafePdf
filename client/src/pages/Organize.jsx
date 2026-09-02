@@ -96,15 +96,15 @@ const Organize = () => {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "Organize PDF", "item": "https://safepdf.site/organize" }
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdfs.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Organize PDF", "item": "https://safepdfs.com/organize" }
             ]
         },
         {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Organize PDF Pages Online Free | Sort, Delete, Reorder",
-            "url": "https://safepdf.site/organize"
+            "url": "https://safepdfs.com/organize"
         }
     ];
 

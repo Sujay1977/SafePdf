@@ -9,7 +9,7 @@ const faqSchema = {
         {
             "@type": "Question",
             "name": "How do I convert a PDF to Word for free?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's PDF to Word tool at safepdf.site/pdf-to-word. Upload your PDF, click Convert, and download the .docx file. It's free, requires no account, and processes everything in your browser." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's PDF to Word tool at safepdfs.com/pdf-to-word. Upload your PDF, click Convert, and download the .docx file. It's free, requires no account, and processes everything in your browser." }
         },
         {
             "@type": "Question",
@@ -95,7 +95,7 @@ export default function PDFToWordGuide() {
             </ol>
             <p>
                 <strong>Try SafePDF's PDF to Word converter now — free, secure, no uploads.</strong> Go to{' '}
-                <Link to="/pdf-to-word">safepdf.site/pdf-to-word</Link>.
+                <Link to="/pdf-to-word">safepdfs.com/pdf-to-word</Link>.
             </p>
 
             <h2>What Types of PDFs Convert Best?</h2>
@@ -182,7 +182,7 @@ export default function PDFToWordGuide() {
 
             <h3>How do I convert PDF to Word for free?</h3>
             <p>
-                Go to <Link to="/pdf-to-word">safepdf.site/pdf-to-word</Link>, upload your PDF, click Convert, and download the .docx file.
+                Go to <Link to="/pdf-to-word">safepdfs.com/pdf-to-word</Link>, upload your PDF, click Convert, and download the .docx file.
                 It's completely free with no account required.
             </p>
 

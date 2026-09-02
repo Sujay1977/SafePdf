@@ -9,7 +9,7 @@ const faqSchema = {
         {
             "@type": "Question",
             "name": "How do I split a PDF online for free?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's Split PDF tool at safepdf.site/split. Upload your PDF, select the pages you want to extract by clicking their thumbnails, then click 'Extract Pages'. Your new PDF downloads instantly — no upload, no account needed." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's Split PDF tool at safepdfs.com/split. Upload your PDF, select the pages you want to extract by clicking their thumbnails, then click 'Extract Pages'. Your new PDF downloads instantly — no upload, no account needed." }
         },
         {
             "@type": "Question",
@@ -92,7 +92,7 @@ export default function SplitPDFGuide() {
                 </li>
             </ol>
             <p>
-                <strong>Try SafePDF's Split PDF now — free, secure, no uploads.</strong> Visit <Link to="/split">safepdf.site/split</Link>.
+                <strong>Try SafePDF's Split PDF now — free, secure, no uploads.</strong> Visit <Link to="/split">safepdfs.com/split</Link>.
             </p>
 
             <h2>When Should You Split a PDF?</h2>
@@ -155,7 +155,7 @@ export default function SplitPDFGuide() {
 
             <h3>How to Split a PDF on iPhone or Android</h3>
             <p>
-                SafePDF works on mobile browsers too. On iOS, open Safari and navigate to <Link to="/split">safepdf.site/split</Link>.
+                SafePDF works on mobile browsers too. On iOS, open Safari and navigate to <Link to="/split">safepdfs.com/split</Link>.
                 On Android, use Chrome or Firefox. The page thumbnails render on mobile, and you can tap to select pages and extract them.
             </p>
 

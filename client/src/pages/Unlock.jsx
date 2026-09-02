@@ -78,15 +78,15 @@ const Unlock = () => {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "Unlock PDF", "item": "https://safepdf.site/unlock" }
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdfs.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Unlock PDF", "item": "https://safepdfs.com/unlock" }
             ]
         },
         {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Unlock PDF Online Free | Remove PDF Passwords Securely",
-            "url": "https://safepdf.site/unlock"
+            "url": "https://safepdfs.com/unlock"
         }
     ];
 

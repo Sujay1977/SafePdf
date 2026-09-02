@@ -1,4 +1,4 @@
-﻿import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 import { pdfsToZip } from "../utils/pdf";
 import { saveAs } from "file-saver";
@@ -136,15 +136,15 @@ const PDFToZip = () => {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "PDF to ZIP", "item": "https://safepdf.site/pdf-to-zip" },
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdfs.com/" },
+                { "@type": "ListItem", "position": 2, "name": "PDF to ZIP", "item": "https://safepdfs.com/pdf-to-zip" },
             ],
         },
         {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "PDF to ZIP Online Free | Compress PDFs into ZIP Archive",
-            "url": "https://safepdf.site/pdf-to-zip",
+            "url": "https://safepdfs.com/pdf-to-zip",
         },
     ];
 

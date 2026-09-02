@@ -9,7 +9,7 @@ const faqSchema = {
         {
             "@type": "Question",
             "name": "How do I rotate pages in a PDF online for free?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's Rotate PDF tool at safepdf.site/rotate. Upload your PDF, select the pages to rotate and the direction (90°, 180°, or 270°), then download the corrected PDF — free, no account needed." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Use SafePDF's Rotate PDF tool at safepdfs.com/rotate. Upload your PDF, select the pages to rotate and the direction (90°, 180°, or 270°), then download the corrected PDF — free, no account needed." }
         },
         {
             "@type": "Question",
@@ -92,7 +92,7 @@ export default function RotatePDFGuide() {
                 </li>
             </ol>
             <p>
-                <strong>Try SafePDF's Rotate PDF tool now — free, secure, no uploads.</strong> Visit <Link to="/rotate">safepdf.site/rotate</Link>.
+                <strong>Try SafePDF's Rotate PDF tool now — free, secure, no uploads.</strong> Visit <Link to="/rotate">safepdfs.com/rotate</Link>.
             </p>
 
             <h2>Rotating Specific Pages vs. All Pages</h2>
@@ -163,7 +163,7 @@ export default function RotatePDFGuide() {
 
             <h3>How do I rotate pages in a PDF online for free?</h3>
             <p>
-                Go to <Link to="/rotate">safepdf.site/rotate</Link>, upload your PDF, select the pages to rotate, choose the direction, and download.
+                Go to <Link to="/rotate">safepdfs.com/rotate</Link>, upload your PDF, select the pages to rotate, choose the direction, and download.
                 Free, instant, no account needed.
             </p>
 

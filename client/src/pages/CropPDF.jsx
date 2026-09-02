@@ -1,4 +1,4 @@
-﻿import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { cropResizePDF } from "../utils/pdf";
 import { saveAs } from "file-saver";
@@ -230,8 +230,8 @@ const CropPDF = () => {
             "@context": "https://schema.org",
             "@type":    "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home",         "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "Crop PDF", "item": "https://safepdf.site/crop-pdf" }
+                { "@type": "ListItem", "position": 1, "name": "Home",         "item": "https://safepdfs.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Crop PDF", "item": "https://safepdfs.com/crop-pdf" }
             ]
         }
     ];

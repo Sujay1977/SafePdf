@@ -72,15 +72,15 @@ const JPGToPDF = () => {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "JPG to PDF", "item": "https://safepdf.site/jpg-to-pdf" }
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdfs.com/" },
+                { "@type": "ListItem", "position": 2, "name": "JPG to PDF", "item": "https://safepdfs.com/jpg-to-pdf" }
             ]
         },
         {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Convert JPG to PDF Online Free | Secure Image Converter",
-            "url": "https://safepdf.site/jpg-to-pdf"
+            "url": "https://safepdfs.com/jpg-to-pdf"
         }
     ];
 

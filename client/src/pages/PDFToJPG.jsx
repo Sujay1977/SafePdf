@@ -63,15 +63,15 @@ const PDFToJPG = () => {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-                { "@type": "ListItem", "position": 2, "name": "PDF to JPG", "item": "https://safepdf.site/pdf-to-jpg" }
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdfs.com/" },
+                { "@type": "ListItem", "position": 2, "name": "PDF to JPG", "item": "https://safepdfs.com/pdf-to-jpg" }
             ]
         },
         {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Convert PDF to JPG Online Free | Extract High-Quality Images",
-            "url": "https://safepdf.site/pdf-to-jpg"
+            "url": "https://safepdfs.com/pdf-to-jpg"
         }
     ];
 

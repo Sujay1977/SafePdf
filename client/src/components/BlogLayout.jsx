@@ -33,16 +33,16 @@ export default function BlogLayout({
         "publisher": {
             "@type": "Organization",
             "name": "SafePDF",
-            "url": "https://safepdf.site",
+            "url": "https://safepdfs.com",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://safepdf.site/logo.png"
+                "url": "https://safepdfs.com/logo.png"
             }
         },
-        "url": `https://safepdf.site/blog/${slug}`,
+        "url": `https://safepdfs.com/blog/${slug}`,
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": `https://safepdf.site/blog/${slug}`
+            "@id": `https://safepdfs.com/blog/${slug}`
         }
     };
 
@@ -50,9 +50,9 @@ export default function BlogLayout({
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdf.site/" },
-            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://safepdf.site/blog" },
-            { "@type": "ListItem", "position": 3, "name": title, "item": `https://safepdf.site/blog/${slug}` }
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safepdfs.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://safepdfs.com/blog" },
+            { "@type": "ListItem", "position": 3, "name": title, "item": `https://safepdfs.com/blog/${slug}` }
         ]
     };
 

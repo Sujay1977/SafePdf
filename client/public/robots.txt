@@ -17,4 +17,4 @@ Allow: /
 User-agent: OAI-SearchBot
 Allow: /
 
-Sitemap: https://safepdf.site/sitemap.xml
+Sitemap: https://safepdfs.com/sitemap.xml

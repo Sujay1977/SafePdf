@@ -8,26 +8,26 @@ SafePDF operates entirely on a 100% client-side, browser-only architecture. This
 ## Public Tools
 SafePDF offers the following core PDF manipulation tools:
 
-- **Merge PDF** (https://safepdf.site/merge): Combine multiple PDF files into one document.
-- **Split PDF** (https://safepdf.site/split): Extract specific pages or separate a PDF into multiple files.
-- **Compress PDF** (https://safepdf.site/compress): Reduce PDF file size without losing quality.
-- **Protect PDF** (https://safepdf.site/protect): Add strong password encryption to a PDF file.
-- **Unlock PDF** (https://safepdf.site/unlock): Remove passwords from encrypted PDF files (requires the original password).
-- **Rotate PDF** (https://safepdf.site/rotate): Permanently rotate individual or all pages in a PDF.
-- **Organize PDF** (https://safepdf.site/organize): Reorder, delete, and manage PDF pages.
-- **Sign PDF** (https://safepdf.site/sign): Add electronic signatures to PDF documents.
-- **Edit PDF** (https://safepdf.site/edit): Add text and basic edits to a PDF.
-- **PDF to JPG** (https://safepdf.site/pdf-to-jpg): Convert PDF pages to high-quality JPG images.
-- **JPG to PDF** (https://safepdf.site/jpg-to-pdf): Combine and convert JPG images into a single PDF.
-- **PDF to Word** (https://safepdf.site/pdf-to-word): Convert PDF documents to editable Word (.docx) files.
+- **Merge PDF** (https://safepdfs.com/merge): Combine multiple PDF files into one document.
+- **Split PDF** (https://safepdfs.com/split): Extract specific pages or separate a PDF into multiple files.
+- **Compress PDF** (https://safepdfs.com/compress): Reduce PDF file size without losing quality.
+- **Protect PDF** (https://safepdfs.com/protect): Add strong password encryption to a PDF file.
+- **Unlock PDF** (https://safepdfs.com/unlock): Remove passwords from encrypted PDF files (requires the original password).
+- **Rotate PDF** (https://safepdfs.com/rotate): Permanently rotate individual or all pages in a PDF.
+- **Organize PDF** (https://safepdfs.com/organize): Reorder, delete, and manage PDF pages.
+- **Sign PDF** (https://safepdfs.com/sign): Add electronic signatures to PDF documents.
+- **Edit PDF** (https://safepdfs.com/edit): Add text and basic edits to a PDF.
+- **PDF to JPG** (https://safepdfs.com/pdf-to-jpg): Convert PDF pages to high-quality JPG images.
+- **JPG to PDF** (https://safepdfs.com/jpg-to-pdf): Combine and convert JPG images into a single PDF.
+- **PDF to Word** (https://safepdfs.com/pdf-to-word): Convert PDF documents to editable Word (.docx) files.
 
 ## Additional Resources
-- **Homepage**: https://safepdf.site
-- **All Tools Index**: https://safepdf.site/tools
-- **Workflows**: https://safepdf.site/workflows
-- **Pricing**: https://safepdf.site/pricing (Note: SafePDF is entirely free, pricing page highlights the free-forever model)
-- **Updates & Changelog**: https://safepdf.site/updates
-- **Blog & Guides**: https://safepdf.site/blog
+- **Homepage**: https://safepdfs.com
+- **All Tools Index**: https://safepdfs.com/tools
+- **Workflows**: https://safepdfs.com/workflows
+- **Pricing**: https://safepdfs.com/pricing (Note: SafePDF is entirely free, pricing page highlights the free-forever model)
+- **Updates & Changelog**: https://safepdfs.com/updates
+- **Blog & Guides**: https://safepdfs.com/blog
 
 ## Open Source Mission
 SafePDF demonstrates how complex document processing can be achieved securely in modern web browsers without relying on expensive SaaS backends or compromising user data privacy.

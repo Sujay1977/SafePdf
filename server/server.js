@@ -18,7 +18,7 @@ app.use(helmet());
 
 // ─── CORS — restricted to known origins, NO wildcards ────────────────
 const ALLOWED_ORIGINS = IS_PROD
-    ? ['https://safepdf.site', 'https://www.safepdf.site']
+    ? ['https://safepdfs.com', 'https://www.safepdfs.com']
     : ['http://localhost:5173', 'http://127.0.0.1:5173'];
 
 app.use(cors({
