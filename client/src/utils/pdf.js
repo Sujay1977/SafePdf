@@ -446,26 +446,107 @@ export const mergePDFs = async (files) => {
     return new Blob([pdfBytes], { type: 'application/pdf' });
 };
 
-export const protectPDF = async (file, password) => {
-    const arrayBuffer = await file.arrayBuffer();
-    const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+/**
+ * Detect if a PDF contains a digital signature (ISO 32000-1 / ISO 32000-2).
+ * Re-encrypting/re-serializing a signed document invalidates its cryptographic hash.
+ */
+export const hasDigitalSignature = async (fileOrBuffer) => {
+    try {
+        let buffer;
+        if (fileOrBuffer instanceof ArrayBuffer) {
+            buffer = fileOrBuffer;
+        } else if (fileOrBuffer && typeof fileOrBuffer.arrayBuffer === 'function') {
+            buffer = await fileOrBuffer.arrayBuffer();
+        } else if (fileOrBuffer && fileOrBuffer.buffer instanceof ArrayBuffer) {
+            buffer = fileOrBuffer.buffer;
+        }
+        if (!buffer || buffer.byteLength < 50) return false;
 
-    pdfDoc.encrypt({
-        userPassword: password,
-        ownerPassword: password,
-        permissions: {
-            printing: 'highResolution',
-            modifying: false,
-            copying: false,
-            annotating: false,
-            fillingForms: false,
-            contentAccessibility: false,
-            documentAssembly: false,
-        },
-    });
+        const uint8 = new Uint8Array(buffer);
+        const text = new TextDecoder('latin1').decode(uint8);
+        return /\/Type\s*\/Sig\b/.test(text) ||
+               /\/Type\s*\/DocTimeStamp\b/.test(text) ||
+               /\/ByteRange\s*\[/.test(text);
+    } catch {
+        return false;
+    }
+};
 
-    const pdfBytes = await pdfDoc.save();
-    return new Blob([pdfBytes], { type: 'application/pdf' });
+/**
+ * Protect a PDF using ISO 32000-2 AES-256 standard encryption.
+ * The entered password is set as the document-open (user) password.
+ * Processing is 100% client-side; passwords are never persisted or transmitted.
+ *
+ * @param {File|Blob|ArrayBuffer|Uint8Array} file - The source PDF
+ * @param {string} password - Document open password
+ * @param {Object} [options] - Additional encryption options
+ * @returns {Promise<Blob>} - Protected PDF as a Blob
+ */
+export const protectPDF = async (file, password, options = {}) => {
+    if (!file) {
+        throw createTypedError('No PDF file provided.', 'INVALID_INPUT');
+    }
+    if (!password || typeof password !== 'string') {
+        throw createTypedError('A non-empty password is required to protect this PDF.', 'INVALID_PASSWORD');
+    }
+
+    // Ensure Web Crypto API is available (requires modern browser & secure HTTPS origin)
+    if (typeof globalThis === 'undefined' || !globalThis.crypto || !globalThis.crypto.subtle) {
+        throw createTypedError(
+            'Secure client-side encryption (Web Crypto AES-256) is unavailable. Please access SafePDF via HTTPS or use a modern supported browser.',
+            'UNSUPPORTED_ENVIRONMENT'
+        );
+    }
+
+    let arrayBuffer;
+    if (file instanceof ArrayBuffer) {
+        arrayBuffer = file;
+    } else if (file.buffer instanceof ArrayBuffer && file.byteLength !== undefined) {
+        arrayBuffer = file.buffer.slice(file.byteOffset, file.byteOffset + file.byteLength);
+    } else if (typeof file.arrayBuffer === 'function') {
+        arrayBuffer = await file.arrayBuffer();
+    } else {
+        throw createTypedError('Invalid file input for PDF protection.', 'INVALID_INPUT');
+    }
+
+    // Check if the document is already encrypted
+    // pdf-lib flags pdfDoc.isEncrypted even when ignoreEncryption: true
+    try {
+        const checkDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true, updateMetadata: false });
+        if (checkDoc.isEncrypted) {
+            throw createTypedError(
+                'This PDF is already password-protected. Unlock it first before applying a new password.',
+                'ALREADY_ENCRYPTED'
+            );
+        }
+    } catch (loadErr) {
+        if (loadErr.code === 'ALREADY_ENCRYPTED') throw loadErr;
+        if (loadErr.message && /encrypted/i.test(loadErr.message)) {
+            throw createTypedError(
+                'This PDF is already password-protected. Unlock it first before applying a new password.',
+                'ALREADY_ENCRYPTED'
+            );
+        }
+    }
+
+    // Dynamically import @pdfsmaller/pdf-encrypt to keep the encryption module out of the critical bundle
+    const { encryptPDF, AlreadyEncryptedError } = await import('@pdfsmaller/pdf-encrypt');
+
+    try {
+        const encryptedBytes = await encryptPDF(new Uint8Array(arrayBuffer), password, {
+            algorithm: 'AES-256',
+            ...options
+        });
+        return new Blob([encryptedBytes], { type: 'application/pdf' });
+    } catch (err) {
+        if (err instanceof AlreadyEncryptedError || err.code === 'ALREADY_ENCRYPTED') {
+            throw createTypedError(
+                'This PDF is already password-protected. Unlock it first before applying a new password.',
+                'ALREADY_ENCRYPTED'
+            );
+        }
+        throw err;
+    }
 };
 
 // ─── Error Helper ────────────────────────────────────────────────────

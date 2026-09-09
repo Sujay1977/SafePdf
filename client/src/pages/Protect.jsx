@@ -1,9 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { protectPDF } from '../utils/pdf';
+import { protectPDF, hasDigitalSignature } from '../utils/pdf';
 import { saveAs } from 'file-saver';
-import { Trash2, FileUp, ArrowRight, Loader2, Link, Shield, Lock } from 'lucide-react';
-import ClientOnly from '../components/ClientOnly';
+import { Trash2, ArrowRight, Loader2, Shield, Lock, AlertTriangle } from 'lucide-react';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
@@ -15,10 +14,16 @@ const Protect = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isProcessing, setIsProcessing] = useState(false);
+    const [isSigned, setIsSigned] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const onDrop = useCallback((acceptedFiles) => {
+    const onDrop = useCallback(async (acceptedFiles) => {
         if (acceptedFiles?.length > 0) {
-            setFile(acceptedFiles[0]);
+            const selectedFile = acceptedFiles[0];
+            setFile(selectedFile);
+            setErrorMessage('');
+            const signed = await hasDigitalSignature(selectedFile);
+            setIsSigned(signed);
         }
     }, []);
 
@@ -28,22 +33,34 @@ const Protect = () => {
         multiple: false
     });
 
+    const handleClearFile = () => {
+        setFile(null);
+        setIsSigned(false);
+        setErrorMessage('');
+        setPassword('');
+        setConfirmPassword('');
+    };
+
     const handleProtect = async () => {
         if (!file || !password) return;
         if (password !== confirmPassword) {
-            alert("Passwords do not match");
+            setErrorMessage("Passwords do not match");
             return;
         }
 
+        setErrorMessage('');
         setIsProcessing(true);
         try {
             const protectedBlob = await protectPDF(file, password);
             saveAs(protectedBlob, `protected_${file.name}`);
         } catch (error) {
             console.error("Protection failed", error);
-            alert("Failed to protect PDF");
+            const msg = error.message || "Failed to protect PDF";
+            setErrorMessage(msg);
+            alert(msg);
+        } finally {
+            setIsProcessing(false);
         }
-        setIsProcessing(false);
     };
 
     const protectFaqSchema = {
@@ -114,7 +131,7 @@ const Protect = () => {
                         </div>
                     ) : (
                         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-8 flex flex-col items-center gap-6 aspect-square justify-center relative">
-                            <button onClick={() => setFile(null)} className="absolute top-4 right-4 text-slate-400 hover:text-red-500 transition-colors">
+                            <button onClick={handleClearFile} className="absolute top-4 right-4 text-slate-400 hover:text-red-500 transition-colors" aria-label="Remove selected PDF">
                                 <Trash2 size={20} />
                             </button>
                             <div className="size-20 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center text-primary">
@@ -124,6 +141,12 @@ const Protect = () => {
                                 <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2 break-all">{file.name}</h2>
                                 <p className="text-slate-500 dark:text-slate-400">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                             </div>
+                            {isSigned && (
+                                <div className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40 text-amber-800 dark:text-amber-300 text-xs text-left">
+                                    <AlertTriangle className="shrink-0 mt-0.5" size={16} />
+                                    <span>This PDF contains a digital signature. Password-protecting it will invalidate the existing signature.</span>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
@@ -144,7 +167,7 @@ const Protect = () => {
                                     aria-label="Enter password for PDF"
                                     type="password"
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={(e) => { setPassword(e.target.value); setErrorMessage(''); }}
                                     placeholder="Enter password"
                                     className="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-transparent dark:text-white focus:ring-primary focus:border-primary"
                                 />
@@ -157,12 +180,18 @@ const Protect = () => {
                                     aria-label="Confirm password"
                                     type="password"
                                     value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    onChange={(e) => { setConfirmPassword(e.target.value); setErrorMessage(''); }}
                                     placeholder="Repeat password"
                                     className="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-transparent dark:text-white focus:ring-primary focus:border-primary"
                                 />
                             </div>
                         </div>
+
+                        {errorMessage && (
+                            <div className="p-3 rounded-xl bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800/40 text-red-700 dark:text-red-400 text-xs text-center font-medium">
+                                {errorMessage}
+                            </div>
+                        )}
 
                         <div className="mt-4">
                             <button
