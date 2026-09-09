@@ -1,4 +1,4 @@
-import { PDFDocument, rgb, degrees, StandardFonts, PDFTextField, PDFCheckBox, PDFRadioGroup, PDFDropdown, PDFOptionList } from 'pdf-lib';
+import { PDFDocument, PDFName, PDFNumber, PDFRawStream, rgb, degrees, StandardFonts, PDFTextField, PDFCheckBox, PDFRadioGroup, PDFDropdown, PDFOptionList } from 'pdf-lib';
 import * as pdfjsLib from 'pdfjs-dist';
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import { Document, Packer, Paragraph, TextRun } from "docx";
@@ -184,52 +184,192 @@ export const extractPages = async (file, pageIndices) => {
     return new Blob([pdfBytes], { type: 'application/pdf' });
 };
 
-export const compressPDF = async (file, qualityLevel = 'recommended') => {
-    const settings = {
-        extreme: { scale: 0.8, quality: 0.4 },
-        recommended: { scale: 1.0, quality: 0.7 },
-        less: { scale: 1.0, quality: 0.9 }
-    };
+// ─── Phase 1A: Quality-Preserving Client-Side PDF Compression ──────────────
+const decodeJpegBytesToImage = async (bytes) => {
+    const blob = new Blob([bytes], { type: 'image/jpeg' });
+    if (typeof createImageBitmap === 'function') {
+        try {
+            return await createImageBitmap(blob);
+        } catch {
+            // fallback to HTML Image below
+        }
+    }
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        const url = URL.createObjectURL(blob);
+        img.onload = () => {
+            URL.revokeObjectURL(url);
+            resolve(img);
+        };
+        img.onerror = (e) => {
+            URL.revokeObjectURL(url);
+            reject(e);
+        };
+        img.src = url;
+    });
+};
 
-    const { scale, quality } = settings[qualityLevel] || settings.recommended;
-    const arrayBuffer = await file.arrayBuffer();
-    const pdfToLoad = await getPDFDocument(file);
-    const numPages = pdfToLoad.numPages;
-
-    const newPdf = await PDFDocument.create();
-
-    for (let i = 1; i <= numPages; i++) {
-        const page = await pdfToLoad.getPage(i);
-        const viewport = page.getViewport({ scale });
-
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-
-        await page.render({
-            canvasContext: context,
-            viewport: viewport
-        }).promise;
-
-        const imgDataUrl = canvas.toDataURL('image/jpeg', quality);
-        const imgBytes = await fetch(imgDataUrl).then((res) => res.arrayBuffer());
-
-        const jpgImage = await newPdf.embedJpg(imgBytes);
-        const jpgDims = jpgImage.scale(1 / scale);
-
-        const newPage = newPdf.addPage([jpgDims.width * scale, jpgDims.height * scale]);
-        newPage.setSize(jpgDims.width, jpgDims.height);
-        newPage.drawImage(jpgImage, {
-            x: 0,
-            y: 0,
-            width: jpgDims.width,
-            height: jpgDims.height,
+const canvasToBlobBuffer = async (canvas, quality) => {
+    if (canvas.toBlob) {
+        const blob = await new Promise((resolve, reject) => {
+            canvas.toBlob((b) => {
+                if (b) resolve(b);
+                else reject(new Error('Canvas toBlob returned null'));
+            }, 'image/jpeg', quality);
         });
+        return new Uint8Array(await blob.arrayBuffer());
+    }
+    // Direct binary conversion fallback avoiding fetch()
+    const dataUrl = canvas.toDataURL('image/jpeg', quality);
+    const binStr = atob(dataUrl.split(',')[1]);
+    const u8 = new Uint8Array(binStr.length);
+    for (let i = 0; i < binStr.length; i++) {
+        u8[i] = binStr.charCodeAt(i);
+    }
+    return u8;
+};
+
+/**
+ * Compresses a PDF file using a quality-preserving, client-side strategy.
+ *
+ * ARCHITECTURAL PRINCIPLES:
+ * 1. Text & Vector Preservation: Content streams, vector paths, embedded fonts,
+ *    page geometry, links, forms, and annotations are NEVER flattened or rasterized.
+ * 2. Selective In-Place Resource Optimization: Targets embedded raster image XObjects
+ *    (/Subtype /Image with /DCTDecode filter), safely downsampling resolution and
+ *    optimizing JPEG quality in place without altering document layout.
+ * 3. Regression Guard: If the compressed result does not achieve measurable reduction
+ *    (or would inflate the file), returns the original buffer to eliminate file-size bloat.
+ * 4. Zero Base64 Overhead: Replaces toDataURL + fetch roundtrips with canvas.toBlob
+ *    and immediate memory buffer reclamation.
+ *
+ * @param {File|Blob} file
+ * @param {'less'|'recommended'|'extreme'} [qualityLevel='recommended']
+ * @returns {Promise<Blob>}
+ */
+export const compressPDF = async (file, qualityLevel = 'recommended') => {
+    let arrayBuffer;
+    try {
+        arrayBuffer = await file.arrayBuffer();
+    } catch {
+        throw makeError('Could not read the uploaded file.', 'LOAD_FAILED');
     }
 
-    const pdfBytes = await newPdf.save();
-    return new Blob([pdfBytes], { type: 'application/pdf' });
+    let pdfDoc;
+    try {
+        pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+    } catch {
+        throw makeError('Could not parse PDF document.', 'LOAD_FAILED');
+    }
+
+    const levelConfig = {
+        less:        { maxDimension: 1600, quality: 0.85, minSizeToCompress: 300 },
+        recommended: { maxDimension: 1200, quality: 0.75, minSizeToCompress: 200 },
+        extreme:     { maxDimension: 900,  quality: 0.60, minSizeToCompress: 150 }
+    };
+    const config = levelConfig[qualityLevel] || levelConfig.recommended;
+
+    let imagesOptimized = 0;
+    let rawBytesSaved = 0;
+
+    // ── Selective In-Place Image XObject Optimization ───────────────
+    for (const [, obj] of pdfDoc.context.enumerateIndirectObjects()) {
+        if (obj instanceof PDFRawStream) {
+            const subtype = obj.dict.get(PDFName.of('Subtype'));
+            if (subtype === PDFName.of('Image')) {
+                const filter = obj.dict.get(PDFName.of('Filter'))?.toString();
+                const colorSpace = obj.dict.get(PDFName.of('ColorSpace'))?.toString();
+                const smask = obj.dict.get(PDFName.of('SMask'));
+                const mask = obj.dict.get(PDFName.of('Mask'));
+                const imageMask = obj.dict.get(PDFName.of('ImageMask'));
+                const decode = obj.dict.get(PDFName.of('Decode'));
+                const bpc = obj.dict.get(PDFName.of('BitsPerComponent'))?.asNumber();
+
+                // Safety: Only recompress standalone DCTDecode (JPEG) images
+                if (filter !== '/DCTDecode') continue;
+                // Safety: Skip transparency masks & stencils (avoids alpha misalignment)
+                if (smask || mask || imageMask) continue;
+                // Safety: Skip custom decode arrays (avoids sample value inversion)
+                if (decode) continue;
+                // Safety: Skip CMYK and Indexed color spaces to prevent color distortion
+                if (colorSpace && (colorSpace.includes('CMYK') || colorSpace.includes('Indexed'))) continue;
+                // Safety: Only 8-bit components supported by standard canvas
+                if (bpc && bpc !== 8) continue;
+
+                const origW = obj.dict.get(PDFName.of('Width'))?.asNumber() || 0;
+                const origH = obj.dict.get(PDFName.of('Height'))?.asNumber() || 0;
+
+                // Safety: Skip small graphics, logos, icons (< minSizeToCompress)
+                if (origW < config.minSizeToCompress && origH < config.minSizeToCompress) continue;
+
+                try {
+                    const imgBitmap = await decodeJpegBytesToImage(obj.contents);
+
+                    let targetW = origW;
+                    let targetH = origH;
+                    const maxDim = Math.max(origW, origH);
+                    if (maxDim > config.maxDimension) {
+                        const ratio = config.maxDimension / maxDim;
+                        targetW = Math.round(origW * ratio);
+                        targetH = Math.round(origH * ratio);
+                    }
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = targetW;
+                    canvas.height = targetH;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(imgBitmap, 0, 0, targetW, targetH);
+
+                    if (typeof imgBitmap.close === 'function') {
+                        imgBitmap.close();
+                    }
+
+                    const newJpgBytes = await canvasToBlobBuffer(canvas, config.quality);
+
+                    // Immediate canvas memory release
+                    canvas.width = 0;
+                    canvas.height = 0;
+
+                    // Strict smaller check: only replace if new image actually reduces payload
+                    if (newJpgBytes.byteLength < obj.contents.length) {
+                        rawBytesSaved += (obj.contents.length - newJpgBytes.byteLength);
+                        obj.contents = newJpgBytes;
+                        obj.dict.set(PDFName.of('Width'), PDFNumber.of(targetW));
+                        obj.dict.set(PDFName.of('Height'), PDFNumber.of(targetH));
+                        obj.dict.set(PDFName.of('Length'), PDFNumber.of(newJpgBytes.byteLength));
+                        imagesOptimized++;
+                    }
+                } catch {
+                    // On decode error, preserve original image stream untouched
+                }
+            }
+        }
+    }
+
+    // ── Serialize with Object Stream Optimization ───────────────────
+    const optimizedBytes = await pdfDoc.save({ useObjectStreams: true });
+
+    // ── Regression Guard ────────────────────────────────────────────
+    // If no images were optimized and output is not smaller than original,
+    // or if the output grew larger (inflation), return original untouched buffer.
+    if (imagesOptimized === 0 && optimizedBytes.length >= arrayBuffer.byteLength * 0.98) {
+        const resultBlob = new Blob([arrayBuffer], { type: 'application/pdf' });
+        resultBlob.wasOptimized = false;
+        resultBlob.imagesOptimized = 0;
+        return resultBlob;
+    }
+
+    if (optimizedBytes.length >= arrayBuffer.byteLength) {
+        const resultBlob = new Blob([arrayBuffer], { type: 'application/pdf' });
+        resultBlob.wasOptimized = false;
+        resultBlob.imagesOptimized = 0;
+        return resultBlob;
+    }
+
+    const resultBlob = new Blob([optimizedBytes], { type: 'application/pdf' });
+    resultBlob.wasOptimized = true;
+    resultBlob.imagesOptimized = imagesOptimized;
+    return resultBlob;
 };
 
 export const convertPDFToWord = async (file) => {
