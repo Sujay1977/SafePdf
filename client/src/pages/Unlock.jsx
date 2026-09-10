@@ -1,10 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { unlockPDF } from '../utils/pdf';
+import { unlockPDF, hasDigitalSignature } from '../utils/pdf';
 import { saveAs } from 'file-saver';
-import { Trash2, FileUp, ArrowRight, Loader2, Link, Shield, Lock, Unlock as UnlockIcon } from 'lucide-react';
+import { Trash2, ArrowRight, Loader2, Shield, Unlock as UnlockIcon, AlertTriangle } from 'lucide-react';
 import clsx from 'clsx';
-import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import ToolHeroIcon from '../components/ToolHeroIcon';
 import SEO from '../components/SEO';
@@ -15,12 +14,16 @@ const Unlock = () => {
     const [file, setFile] = useState(null);
     const [password, setPassword] = useState('');
     const [isProcessing, setIsProcessing] = useState(false);
+    const [isSigned, setIsSigned] = useState(false);
     const [error, setError] = useState('');
 
-    const onDrop = useCallback((acceptedFiles) => {
+    const onDrop = useCallback(async (acceptedFiles) => {
         if (acceptedFiles?.length > 0) {
-            setFile(acceptedFiles[0]);
+            const selectedFile = acceptedFiles[0];
+            setFile(selectedFile);
             setError('');
+            const signed = await hasDigitalSignature(selectedFile);
+            setIsSigned(signed);
         }
     }, []);
 
@@ -29,6 +32,13 @@ const Unlock = () => {
         accept: { 'application/pdf': ['.pdf'] },
         multiple: false
     });
+
+    const handleClearFile = () => {
+        setFile(null);
+        setIsSigned(false);
+        setError('');
+        setPassword('');
+    };
 
     const handleUnlock = async () => {
         if (!file || !password.trim()) {
@@ -40,16 +50,16 @@ const Unlock = () => {
         try {
             const result = await unlockPDF(file, password.trim());
             saveAs(result.blob, `unlocked_${file.name}`);
-        } catch (error) {
-            console.error("Unlock failed", error);
+        } catch (err) {
+            console.error("Unlock failed", err);
             const messages = {
-                WRONG_PASSWORD: "The password you entered is incorrect.",
-                NOT_ENCRYPTED: "This PDF is not password-protected. No unlock needed.",
+                INCORRECT_PASSWORD: "Incorrect password. Please try again.",
+                WRONG_PASSWORD: "Incorrect password. Please try again.",
+                NOT_ENCRYPTED: "This PDF is not password-protected.",
                 CORRUPT_FILE: "This file appears to be damaged or is not a valid PDF.",
-                UNSUPPORTED_ENCRYPTION: "This encryption type is not supported in-browser.",
-                TOO_MANY_PAGES: "This PDF has too many pages for in-browser unlock. Try a shorter file.",
+                UNSUPPORTED_ENCRYPTION: "This PDF uses an encryption format that SafePDF cannot currently unlock losslessly in your browser.",
             };
-            setError(messages[error.code] || "Failed to unlock. Please verify the password and try again.");
+            setError(messages[err.code] || "Failed to unlock. Please verify the password and try again.");
         }
         setIsProcessing(false);
     };
@@ -122,7 +132,7 @@ const Unlock = () => {
                         </div>
                     ) : (
                         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-8 flex flex-col items-center gap-6 aspect-square justify-center relative">
-                            <button onClick={() => setFile(null)} className="absolute top-4 right-4 text-slate-400 hover:text-red-500 transition-colors">
+                            <button onClick={handleClearFile} className="absolute top-4 right-4 text-slate-400 hover:text-red-500 transition-colors" aria-label="Remove selected PDF">
                                 <Trash2 size={20} />
                             </button>
                             <div className="size-20 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center text-primary">
@@ -132,6 +142,12 @@ const Unlock = () => {
                                 <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2 break-all">{file.name}</h2>
                                 <p className="text-slate-500 dark:text-slate-400">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                             </div>
+                            {isSigned && (
+                                <div className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40 text-amber-800 dark:text-amber-300 text-xs text-left">
+                                    <AlertTriangle className="shrink-0 mt-0.5" size={16} />
+                                    <span>This PDF contains a digital signature. Unlocking it will invalidate the existing signature.</span>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
