@@ -68,6 +68,7 @@ const UnlockPDFGuide = safeLazy(() => import('./pages/blog/UnlockPDFGuide'));
 const SignPDFGuide = safeLazy(() => import('./pages/blog/SignPDFGuide'));
 const ProtectPDFSecureGuide = safeLazy(() => import('./pages/blog/ProtectPDFSecureGuide'));
 const PDFToJPGGuide = safeLazy(() => import('./pages/blog/PDFToJPGGuide'));
+const ShipNLaunchArticle = safeLazy(() => import('./pages/blog/ShipNLaunchArticle'));
 
 const Loading = () => <div className="flex items-center justify-center min-h-[70vh]"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>;
 
@@ -129,6 +130,7 @@ export const routes = [
             { path: '/blog/pdf-to-jpg-converter-online', element: <Layout><Page><PDFToJPGGuide /></Page></Layout> },
             // Alternate URL alias for unlock post
             { path: '/blog/how-to-unlock-pdf-online-free', element: <Layout><Page><UnlockPDFGuide /></Page></Layout> },
+            { path: '/blog/shipnlaunch-product-discovery-platform', element: <Layout><Page><ShipNLaunchArticle /></Page></Layout> },
         ]
     }
 ];

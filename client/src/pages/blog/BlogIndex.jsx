@@ -1,9 +1,16 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import SponsorCard from '../../components/SponsorCard';
 
 const POSTS = [
+    {
+        slug: 'shipnlaunch-product-discovery-platform',
+        title: 'ShipNLaunch: Discover New SaaS, AI Tools and Indie Products Before Everyone Else',
+        excerpt: 'Launching is easy to celebrate. Staying discoverable a week later is harder. Here is how permanent product discovery works and where ShipNLaunch fits.',
+        date: '2026-09-12',
+        readingTime: 9,
+        category: 'Product Discovery',
+    },
     {
         slug: 'compress-pdf-without-losing-quality',
         title: 'How to Compress a PDF Without Losing Quality in 2026',
