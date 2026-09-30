@@ -356,12 +356,10 @@ export default function ShipNLaunchArticle() {
             </div>
 
             <p>
-                This distinction is crucial. If an indie founder has zero advertising budget, their product still has an entirely fair shot
-                at earning the top community spot for the week based solely on how useful people find it. Conversely, if a commercial SaaS
-                chooses to book a sponsor placement for extra visibility, early adopters immediately recognize it as a paid spot rather than
-                an algorithmic endorsement.
-            </p>
-
+    That separation matters for makers. A product does not need a paid placement to compete in ShipNLaunch&apos;s
+    organic weekly discovery. Sponsorship is a separate visibility option, and sponsored placements are labeled
+    so visitors can distinguish paid promotion from community-driven discovery.
+</p>
             <figure className="my-10 overflow-hidden rounded-xl border border-slate-200/80 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-900/40 p-1 sm:p-1.5 not-prose">
                 <img
                     src="/images/shipnlaunch-about-platform.webp"
