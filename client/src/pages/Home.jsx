@@ -8,6 +8,7 @@ import ClientOnly from '../components/ClientOnly';
 import { getToolTheme } from '../utils/theme';
 import { tools } from '../utils/toolsData';
 import SponsorCard from '../components/SponsorCard';
+import FeaturedBadges from '../components/FeaturedBadges';
 
 
 
@@ -235,6 +236,7 @@ const Home = () => {
                 {/* Features Section */}
                 <PrivacySection />
                 <WhySafePdf />
+                <FeaturedBadges />
             </section>
         </div>
     );
