@@ -95,6 +95,7 @@ const FeaturedBadges = ({ badges = FEATURED_BADGES }) => {
                                 href={badge.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                {...(badge.linkAttributes || {})}
                                 className="group inline-flex items-center justify-center p-1 sm:p-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950 transition-all duration-200 flex-shrink-0"
                                 aria-label={`${badge.name} (opens in a new tab)`}
                             >
@@ -107,7 +108,7 @@ const FeaturedBadges = ({ badges = FEATURED_BADGES }) => {
                                     loading="lazy"
                                     decoding="async"
                                     onError={() => handleImageError(badge.name)}
-                                    className="h-10 sm:h-11 md:h-12 w-auto max-w-[200px] object-contain transition-opacity duration-200 group-hover:opacity-95"
+                                    className="h-10 sm:h-11 md:h-12 w-auto max-w-[250px] object-contain transition-opacity duration-200 group-hover:opacity-95"
                                 />
                             </a>
                         ))}

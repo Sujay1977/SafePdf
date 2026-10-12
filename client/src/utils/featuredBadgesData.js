@@ -28,4 +28,31 @@ export const FEATURED_BADGES = [
         width: 200,
         height: 54,
     },
+    {
+        name: "LaunchAF",
+        href: "https://launchaf.com/",
+        image: "https://launchaf.com/api/badge/light?v=launchaf-blue-2026-2",
+        alt: "Featured on LaunchAF",
+        width: 200,
+        height: 56,
+        linkAttributes: {
+            "data-launchaf-badge": "true",
+        },
+    },
+    {
+        name: "Good AI Tools",
+        href: "https://goodaitools.com/ai/safepdfs",
+        image: "https://goodaitools.com/assets/images/badge.png",
+        alt: "SafePDF on Good AI Tools",
+        width: 200,
+        height: 54,
+    },
+    {
+        name: "LetsLaunch",
+        href: "https://letslaunch.today/product/safepdf",
+        image: "https://letslaunch.today/badge/safepdf.svg",
+        alt: "SafePDF on LetsLaunch",
+        width: 250,
+        height: 54,
+    },
 ];
